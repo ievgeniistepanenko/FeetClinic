@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("FeetClinic_DAL_Tests")]
+[assembly: AssemblyTitle("FeetClinic_UserDAL_Tests")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("FeetClinic_DAL_Tests")]
+[assembly: AssemblyProduct("FeetClinic_UserDAL_Tests")]
 [assembly: AssemblyCopyright("Copyright ©  2015")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("064335b9-4a78-476f-b8cc-6f4f47386474")]
+[assembly: Guid("5fc7586b-fb6b-4245-8fd9-5d57b3a71970")]
 
 // Version information for an assembly consists of the following four values:
 //
