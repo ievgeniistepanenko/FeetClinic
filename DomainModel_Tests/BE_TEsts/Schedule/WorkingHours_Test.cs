@@ -2,7 +2,6 @@
 using DomainModel.BE.Schedule;
 using NUnit.Core;
 using NUnit.Framework;
-using NUnit.Framework.Internal;
 
 namespace DomainModel_Tests.BE_TEsts.Schedule
 {
