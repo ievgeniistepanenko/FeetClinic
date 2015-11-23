@@ -21,6 +21,5 @@ namespace DomainModel.BE
 
         public TreatmentType TreatmentType { get; set; }
 
-        
     }
 }

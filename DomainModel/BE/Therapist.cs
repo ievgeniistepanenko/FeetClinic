@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using DomainModel.BE.Scheduler;
 
 namespace DomainModel.BE
 {
@@ -16,7 +17,7 @@ namespace DomainModel.BE
 
         public byte [] Image { get; set; }
 
-
+        public List<Treatment> Treatments { get; set; } 
 
     }
 }
