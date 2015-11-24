@@ -6,7 +6,7 @@ using NUnit.Framework;
 namespace DomainModel_Tests.BE_TEsts.Schedule
 {
     [TestFixture]
-    class WorkingHours_Test
+    class WorkingHours_Tests
     {
         [SetUp]
         public void SetUp() { }

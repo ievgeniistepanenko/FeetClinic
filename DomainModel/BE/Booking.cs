@@ -20,12 +20,17 @@ namespace DomainModel.BE
 
        public Therapist Therapist { get; set; }
 
+       public Booking()
+       {
+            Treatments = new List<Treatment>();
+       }
+
        public TimeSpan GetDuration()
        {
            TimeSpan time = new TimeSpan(0,0,0,0);
            foreach (Treatment treatment in Treatments)
            {
-               time.Add(treatment.Duration.Duration());
+               time = time.Add(treatment.Duration.Duration());
            }
 
            return time;
