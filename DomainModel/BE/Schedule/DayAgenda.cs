@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using DomainModel.BE.Schedule;
 using DomainModel.Interfaces;
 
@@ -14,46 +15,92 @@ namespace DomainModel.BE.Scheduler
         public DayAgenda(DateTime date, WorkingHours wh,List<Booking> bookings = null  )
         {
             Date = date;
-            TimeSlots = ComputeTimeSlots(wh);
+            TimeSlots = CreateTimeSlots(wh);
             if (bookings != null)
             {
                 Bookings = bookings;
+                UpdateTimeSlotsWithBookings(bookings);
             }
         }
+
+        public Booking AddBooking(Booking booking)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Booking RemoveBooking(Booking booking)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Booking RemoveBooking(int bookingId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool IsAvailableForBooking(Booking booking)
+        {
+            return GetAvailableTimeSlots(booking).Any();
+        }
+
+        public IEnumerable<TimeSlot> GetAvailableTimeSlots(Booking booking)
+        {
+            List<TimeSlot> availableTimeSlots = new List<TimeSlot>();
+
+            int necessaryTimeSlots = ComputeBookingsTimeSlotsAmount(booking, TimeSlots.First());
+            IEnumerable<TimeSlot> allAvailableSlots = GetAllAvailableTimeSlots();
+            
+
+            
+
+            throw new NotImplementedException();
+
+        }
+
+        private IEnumerable<TimeSlot> GetAllAvailableTimeSlots()
+        {
+            return TimeSlots.Where(ts => ts.IsAvailable);
+        } 
         private void UpdateTimeSlotsWithBookings(List<Booking> bookings)
         {
             foreach (Booking booking in bookings)
             {
-                TimeSlot timeSlot = TimeSlots.Find(ts => ts.StartTime.TimeOfDay == booking.DateTime.TimeOfDay);
+                TimeSlot firstTimeSlot = TimeSlots.Find(ts => ts.StartTime.TimeOfDay == booking.DateTime.TimeOfDay);
+                firstTimeSlot.IsAvailable = false;
+                int amounTimeSlots = ComputeBookingsTimeSlotsAmount(booking, firstTimeSlot);
 
+                for (int i = 1; i < amounTimeSlots; i++)
+                {
+                    TimeSlot timeSlot = TimeSlots.FirstOrDefault(ts => ts.Number == firstTimeSlot.Number + i);
+                    timeSlot.IsAvailable = false;
+                }
             }
         }
 
         private int ComputeBookingsTimeSlotsAmount(Booking booking, TimeSlot timeSlot)
         {
-            TimeSpan bookingTimeSpan = new TimeSpan(0,0,0,0,0);
-            int amount = 0;
+            TimeSpan bookingTimeSpan = new TimeSpan(0, 0, 0, 0, 0);
             foreach (Treatment treatment in booking.Treatments)
             {
                 bookingTimeSpan = bookingTimeSpan + treatment.Duration.Duration();
             }
-            TimeSpan tempTimeSpan = new TimeSpan(0,0,0,0,0);
+            TimeSpan timeSlotDuration = timeSlot.Duration.Duration();
+            int amount = 0;
             do
             {
+                bookingTimeSpan = bookingTimeSpan - timeSlotDuration;
                 amount++;
-                bookingTimeSpan = bookingTimeSpan - timeSlot.Duration.Duration();
-            } while (bookingTimeSpan.TotalMinutes > 0 );
+            } while (bookingTimeSpan > timeSlotDuration);
 
             return amount;
 
         }
-        private List<TimeSlot> ComputeTimeSlots(WorkingHours workingHours)
+        private List<TimeSlot> CreateTimeSlots(WorkingHours workingHours)
         {
             List<TimeSlot> timeSlots = new List<TimeSlot>();
             for (int i = 3; i >= 1; i--)
             {
-                TimeSpan timeSpan = new TimeSpan(0,0,5 * i); // 15 min, 10 min , 5 min
-
+                TimeSpan timeSpan = new TimeSpan(0, 0, 5 * i); // 15 min, 10 min , 5 min
                 try
                 {
                     return GetTimeSlots(timeSpan, workingHours);
@@ -62,7 +109,7 @@ namespace DomainModel.BE.Scheduler
                 {
                     // ignored
                 }
-                
+
             }
             throw new ArgumentException("working hours is not valid");
         }
@@ -75,7 +122,7 @@ namespace DomainModel.BE.Scheduler
 
             do
             {
-                timeSlotses.Add( new TimeSlot(numberOfTimeSlot,temp,timeSpan,true));
+                timeSlotses.Add(new TimeSlot(numberOfTimeSlot, temp, timeSpan, true));
                 temp = temp + timeSpan.Duration();
                 numberOfTimeSlot++;
 
@@ -96,50 +143,6 @@ namespace DomainModel.BE.Scheduler
 
             return timeSlotses;
 
-        }
-
-        //private bool IsTimeSpanCompatibleWithWorkingHours(TimeSpan timeSpan, WorkingHours workingHours)
-        //{
-        //    DateTime temp = workingHours.StartTime;
-        //    do
-        //    {
-        //        temp = temp + timeSpan.Duration();
-
-        //    } while (temp.TimeOfDay < workingHours.StartLunch.TimeOfDay);
-
-        //    if (!temp.TimeOfDay.Equals(workingHours.StartLunch.TimeOfDay)) return false;
-        //    temp = temp + workingHours.LunchDuration.Duration();
-        //    do
-        //    {
-        //        temp = temp + timeSpan.Duration();
-        //    } while (temp.TimeOfDay < workingHours.EndTime.TimeOfDay);
-
-        //    return temp.TimeOfDay.Equals(workingHours.EndTime.TimeOfDay);
-        //}
-
-        public Booking AddBooking(Booking booking)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Booking RemoveBooking(Booking booking)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Booking RemoveBooking(int bookingId)
-        {
-            throw new NotImplementedException();
-        }
-
-        public bool IsPlaceForBooking(Booking booking)
-        {
-            throw new NotImplementedException();
-        }
-
-        public List<TimeSlot> GetAvailableTimeSlots(Booking booking)
-        {
-            throw new NotImplementedException();
         }
     }
 }
