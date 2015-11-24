@@ -20,6 +20,16 @@ namespace DomainModel.BE
 
        public Therapist Therapist { get; set; }
 
+       public TimeSpan GetDuration()
+       {
+           TimeSpan time = new TimeSpan(0,0,0,0);
+           foreach (Treatment treatment in Treatments)
+           {
+               time.Add(treatment.Duration.Duration());
+           }
+
+           return time;
+       }
 
     }
 }

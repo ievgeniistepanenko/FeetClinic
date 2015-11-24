@@ -28,6 +28,11 @@ namespace DomainModel.BE.Schedule
             } while (tempSpan < timeSpan);
             return count;
         }
+
+        public int GetSlotsAmount(WorkingHours workingHours)
+        {
+            return GetSlotsAmount(workingHours.EndTime - workingHours.StartTime);
+        }
     }
 
 }

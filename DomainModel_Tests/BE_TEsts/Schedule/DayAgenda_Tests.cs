@@ -20,6 +20,7 @@ namespace DomainModel_Tests.BE_TEsts.Schedule
             mock.Setup(m => m.StartTime).Returns(startTime);
             mock.Setup(m => m.EndTime).Returns(startTime.AddHours(8));
 
+            Assert.IsTrue(true);
 
 
         }
