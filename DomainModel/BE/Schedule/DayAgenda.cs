@@ -61,12 +61,27 @@ namespace DomainModel.BE.Scheduler
 
         public Booking RemoveBooking(Booking booking)
         {
-            throw new NotImplementedException();
+            Bookings.Remove(booking);
+            TimeSlot firstTimeSlot = TimeSlots
+                .FirstOrDefault(ts=>ts.StartTime.TimeOfDay == booking.DateTime.TimeOfDay);
+            if (firstTimeSlot !=null)
+            {
+                int amount = firstTimeSlot.GetSlotsAmount(booking.GetDuration());
+                for (int i = 0; i < amount; i++)
+                {
+                    TimeSlots.Find(ts => ts.Number == firstTimeSlot.Number + i).IsAvailable = true;
+                }
+                return booking;
+            }
+            
+
+            throw new Exception("Can not delete booking");
         }
 
         public Booking RemoveBooking(int bookingId)
         {
-            throw new NotImplementedException();
+            Booking booking = Bookings.Find(b => b.Id == bookingId);
+            return RemoveBooking(booking);
         }
 
         public bool IsAvailableForBooking(Booking booking)

@@ -9,20 +9,21 @@ using NUnit.Framework;
 
 namespace DomainModel_Tests.BE_TEsts.Schedule
 {
-    //[TestFixture]
-    //class DayAgenda_Tests
-    //{
-    //    //[Test]
-    //    //public void CanCreateDayAgenda()
-    //    //{
-    //    //    Mock<WorkingHours> mock = new Mock<WorkingHours>();
-    //    //    DateTime startTime = new DateTime(2015,11,23,7,0,0);
-    //    //    mock.Setup(m => m.StartTime).Returns(startTime);
-    //    //    mock.Setup(m => m.EndTime).Returns(startTime.AddHours(8));
+    [TestFixture]
+    class DayAgenda_Tests
+    {
+        [Test]
+        public void CanCreateDayAgenda()
+        {
+            Mock<WorkingHours> mock = new Mock<WorkingHours>();
+            DateTime startTime = new DateTime(2015, 11, 23, 7, 0, 0);
+            mock.Setup(m => m.StartTime).Returns(startTime);
+            mock.Setup(m => m.EndTime).Returns(startTime.AddHours(8));
 
-    //    //    Assert.IsTrue(true);
+            Assert.IsTrue(true);
 
 
-    //    }
-    
+        }
+
+    }
 }
