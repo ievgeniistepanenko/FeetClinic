@@ -23,8 +23,8 @@ namespace DomainModel.BE.Schedule
 
         private bool Validate(WorkingHours wh)
         {
-            if (  !((wh.StartTime.TimeOfDay < wh.StartLunch.TimeOfDay) 
-                && (wh.StartLunch.TimeOfDay + wh.LunchDuration < wh.EndTime.TimeOfDay) ))
+            if (!((wh.StartTime.TimeOfDay < wh.StartLunch.TimeOfDay)
+                && ((wh.StartLunch.TimeOfDay + wh.LunchDuration < wh.EndTime.TimeOfDay))))
             {
                 return false;
             }
