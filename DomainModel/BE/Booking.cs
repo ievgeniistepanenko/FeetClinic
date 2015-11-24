@@ -32,7 +32,6 @@ namespace DomainModel.BE
            {
                time = time.Add(treatment.Duration.Duration());
            }
-
            return time;
        }
 

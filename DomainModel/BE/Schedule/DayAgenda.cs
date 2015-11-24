@@ -37,12 +37,26 @@ namespace DomainModel.BE.Scheduler
         public Booking AddBooking(Booking booking)
         {
             List<TimeSlot> availableTimeSlots = GetAvailableTimeSlots(booking);
-            if (!IsAvailableForBooking(booking))
+            if (!availableTimeSlots.Any())
             {
                 throw new Exception("This is no place for booking");
             }
 
-            throw new NotImplementedException();
+            int amount = 0;
+            TimeSlot firstTimeSlot = availableTimeSlots
+                .FirstOrDefault(ts => ts.StartTime.TimeOfDay == booking.DateTime.TimeOfDay);
+
+            if (firstTimeSlot != null)
+            {
+                amount = firstTimeSlot.GetSlotsAmount(booking.GetDuration());
+                for (int i = 0; i < amount; i++)
+                {
+                    TimeSlots.Find(ts => ts.Number == firstTimeSlot.Number + i).IsAvailable = false;
+                }
+                Bookings.Add(booking);
+                return booking;
+            }
+            throw new Exception("This is no place for booking");
         }
 
         public Booking RemoveBooking(Booking booking)
