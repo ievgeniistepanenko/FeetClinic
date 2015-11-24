@@ -102,10 +102,10 @@ namespace DomainModel.BE.Scheduler
         {
             List<TimeSlot> timeSlotses = new List<TimeSlot>();
             int amounOfTimeSlot = timeSlot.GetSlotsAmount(workingHours);
-            for (int i = 0; i < amounOfTimeSlot; i++)
-            {
-                timeSlotses.Add(new TimeSlot(i+1,,timeSlot.Duration.Duration(),true));
-            }
+            //for (int i = 0; i < amounOfTimeSlot; i++)
+            //{
+            //    timeSlotses.Add(new TimeSlot(i+1,,timeSlot.Duration.Duration(),true));
+            //}
 
             //DateTime temp = workingHours.StartTime;
             //int numberOfTimeSlot = 1;
