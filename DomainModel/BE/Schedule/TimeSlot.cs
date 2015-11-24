@@ -5,7 +5,7 @@ namespace DomainModel.BE.Schedule
     public class  TimeSlot
     {
         public int Number { get; }
-        public DateTime StartTime { get;  }
+        public DateTime StartTime { get; set; }
         public TimeSpan Duration { get;  }
         public bool IsAvailable { get; set; }
 

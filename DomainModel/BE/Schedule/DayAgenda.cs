@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using DomainModel.BE.Schedule;
 using DomainModel.Interfaces;
@@ -8,12 +9,17 @@ namespace DomainModel.BE.Scheduler
 {
     public class DayAgenda : IDayAgenda
     {
+        private readonly int timeSlotDurationMinute = 15; //min
         public DateTime Date { get; }
         public List<Booking> Bookings { get; }
         public List<TimeSlot> TimeSlots { get; } 
 
         public DayAgenda(DateTime date, WorkingHours wh,List<Booking> bookings = null  )
         {
+            if (!ValidateDate(date))
+            {
+                throw new ArgumentException("Date must represent just date without time");
+            }
             Date = date;
             TimeSlots = CreateTimeSlots(wh);
 
@@ -22,10 +28,20 @@ namespace DomainModel.BE.Scheduler
                 Bookings = bookings;
                 UpdateTimeSlots(bookings);
             }
+            else
+            {
+                Bookings = new List<Booking>();
+            }
         }
 
         public Booking AddBooking(Booking booking)
         {
+            List<TimeSlot> availableTimeSlots = GetAvailableTimeSlots(booking);
+            if (!IsAvailableForBooking(booking))
+            {
+                throw new Exception("This is no place for booking");
+            }
+
             throw new NotImplementedException();
         }
 
@@ -44,40 +60,77 @@ namespace DomainModel.BE.Scheduler
             return GetAvailableTimeSlots(booking).Any();
         }
 
-        public IEnumerable<TimeSlot> GetAvailableTimeSlots(Booking booking)
+        public List<TimeSlot> GetAvailableTimeSlots(Booking booking)
         {
-            List<TimeSlot> availableTimeSlots = new List<TimeSlot>();
+            List<TimeSlot> timeSlots = new List<TimeSlot>();
+            List<TimeSlot> allAvailableTimeSlots = GetAllAvailableTimeSlots();
+            TimeSpan bookingDuration = booking.GetDuration().Duration();
 
-            IEnumerable<TimeSlot> allAvailableSlots = GetAllAvailableTimeSlots();
-            
+            int amount = 0;
+            if (allAvailableTimeSlots.Any())
+            {
+                amount = allAvailableTimeSlots.First().GetSlotsAmount(bookingDuration);
 
-            
+                for (int i = 0; i < allAvailableTimeSlots.Count - amount; i++)
+                {
+                    bool flag = true;
+                    TimeSlot timeSlot = allAvailableTimeSlots[i];
 
-            throw new NotImplementedException();
+                    for (int j = 1; j < amount; j++)
+                    {
+                        if ( allAvailableTimeSlots[i+j].Number != timeSlot.Number + j)
+                        {
+                            flag = false;
+                            break;
+                        }
+                    }
 
+                    if (flag)
+                    {
+                        timeSlots.Add(timeSlot);
+                    }
+                }
+            }
+            return timeSlots;
+
+        }
+        private List<TimeSlot> GetAllAvailableTimeSlots()
+        {
+            List<TimeSlot> timeSlots = new List<TimeSlot>();
+            timeSlots.AddRange(TimeSlots.Where(ts => ts.IsAvailable));
+            return timeSlots;
         }
         private List<TimeSlot> CreateTimeSlots(WorkingHours workingHours)
         {
             List<TimeSlot> timeSlots = new List<TimeSlot>();
-            for (int i = 3; i >= 1; i--)
-            {
-                TimeSpan timeSpan = new TimeSpan(0, 0, 5 * i); // 15 min, 10 min , 5 min
-                TimeSlot timeSlot = new TimeSlot(0,new DateTime(2000,1,1,0,0,0),timeSpan,true );
-                try
-                {
-                    return GetTimeSlots(timeSlot, workingHours);
-                }
-                catch (Exception)
-                {
-                    // ignored
-                }
 
+            DateTime timeSlotTime = new DateTime();
+            timeSlotTime = timeSlotTime.Add( workingHours.StartTime.TimeOfDay );
+            TimeSpan timeSlotDuration = new TimeSpan(0, 0, timeSlotDurationMinute, 0).Duration();
+
+            TimeSlot timeSlot = new TimeSlot(1, timeSlotTime, timeSlotDuration, true);
+
+            int amountAfTimeSlot = timeSlot.GetSlotsAmount(workingHours);
+
+            if (amountAfTimeSlot > 0)
+            {
+                timeSlots.Add(timeSlot);
+                for (int i = 1; i < amountAfTimeSlot; i++)
+                {
+                    timeSlotTime = timeSlotTime.Add(timeSlotDuration);
+                    if (timeSlotTime >= workingHours.StartLunch && 
+                        timeSlotTime < workingHours.StartLunch + workingHours.LunchDuration.Duration())
+                    {
+                        timeSlots.Add(new TimeSlot(i + 1, timeSlotTime, timeSlotDuration, false));
+                    }
+                    else
+                    {
+                        timeSlots.Add(new TimeSlot(i + 1, timeSlotTime, timeSlotDuration, true));
+                    }
+                    
+                }
             }
-            throw new ArgumentException("working hours is not valid");
-        }
-        private IEnumerable<TimeSlot> GetAllAvailableTimeSlots()
-        {
-            return TimeSlots.Where(ts => ts.IsAvailable);
+            return timeSlots;
         }
 
         //sets timeslots unavailable if some booking is cover their
@@ -98,41 +151,14 @@ namespace DomainModel.BE.Scheduler
             }
         }
 
-        private List<TimeSlot> GetTimeSlots(TimeSlot timeSlot, WorkingHours workingHours)
+        private bool ValidateDate(DateTime date)
         {
-            List<TimeSlot> timeSlotses = new List<TimeSlot>();
-            int amounOfTimeSlot = timeSlot.GetSlotsAmount(workingHours);
-            for (int i = 0; i < amounOfTimeSlot; i++)
+            if (date.Hour == 0 && date.Minute == 0 && date.Second == 0 && date.Millisecond == 0 )
             {
-                timeSlotses.Add(new TimeSlot(i+1,,timeSlot.Duration.Duration(),true));
+                return true;
             }
-
-            //DateTime temp = workingHours.StartTime;
-            //int numberOfTimeSlot = 1;
-
-            //do
-            //{
-            //    timeSlotses.Add(new TimeSlot(numberOfTimeSlot, temp, timeSpan, true));
-            //    temp = temp + timeSpan.Duration();
-            //    numberOfTimeSlot++;
-
-            //} while (temp.TimeOfDay < workingHours.StartLunch.TimeOfDay);
-
-            //if (!temp.TimeOfDay.Equals(workingHours.StartLunch.TimeOfDay)) throw new ArgumentException();
-
-            //temp = temp + workingHours.LunchDuration.Duration();
-
-            //do
-            //{
-            //    timeSlotses.Add(new TimeSlot(numberOfTimeSlot, temp, timeSpan, true));
-            //    temp = temp + timeSpan.Duration();
-            //    numberOfTimeSlot++;
-            //} while (temp.TimeOfDay < workingHours.EndTime.TimeOfDay);
-
-            //if (!temp.TimeOfDay.Equals(workingHours.EndTime.TimeOfDay)) throw new ArgumentException();
-
-            return timeSlotses;
-
+            return false;
         }
+       
     }
 }

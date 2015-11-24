@@ -16,6 +16,6 @@ namespace DomainModel.Interfaces
         Booking RemoveBooking(Booking booking);
         Booking RemoveBooking(int bookingId);
         bool IsAvailableForBooking(Booking booking);
-        IEnumerable<TimeSlot> GetAvailableTimeSlots(Booking booking);
+        List<TimeSlot> GetAvailableTimeSlots(Booking booking);
     }
 }
