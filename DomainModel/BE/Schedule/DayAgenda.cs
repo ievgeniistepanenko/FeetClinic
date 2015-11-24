@@ -123,6 +123,9 @@ namespace DomainModel.BE.Scheduler
             return timeSlots;
 
         }
+
+
+
         private List<TimeSlot> GetAllAvailableTimeSlots()
         {
             List<TimeSlot> timeSlots = new List<TimeSlot>();
@@ -161,7 +164,6 @@ namespace DomainModel.BE.Scheduler
             }
             return timeSlots;
         }
-
         //sets timeslots unavailable if some booking is cover their
         private void UpdateTimeSlots(List<Booking> bookings)
         {
