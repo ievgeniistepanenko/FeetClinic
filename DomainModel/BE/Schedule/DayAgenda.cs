@@ -16,10 +16,10 @@ namespace DomainModel.BE.Scheduler
 
         public DayAgenda(DateTime date, WorkingHours wh,List<Booking> bookings = null  )
         {
-            if (!ValidateDate(date))
-            {
-                throw new ArgumentException("Date must represent just date without time");
-            }
+            //if (!ValidateDate(date))
+            //{
+            //    throw new ArgumentException("Date must represent just date without time");
+            //}
             Date = date;
             TimeSlots = CreateTimeSlots(wh);
 
@@ -39,12 +39,13 @@ namespace DomainModel.BE.Scheduler
             List<TimeSlot> availableTimeSlots = GetAvailableTimeSlots(booking);
             if (!availableTimeSlots.Any())
             {
-                throw new Exception("This is no place for booking");
+                throw new ArgumentException("This is no place for booking");
             }
 
             int amount = 0;
             TimeSlot firstTimeSlot = availableTimeSlots
-                .FirstOrDefault(ts => ts.StartTime.TimeOfDay == booking.DateTime.TimeOfDay);
+                .FirstOrDefault(ts => ts.StartTime.TimeOfDay <= booking.DateTime.TimeOfDay
+                                && ts.StartTime.TimeOfDay + ts.Duration > booking.DateTime.TimeOfDay);
 
             if (firstTimeSlot != null)
             {
@@ -56,11 +57,15 @@ namespace DomainModel.BE.Scheduler
                 Bookings.Add(booking);
                 return booking;
             }
-            throw new Exception("This is no place for booking");
+            throw new ArgumentException("This is no place for booking");
         }
 
         public Booking RemoveBooking(Booking booking)
         {
+            if (booking.DateTime <= DateTime.Now.AddDays(1))
+            {
+                throw new OperationCanceledException("Can not remove booking 24 hours before booking time");
+            }
             Bookings.Remove(booking);
             TimeSlot firstTimeSlot = TimeSlots
                 .FirstOrDefault(ts=>ts.StartTime.TimeOfDay == booking.DateTime.TimeOfDay);
@@ -100,7 +105,7 @@ namespace DomainModel.BE.Scheduler
             {
                 amount = allAvailableTimeSlots.First().GetSlotsAmount(bookingDuration);
 
-                for (int i = 0; i < allAvailableTimeSlots.Count - amount; i++)
+                for (int i = 0; i <= allAvailableTimeSlots.Count - amount; i++)
                 {
                     bool flag = true;
                     TimeSlot timeSlot = allAvailableTimeSlots[i];
@@ -123,8 +128,6 @@ namespace DomainModel.BE.Scheduler
             return timeSlots;
 
         }
-
-
 
         private List<TimeSlot> GetAllAvailableTimeSlots()
         {
@@ -150,8 +153,9 @@ namespace DomainModel.BE.Scheduler
                 for (int i = 1; i < amountAfTimeSlot; i++)
                 {
                     timeSlotTime = timeSlotTime.Add(timeSlotDuration);
-                    if (timeSlotTime >= workingHours.StartLunch && 
-                        timeSlotTime < workingHours.StartLunch + workingHours.LunchDuration.Duration())
+                    if (timeSlotTime.TimeOfDay >= workingHours.StartLunch.TimeOfDay && 
+                        timeSlotTime.TimeOfDay < workingHours.StartLunch.TimeOfDay + 
+                                                    workingHours.LunchDuration.Duration())
                     {
                         timeSlots.Add(new TimeSlot(i + 1, timeSlotTime, timeSlotDuration, false));
                     }
@@ -169,15 +173,21 @@ namespace DomainModel.BE.Scheduler
         {
             foreach (Booking booking in bookings)
             {
-                TimeSlot firstTimeSlot = TimeSlots.Find(ts => ts.StartTime.TimeOfDay == booking.DateTime.TimeOfDay);
+                TimeSlot firstTimeSlot = TimeSlots.Find(ts =>
+                ts.StartTime.TimeOfDay <= booking.DateTime.TimeOfDay &&
+                ts.StartTime.TimeOfDay + ts.Duration > booking.DateTime.TimeOfDay);
                 firstTimeSlot.IsAvailable = false;
+
                 int amounTimeSlots = firstTimeSlot.GetSlotsAmount( booking.GetDuration() );
 
                 for (int i = 1; i < amounTimeSlots; i++)
                 {
-                    TimeSlot timeSlot = TimeSlots.FirstOrDefault(ts => ts.Number == firstTimeSlot.Number + i);
-
-                    if (timeSlot != null) timeSlot.IsAvailable = false;
+                    TimeSlot timeSlot = TimeSlots.Find(ts => ts.Number == firstTimeSlot.Number + i);
+                    if (timeSlot.IsAvailable == false)
+                    {
+                        throw new ArgumentException("Given bookings kan not apply for this day agenda");
+                    }
+                    timeSlot.IsAvailable = false;
                 }
             }
         }

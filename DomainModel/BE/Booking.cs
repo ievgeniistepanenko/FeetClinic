@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DomainModel.BE
 {
@@ -34,6 +31,26 @@ namespace DomainModel.BE
            }
            return time;
        }
+
+       public override bool Equals(object obj)
+       {
+           Booking booking = obj as Booking;
+           if (booking == null)
+           {
+               return false;
+           }
+           return booking.Id == Id;
+       }
+
+       public bool Equals(Booking booking)
+       {
+           if (booking==null)
+           {
+               return false;
+           }
+           return booking.Id == Id;
+       }
+    
 
     }
 }
