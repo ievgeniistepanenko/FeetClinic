@@ -16,10 +16,6 @@ namespace DomainModel.BE.Scheduler
 
         public DayAgenda(DateTime date, WorkingHours wh,List<Booking> bookings = null  )
         {
-            //if (!ValidateDate(date))
-            //{
-            //    throw new ArgumentException("Date must represent just date without time");
-            //}
             Date = date;
             TimeSlots = CreateTimeSlots(wh);
 
@@ -62,6 +58,7 @@ namespace DomainModel.BE.Scheduler
 
         public Booking RemoveBooking(Booking booking)
         {
+            //booking = Bookings.Find( b => b.Id == booking.Id );
             if (booking.DateTime <= DateTime.Now.AddDays(1))
             {
                 throw new OperationCanceledException("Can not remove booking 24 hours before booking time");
@@ -190,16 +187,6 @@ namespace DomainModel.BE.Scheduler
                     timeSlot.IsAvailable = false;
                 }
             }
-        }
-
-        private bool ValidateDate(DateTime date)
-        {
-            if (date.Hour == 0 && date.Minute == 0 && date.Second == 0 && date.Millisecond == 0 )
-            {
-                return true;
-            }
-            return false;
-            
         }
        
     }
