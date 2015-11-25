@@ -48,13 +48,18 @@
     <Compile Include="BE\Booking.cs" />
     <Compile Include="BE\Customer\CustomerProfile.cs" />
     <Compile Include="BE\Schedule\DayAgenda.cs" />
+    <Compile Include="BE\Schedule\MonthScheduler.cs" />
+    <Compile Include="BE\Schedule\YearsScheduler.cs" />
     <Compile Include="BE\Schedule\TimeSlot.cs" />
     <Compile Include="BE\Schedule\WorkingHours.cs" />
     <Compile Include="BE\Therapist.cs" />
     <Compile Include="BE\Treatment.cs" />
     <Compile Include="BE\TreatmentType.cs" />
     <Compile Include="Interfaces\IDayAgenda.cs" />
-    <Compile Include="Interfaces\IScheduler.cs" />
+    <Compile Include="Interfaces\IMonthScheduler.cs" />
+    <Compile Include="Interfaces\IYearsScheduler.cs" />
+    <Compile Include="Interfaces\ITimeSlot.cs" />
+    <Compile Include="Interfaces\IWorkingHours.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

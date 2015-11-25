@@ -66,8 +66,10 @@
   <ItemGroup>
     <Compile Include="BE_TEsts\Booking_Tests.cs" />
     <Compile Include="BE_TEsts\Schedule\DayAgenda_Tests.cs" />
+    <Compile Include="BE_TEsts\Schedule\MonthScheduler_Tests.cs" />
     <Compile Include="BE_TEsts\Schedule\TimeSlot_Tests.cs" />
     <Compile Include="BE_TEsts\Schedule\WorkingHours_Tests.cs" />
+    <Compile Include="BE_TEsts\Schedule\YearScheduler_Tests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
