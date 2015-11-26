@@ -16,7 +16,7 @@ namespace DomainModel.BE.Scheduler
 
         public DayAgenda(DateTime date, WorkingHours wh,List<Booking> bookings = null  )
         {
-            Date = date;
+            Date = date.Date;
             TimeSlots = CreateTimeSlots(wh);
 
             if (bookings != null)

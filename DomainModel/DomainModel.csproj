@@ -49,6 +49,7 @@
     <Compile Include="BE\Customer\CustomerProfile.cs" />
     <Compile Include="BE\Schedule\DayAgenda.cs" />
     <Compile Include="BE\Schedule\MonthScheduler.cs" />
+    <Compile Include="BE\Schedule\Time.cs" />
     <Compile Include="BE\Schedule\YearsScheduler.cs" />
     <Compile Include="BE\Schedule\TimeSlot.cs" />
     <Compile Include="BE\Schedule\WorkingHours.cs" />
