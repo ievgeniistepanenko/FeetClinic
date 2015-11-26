@@ -191,31 +191,24 @@ namespace DomainModel_Tests.BE_TEsts.Schedule
         {
             WorkingHours wh = new WorkingHours(new DateTime(2000, 1, 1, 8, 0, 0), new DateTime(2000, 1, 1, 15, 25, 0),
                  new DateTime(2000, 1, 1, 11, 30, 0), new TimeSpan(0, 0, 30, 0));
-            DateTime now = DateTime.Now;
+            DateTime now = System.DateTime.Now;
             List<Booking> bookings = new List<Booking>
             {
                 new Booking() {  Id = 1,
                                 Treatments = new List<Treatment>()
                 {                    new Treatment { Duration = new TimeSpan(0, 0, 50, 0)},
                                      new Treatment {Duration = new TimeSpan(0, 1, 15, 0)}
-<<<<<<< HEAD
-                },              DateTime = new DateTime(2000,1,3,9,0,0) },
-=======
                 },              DateTime = new DateTime(now.Year,now.Month,now.Day+2,9,0,0) },
->>>>>>> 7b9b5788577319114cf7b8e5af4f12be26a7d599
                 new Booking() {Id =2,
                                 Treatments = new List<Treatment>
                 {                       new Treatment {Duration = new TimeSpan(0, 0, 45, 0)},
                                         new Treatment { Duration = new TimeSpan(0, 1, 0, 0) }},
-<<<<<<< HEAD
-                                DateTime = new DateTime(2000, 1, 3, 12, 30, 0)}
-=======
                                 DateTime = new DateTime(now.Year, now.Month,now.Day+2, 12, 30, 0)}
->>>>>>> 7b9b5788577319114cf7b8e5af4f12be26a7d599
             };
-            //Booking b = new Booking {Id = 1};
 
-            DayAgenda agenda = new DayAgenda(new DateTime(now.Year, now.Month, now.Day).AddDays(2), wh, bookings);
+            Booking b = new Booking { Id = 1 };
+
+DayAgenda agenda = new DayAgenda(new DateTime(now.Year, now.Month, now.Day).AddDays(2), wh, bookings);
             agenda.RemoveBooking(bookings[0]);
 
             Assert.AreEqual(1,agenda.Bookings.Count);
