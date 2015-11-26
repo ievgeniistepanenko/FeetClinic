@@ -2,7 +2,7 @@
 
 namespace DomainModel.BE.Schedule
 {
-    public struct Time
+    public struct Time : IComparable<Time>
     {
         private DateTime _time;
         public int Hour
@@ -65,6 +65,11 @@ namespace DomainModel.BE.Schedule
             return new Time(_time.Subtract(ts));
         }
 
+        public TimeSpan GetAbsoluteDifference(Time time)
+        {
+            return _time.Subtract(time._time).Duration();
+        }
+
         public static bool operator <(Time t1, Time t2)
         {
             return t1._time < t2._time;
@@ -82,9 +87,53 @@ namespace DomainModel.BE.Schedule
             return t1._time >= t2._time;
         }
 
+        public static bool operator <(Time t1, TimeSpan timeSpan)
+        {
+            return t1 < new Time(timeSpan);
+        }
+        public static bool operator >(Time t1, TimeSpan timeSpan)
+        {
+            return t1 > new Time(timeSpan);
+        }
+        public static bool operator <=(Time t1, TimeSpan timeSpan)
+        {
+            return t1 <= new Time(timeSpan);
+        }
+        public static bool operator >=(Time t1, TimeSpan timeSpan)
+        {
+            return t1 >= new Time(timeSpan);
+        }
+        public static bool operator ==(Time t1, TimeSpan timeSpan)
+        {
+            return t1.Equals(new Time(timeSpan)) ;
+        }
+        public static bool operator !=(Time t1, TimeSpan timeSpan)
+        {
+            return !t1.Equals(new Time(timeSpan));
+        }
         public bool Equals(Time time)
         {
             return time.Hour == Hour && time.Minute == Minute;
         }
+
+        public int CompareTo(Time other)
+        {
+            if (this > other)
+            {
+                return 1;
+            }
+            if (this < other)
+            {
+                return -1;
+            }
+            return 0;
+        }
+
+        public override bool Equals(Object obj)
+        {
+            Time time = (Time) obj;
+            return time.Hour == Hour && time.Minute == Minute;
+        }
+
     }
 }

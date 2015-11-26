@@ -25,58 +25,58 @@ namespace DomainModel_Tests.BE_TEsts.Schedule
         }
         private void Create_Working_Hours_StartGreaterThanEnd()
         {
-            DateTime startTime = new DateTime(2000, 1, 1, 7, 0, 0);         //7:00  START
-            DateTime endTime = new DateTime(2000, 1, 1, 6, 30, 0);          //6:30  END 
-            DateTime startLunchTime = new DateTime(2000, 1, 1, 12, 0, 0);   //12:00 
+            Time startTime = new Time(7,0);         //7:00  START
+            Time endTime = new Time(6,30);          //6:30  END 
+            Time startLunchTime = new Time(12, 0);   //12:00 
             TimeSpan lunchDuration = new TimeSpan(0, 30, 0);                //30 min
             WorkingHours wh = new WorkingHours(startTime, endTime, startLunchTime, lunchDuration);
         }
         private void Create_WorkingHours_StartLunchSameSomEndTime()
         {
-            DateTime starTime = new DateTime(2000, 1, 1, 7, 0, 0);          //7:00
-            DateTime endTime = new DateTime(2000, 1, 1, 15, 30, 0);         //15:30
-            DateTime starLunchTime = new DateTime(2000, 1, 1, 15, 30, 0);   //15:30 START LUNCH
+            Time starTime = new Time(7, 0);          //7:00
+            Time endTime = new Time(15,30);         //15:30
+            Time starLunchTime = new Time(15, 3);   //15:30 START LUNCH
             TimeSpan lunchDuration = new TimeSpan(0, 30, 0);                //30 min
             WorkingHours wh = new WorkingHours(starTime, endTime, starLunchTime, lunchDuration);
         }
         private void Create_WorkingHours_With_LongLunch()
         {
-            DateTime starTime = new DateTime(2000, 1, 1, 7, 0, 0);          //7:00
-            DateTime endTime = new DateTime(2000, 1, 1, 15, 30, 0);         //15:30
-            DateTime starLunchTime = new DateTime(2000, 1, 1, 14, 00, 0);   //14:00 START LUNCH
+            Time starTime = new Time(7, 0);          //7:00
+            Time endTime = new Time(15, 30);         //15:30
+            Time starLunchTime = new Time(14, 00);   //14:00 START LUNCH
             TimeSpan lunchDuration = new TimeSpan(0, 90, 0);                //90 min
             WorkingHours wh = new WorkingHours(starTime, endTime, starLunchTime, lunchDuration);
         }
 
         private void Create_WorkingHours_With_Invalid_MultiplicityStartTime()
         {
-            DateTime starTime = new DateTime(2000, 1, 1, 7, 2, 0);          //7:02
-            DateTime endTime = new DateTime(2000, 1, 1, 15, 30, 0);         //15:30
-            DateTime starLunchTime = new DateTime(2000, 1, 1, 12, 00, 0);   //12:00 START LUNCH
+            Time starTime = new Time(7, 2);          //7:02
+            Time endTime = new Time(15, 30);         //15:30
+            Time starLunchTime = new Time(12, 0);   //12:00 START LUNCH
             TimeSpan lunchDuration = new TimeSpan(0, 30, 0);                //30 min
             WorkingHours wh = new WorkingHours(starTime, endTime, starLunchTime, lunchDuration);
         }
         private void Create_WorkingHours_With_Invalid_MultiplicityEndtTime()
         {
-            DateTime starTime = new DateTime(2000, 1, 1, 7, 0, 0);          //7:00
-            DateTime endTime = new DateTime(2000, 1, 1, 15, 36, 0);         //15:36
-            DateTime starLunchTime = new DateTime(2000, 1, 1, 12, 00, 0);   //12:00 START LUNCH
+            Time starTime = new Time( 7, 0);          //7:00
+            Time endTime = new Time( 15, 36);         //15:36
+            Time starLunchTime = new Time( 12, 0);   //12:00 START LUNCH
             TimeSpan lunchDuration = new TimeSpan(0, 30, 0);                //30 min
             WorkingHours wh = new WorkingHours(starTime, endTime, starLunchTime, lunchDuration);
         }
         private void Create_WorkingHours_With_Invalid_MultiplicityStartLunchTime()
         {
-            DateTime starTime = new DateTime(2000, 1, 1, 7, 0, 0);          //7:00
-            DateTime endTime = new DateTime(2000, 1, 1, 15, 30, 0);         //15:30
-            DateTime starLunchTime = new DateTime(2000, 1, 1, 12, 01, 0);   //12:01 START LUNCH
+            Time starTime = new Time(7, 0);          //7:00
+            Time endTime = new Time(15, 30);         //15:30
+            Time starLunchTime = new Time(12, 1);   //12:01 START LUNCH
             TimeSpan lunchDuration = new TimeSpan(0, 30, 0);                //30 min
             WorkingHours wh = new WorkingHours(starTime, endTime, starLunchTime, lunchDuration);
         }
         private void Create_WorkingHours_With_Invalid_MultiplicityLunchDuration()
         {
-            DateTime starTime = new DateTime(2000, 1, 1, 7, 0, 0);          //7:00
-            DateTime endTime = new DateTime(2000, 1, 1, 15, 30, 0);         //15:30
-            DateTime starLunchTime = new DateTime(2000, 1, 1, 12, 00, 0);   //12:00 START LUNCH
+            Time starTime = new Time(7, 0);          //7:00
+            Time endTime = new Time(15, 30);         //15:30
+            Time starLunchTime = new Time(12, 0);   //12:00 START LUNCH
             TimeSpan lunchDuration = new TimeSpan(0, 39, 0);                //39 min
             WorkingHours wh = new WorkingHours(starTime, endTime, starLunchTime, lunchDuration);
         }

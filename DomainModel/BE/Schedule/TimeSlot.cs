@@ -1,15 +1,18 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using DomainModel.Interfaces;
 
 namespace DomainModel.BE.Schedule
 {
-    public class  TimeSlot
+    public class  TimeSlot : ITimeSlot
     {
         public int Number { get; }
-        public DateTime StartTime { get; set; }
+        public Time StartTime { get; set; }
         public TimeSpan Duration { get;  }
         public bool IsAvailable { get; set; }
 
-        public TimeSlot(int number, DateTime startTime, TimeSpan duration, bool isAvailable)
+        public TimeSlot(int number, Time startTime, TimeSpan duration, bool isAvailable)
         {
             Number = number;
             StartTime = startTime;
@@ -29,9 +32,12 @@ namespace DomainModel.BE.Schedule
             return count;
         }
 
-        public int GetSlotsAmount(WorkingHours workingHours)
+        public int GetSlotsAmount(IWorkingHours workingHours)
         {
-            return GetSlotsAmount(workingHours.EndTime - workingHours.StartTime);
+            List<ITimeSlot> timeSlots = workingHours.GetWorkingHours();
+            Time minTime = timeSlots.Min(ts => ts.StartTime);
+            Time maxTime = timeSlots.Max(ts => ts.StartTime.Add( ts.Duration ) );
+            return GetSlotsAmount(minTime.GetAbsoluteDifference(maxTime));
         }
     }
 

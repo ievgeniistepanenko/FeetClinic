@@ -6,44 +6,58 @@ namespace DomainModel.BE.Schedule
 {
     public class WorkingHours : IWorkingHours
     {
-        public DateTime StartTime { get; }
-        public DateTime EndTime { get; }
-        public DateTime StartLunch { get; }
+        public Time StartTime { get; }
+        public Time EndTime { get; }
+        public Time StartLunch { get; }
         public TimeSpan LunchDuration { get; }
 
-        public WorkingHours(DateTime startTime, DateTime endTime, DateTime startLunch, TimeSpan lunchDuration)
+        public WorkingHours(Time startTime, Time endTime, Time startLunch, TimeSpan lunchDuration)
         {
             StartTime = startTime;
             EndTime = endTime;
             StartLunch = startLunch;
             LunchDuration = lunchDuration;
-            if (!Validate(this))
+            if (!Validate())
             {
                 throw new ArgumentException("Not possible create working ours");
             }
         }
 
-        private bool Validate(WorkingHours wh)
+        private bool Validate()
         {
-            if (!((wh.StartTime.TimeOfDay < wh.StartLunch.TimeOfDay)
-                && ((wh.StartLunch.TimeOfDay + wh.LunchDuration < wh.EndTime.TimeOfDay))))
+            if (!((StartTime < StartLunch)
+                && (StartLunch.Add(LunchDuration)   < EndTime)))
             {
                 return false;
             }
-            if (!((wh.StartTime.Minute % 5 == 0)
-                && (wh.StartLunch.Minute % 5 == 0)
-                && (wh.EndTime.Minute % 5 == 0)
-                && (wh.LunchDuration.Minutes % 5 == 0)))
+            if (!((StartTime.Minute % 5 == 0)
+                && (StartLunch.Minute % 5 == 0)
+                && (EndTime.Minute % 5 == 0)
+                && (LunchDuration.Minutes % 5 == 0)))
             {
                 return false;
             }
             return true;
-
         }
         public List<ITimeSlot> GetWorkingHours()
         {
-            List<ITimeSlot> workingHours = new List<ITimeSlot>();
+            List<ITimeSlot> workingHours = new List<ITimeSlot>
+            {
+                new TimeSlot(1,
+                    StartTime,
+                    StartLunch.GetAbsoluteDifference(StartTime),
+                    true),
+                new TimeSlot(2,
+                    StartLunch.Add(LunchDuration),
+                    EndTime.GetAbsoluteDifference(StartLunch.Add(LunchDuration)),
+                    true)
+            };
             return workingHours;
+        }
+
+        public TimeSpan GetWorkDayDuration()
+        {
+            return EndTime.GetAbsoluteDifference(StartTime);
         }
     }
 }

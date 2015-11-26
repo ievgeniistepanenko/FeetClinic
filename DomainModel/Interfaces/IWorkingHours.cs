@@ -9,5 +9,6 @@ namespace DomainModel.Interfaces
     public interface IWorkingHours
     {
         List<ITimeSlot> GetWorkingHours();
+        TimeSpan GetWorkDayDuration();
     }
 }

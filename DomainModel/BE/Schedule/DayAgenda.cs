@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
@@ -12,13 +13,13 @@ namespace DomainModel.BE.Scheduler
         private readonly int timeSlotDurationMinute = 15; //min
         public DateTime Date { get; }
         public List<Booking> Bookings { get; }
-        public List<TimeSlot> TimeSlots { get; } 
+        public List<ITimeSlot> TimeSlots { get; } 
 
-        public DayAgenda(DateTime date, WorkingHours wh,List<Booking> bookings = null  )
+        public DayAgenda(DateTime date, IWorkingHours wh,List<Booking> bookings = null  )
         {
 
             Date = date.Date;
-            TimeSlots = CreateTimeSlots(wh);
+            TimeSlots = CreateTimeSlots(wh,timeSlotDurationMinute);
 
             if (bookings != null)
             {
@@ -33,16 +34,16 @@ namespace DomainModel.BE.Scheduler
 
         public Booking AddBooking(Booking booking)
         {
-            List<TimeSlot> availableTimeSlots = GetAvailableTimeSlots(booking);
+            List<ITimeSlot> availableTimeSlots = GetAvailableTimeSlots(booking);
             if (!availableTimeSlots.Any())
             {
                 throw new ArgumentException("This is no place for booking");
             }
 
             int amount = 0;
-            TimeSlot firstTimeSlot = availableTimeSlots
-                .FirstOrDefault(ts => ts.StartTime.TimeOfDay <= booking.DateTime.TimeOfDay
-                                && ts.StartTime.TimeOfDay + ts.Duration > booking.DateTime.TimeOfDay);
+            ITimeSlot firstTimeSlot = availableTimeSlots
+                .FirstOrDefault(ts => ts.StartTime <= booking.DateTime.TimeOfDay
+                                && ts.StartTime.Add(ts.Duration)  > booking.DateTime.TimeOfDay);
 
             if (firstTimeSlot != null)
             {
@@ -59,14 +60,13 @@ namespace DomainModel.BE.Scheduler
 
         public Booking RemoveBooking(Booking booking)
         {
-            //booking = Bookings.Find( b => b.Id == booking.Id );
             if (booking.DateTime <= DateTime.Now.AddDays(1))
             {
                 throw new OperationCanceledException("Can not remove booking 24 hours before booking time");
             }
             Bookings.Remove(booking);
-            TimeSlot firstTimeSlot = TimeSlots
-                .FirstOrDefault(ts=>ts.StartTime.TimeOfDay == booking.DateTime.TimeOfDay);
+            ITimeSlot firstTimeSlot = TimeSlots
+                .FirstOrDefault(ts=>ts.StartTime == booking.DateTime.TimeOfDay);
             if (firstTimeSlot !=null)
             {
                 int amount = firstTimeSlot.GetSlotsAmount(booking.GetDuration());
@@ -92,10 +92,10 @@ namespace DomainModel.BE.Scheduler
             return GetAvailableTimeSlots(booking).Any();
         }
 
-        public List<TimeSlot> GetAvailableTimeSlots(Booking booking)
+        public List<ITimeSlot> GetAvailableTimeSlots(Booking booking)
         {
-            List<TimeSlot> timeSlots = new List<TimeSlot>();
-            List<TimeSlot> allAvailableTimeSlots = GetAllAvailableTimeSlots();
+            List<ITimeSlot> timeSlots = new List<ITimeSlot>();
+            List<ITimeSlot> allAvailableTimeSlots = GetAllAvailableTimeSlots();
             TimeSpan bookingDuration = booking.GetDuration().Duration();
 
             int amount = 0;
@@ -106,7 +106,7 @@ namespace DomainModel.BE.Scheduler
                 for (int i = 0; i <= allAvailableTimeSlots.Count - amount; i++)
                 {
                     bool flag = true;
-                    TimeSlot timeSlot = allAvailableTimeSlots[i];
+                    ITimeSlot timeSlot = allAvailableTimeSlots[i];
 
                     for (int j = 1; j < amount; j++)
                     {
@@ -127,40 +127,39 @@ namespace DomainModel.BE.Scheduler
 
         }
 
-        private List<TimeSlot> GetAllAvailableTimeSlots()
+        private List<ITimeSlot> GetAllAvailableTimeSlots()
         {
-            List<TimeSlot> timeSlots = new List<TimeSlot>();
+            List<ITimeSlot> timeSlots = new List<ITimeSlot>();
             timeSlots.AddRange(TimeSlots.Where(ts => ts.IsAvailable));
             return timeSlots;
         }
-        private List<TimeSlot> CreateTimeSlots(WorkingHours workingHours)
+        private List<ITimeSlot> CreateTimeSlots(IWorkingHours workingHours,int slotDurationInMin)
         {
-            List<TimeSlot> timeSlots = new List<TimeSlot>();
+            List<ITimeSlot> timeSlots = new List<ITimeSlot>();
+            List<ITimeSlot> whTimeSlots = workingHours.GetWorkingHours();
+            whTimeSlots.Sort((ts1, ts2) => ts1.StartTime.CompareTo(ts2.StartTime));
 
-            DateTime timeSlotTime = new DateTime();
-            timeSlotTime = timeSlotTime.Add( workingHours.StartTime.TimeOfDay );
-            TimeSpan timeSlotDuration = new TimeSpan(0, 0, timeSlotDurationMinute, 0).Duration();
+            Time firstSlotTime = whTimeSlots[0].StartTime;
+            TimeSpan timeSlotDuration = new TimeSpan(0,slotDurationInMin,0);
 
-            TimeSlot timeSlot = new TimeSlot(1, timeSlotTime, timeSlotDuration, true);
-
-            int amountAfTimeSlot = timeSlot.GetSlotsAmount(workingHours);
-
-            if (amountAfTimeSlot > 0)
+            ITimeSlot slot = new TimeSlot(1,firstSlotTime,timeSlotDuration,true);  // first timeslot
+            int amountOfTimeSlots = slot.GetSlotsAmount(workingHours.GetWorkDayDuration());
+            if (amountOfTimeSlots > 0)
             {
-                timeSlots.Add(timeSlot);
-                for (int i = 1; i < amountAfTimeSlot; i++)
+                timeSlots.Add(slot);
+                for (int i = 1; i < amountOfTimeSlots; i++)
                 {
-                    timeSlotTime = timeSlotTime.Add(timeSlotDuration);
-                    if (timeSlotTime.TimeOfDay >= workingHours.StartLunch.TimeOfDay && 
-                        timeSlotTime.TimeOfDay < workingHours.StartLunch.TimeOfDay + 
-                                                    workingHours.LunchDuration.Duration())
+                    Time nextSlotTime = slot.StartTime.Add(slot.Duration);
+                    if (whTimeSlots.Any(ts=> nextSlotTime >= ts.StartTime 
+                                        && nextSlotTime < ts.StartTime.Add(ts.Duration)))
                     {
-                        timeSlots.Add(new TimeSlot(i + 1, timeSlotTime, timeSlotDuration, false));
+                        slot = new TimeSlot(i + 1, slot.StartTime.Add(slot.Duration), timeSlotDuration, true);
                     }
                     else
                     {
-                        timeSlots.Add(new TimeSlot(i + 1, timeSlotTime, timeSlotDuration, true));
+                        slot = new TimeSlot(i + 1, slot.StartTime.Add(slot.Duration), timeSlotDuration, false);
                     }
+                    timeSlots.Add(slot);
                     
                 }
             }
@@ -171,16 +170,16 @@ namespace DomainModel.BE.Scheduler
         {
             foreach (Booking booking in bookings)
             {
-                TimeSlot firstTimeSlot = TimeSlots.Find(ts =>
-                ts.StartTime.TimeOfDay <= booking.DateTime.TimeOfDay &&
-                ts.StartTime.TimeOfDay + ts.Duration > booking.DateTime.TimeOfDay);
+                ITimeSlot firstTimeSlot = TimeSlots.Find(ts =>
+                ts.StartTime <= booking.DateTime.TimeOfDay &&
+                ts.StartTime.Add(ts.Duration)  > booking.DateTime.TimeOfDay);
                 firstTimeSlot.IsAvailable = false;
 
                 int amounTimeSlots = firstTimeSlot.GetSlotsAmount( booking.GetDuration() );
 
                 for (int i = 1; i < amounTimeSlots; i++)
                 {
-                    TimeSlot timeSlot = TimeSlots.Find(ts => ts.Number == firstTimeSlot.Number + i);
+                    ITimeSlot timeSlot = TimeSlots.Find(ts => ts.Number == firstTimeSlot.Number + i);
                     if (timeSlot.IsAvailable == false)
                     {
                         throw new ArgumentException("Given bookings kan not apply for this day agenda");
