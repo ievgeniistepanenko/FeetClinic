@@ -1,8 +1,10 @@
 ﻿using System;
+using System.Collections.Generic;
+using DomainModel.Interfaces;
 
 namespace DomainModel.BE.Schedule
 {
-    public class WorkingHours
+    public class WorkingHours : IWorkingHours
     {
         public DateTime StartTime { get; }
         public DateTime EndTime { get; }
@@ -37,6 +39,11 @@ namespace DomainModel.BE.Schedule
             }
             return true;
 
+        }
+        public List<ITimeSlot> GetWorkingHours()
+        {
+            List<ITimeSlot> workingHours = new List<ITimeSlot>();
+            return workingHours;
         }
     }
 }
