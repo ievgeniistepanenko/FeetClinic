@@ -203,12 +203,12 @@ namespace DomainModel_Tests.BE_TEsts.Schedule
                                 Treatments = new List<Treatment>()
                 {                    new Treatment { Duration = new TimeSpan(0, 0, 50, 0)},
                                      new Treatment {Duration = new TimeSpan(0, 1, 15, 0)}
-                },              DateTime = new DateTime(2000,1,1,9,0,0) },
+                },              DateTime = new DateTime(2000,1,3,9,0,0) },
                 new Booking() {Id =2,
                                 Treatments = new List<Treatment>
                 {                       new Treatment {Duration = new TimeSpan(0, 0, 45, 0)},
                                         new Treatment { Duration = new TimeSpan(0, 1, 0, 0) }},
-                                DateTime = new DateTime(2000, 1, 1, 12, 30, 0)}
+                                DateTime = new DateTime(2000, 1, 3, 12, 30, 0)}
             };
             Booking b = new Booking {Id =1};
 

@@ -16,10 +16,10 @@ namespace DomainModel.BE.Scheduler
 
         public DayAgenda(DateTime date, WorkingHours wh,List<Booking> bookings = null  )
         {
-            //if (!ValidateDate(date))
-            //{
-            //    throw new ArgumentException("Date must represent just date without time");
-            //}
+            if (!ValidateDate(date))
+            {
+                throw new ArgumentException("Date must represent just date without time");
+            }
             Date = date;
             TimeSlots = CreateTimeSlots(wh);
 
