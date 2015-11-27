@@ -1,12 +1,9 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Globalization;
 using System.Linq;
-using DomainModel.BE.Schedule;
 using DomainModel.Interfaces;
 
-namespace DomainModel.BE.Scheduler
+namespace DomainModel.BE.Schedule
 {
     public class DayAgenda : IDayAgenda
     {
@@ -40,14 +37,13 @@ namespace DomainModel.BE.Scheduler
                 throw new ArgumentException("This is no place for booking");
             }
 
-            int amount = 0;
             ITimeSlot firstTimeSlot = availableTimeSlots
                 .FirstOrDefault(ts => ts.StartTime <= booking.DateTime.TimeOfDay
                                 && ts.StartTime.Add(ts.Duration)  > booking.DateTime.TimeOfDay);
 
             if (firstTimeSlot != null)
             {
-                amount = firstTimeSlot.GetSlotsAmount(booking.GetDuration());
+                int amount = firstTimeSlot.GetSlotsAmount(booking.GetDuration());
                 for (int i = 0; i < amount; i++)
                 {
                     TimeSlots.Find(ts => ts.Number == firstTimeSlot.Number + i).IsAvailable = false;
@@ -98,10 +94,9 @@ namespace DomainModel.BE.Scheduler
             List<ITimeSlot> allAvailableTimeSlots = GetAllAvailableTimeSlots();
             TimeSpan bookingDuration = booking.GetDuration().Duration();
 
-            int amount = 0;
             if (allAvailableTimeSlots.Any())
             {
-                amount = allAvailableTimeSlots.First().GetSlotsAmount(bookingDuration);
+                int amount = allAvailableTimeSlots.First().GetSlotsAmount(bookingDuration);
 
                 for (int i = 0; i <= allAvailableTimeSlots.Count - amount; i++)
                 {
@@ -150,7 +145,7 @@ namespace DomainModel.BE.Scheduler
                 for (int i = 1; i < amountOfTimeSlots; i++)
                 {
                     Time nextSlotTime = slot.StartTime.Add(slot.Duration);
-                    if (whTimeSlots.Any(ts=> nextSlotTime >= ts.StartTime 
+                    if (whTimeSlots.Any(ts=> ts.StartTime <= nextSlotTime   
                                         && nextSlotTime < ts.StartTime.Add(ts.Duration)))
                     {
                         slot = new TimeSlot(i + 1, slot.StartTime.Add(slot.Duration), timeSlotDuration, true);

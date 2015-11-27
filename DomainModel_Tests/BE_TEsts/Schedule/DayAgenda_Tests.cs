@@ -5,7 +5,6 @@ using System.Text;
 using System.Threading.Tasks;
 using DomainModel.BE;
 using DomainModel.BE.Schedule;
-using DomainModel.BE.Scheduler;
 using DomainModel.Interfaces;
 using Moq;
 using NUnit.Framework;
@@ -207,9 +206,7 @@ namespace DomainModel_Tests.BE_TEsts.Schedule
                                 DateTime = new DateTime(now.Year, now.Month,now.Day+2, 12, 30, 0)}
             };
 
-            Booking b = new Booking { Id = 1 };
-
-DayAgenda agenda = new DayAgenda(new DateTime(now.Year, now.Month, now.Day).AddDays(2), wh, bookings);
+            DayAgenda agenda = new DayAgenda(new DateTime(now.Year, now.Month, now.Day).AddDays(2), wh, bookings);
             agenda.RemoveBooking(bookings[0]);
 
             Assert.AreEqual(1,agenda.Bookings.Count);
@@ -218,6 +215,36 @@ DayAgenda agenda = new DayAgenda(new DateTime(now.Year, now.Month, now.Day).AddD
             Assert.IsTrue(agenda.TimeSlots.Find(ts => ts.Number == 14).IsAvailable);
 
         }
+        [Test]
+        public void Can_Remove_Booking_With_Given_Id()
+        {
+            WorkingHours wh = new WorkingHours(new Time(8, 0), new Time(15, 25),
+                 new Time(11, 30), new TimeSpan(0, 0, 30, 0));
+            DateTime now = System.DateTime.Now;
+            List<Booking> bookings = new List<Booking>
+            {
+                new Booking() {  Id = 1,
+                                Treatments = new List<Treatment>()
+                {                    new Treatment { Duration = new TimeSpan(0, 0, 50, 0)},
+                                     new Treatment {Duration = new TimeSpan(0, 1, 15, 0)}
+                },              DateTime = new DateTime(now.Year,now.Month,now.Day+2,9,0,0) },
+                new Booking() {Id =2,
+                                Treatments = new List<Treatment>
+                {                       new Treatment {Duration = new TimeSpan(0, 0, 45, 0)},
+                                        new Treatment { Duration = new TimeSpan(0, 1, 0, 0) }},
+                                DateTime = new DateTime(now.Year, now.Month,now.Day+2, 12, 30, 0)}
+            };
+
+            DayAgenda agenda = new DayAgenda(new DateTime(now.Year, now.Month, now.Day).AddDays(2), wh, bookings);
+            agenda.RemoveBooking(1);
+
+            Assert.AreEqual(1, agenda.Bookings.Count);
+            Assert.IsTrue(agenda.TimeSlots.Find(ts => ts.Number == 5).IsAvailable);
+            Assert.IsTrue(agenda.TimeSlots.Find(ts => ts.Number == 13).IsAvailable);
+            Assert.IsTrue(agenda.TimeSlots.Find(ts => ts.Number == 14).IsAvailable);
+
+        }
+
         [Test]
         [ExpectedException(typeof(OperationCanceledException))]
         public void Can_Not_Remove_Booking_24hours_Before()

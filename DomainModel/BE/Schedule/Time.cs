@@ -4,6 +4,8 @@ namespace DomainModel.BE.Schedule
 {
     public struct Time : IComparable<Time>
     {
+        
+
         private DateTime _time;
         public int Hour
         {
@@ -17,7 +19,7 @@ namespace DomainModel.BE.Schedule
             private set { value = Minute; }
         }
 
-        public Time (TimeSpan timeSpan) : this(timeSpan.Hours, timeSpan.Minutes) { }
+        private Time (TimeSpan timeSpan) : this(timeSpan.Hours, timeSpan.Minutes) { }
         public Time(DateTime dateTime) : this(dateTime.Hour,dateTime.Minute){}
         public Time(int hour, int minute)
         {
@@ -131,8 +133,22 @@ namespace DomainModel.BE.Schedule
 
         public override bool Equals(Object obj)
         {
-            Time time = (Time) obj;
-            return time.Hour == Hour && time.Minute == Minute;
+            try
+            {
+                Time time = (Time)obj;
+                return time.Hour == Hour && time.Minute == Minute;
+            }
+            catch (Exception)
+            {
+
+                return false;
+            }
+            
+            
+        }
+        public override int GetHashCode()
+        {
+            return _time.GetHashCode();
         }
 
     }
