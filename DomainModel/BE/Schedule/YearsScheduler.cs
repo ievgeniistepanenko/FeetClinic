@@ -11,6 +11,7 @@ namespace DomainModel.BE.Schedule
 {
     public class YearsScheduler : IYearsScheduler
     {
+        public int Id { get; set; }
         private int TherapistId;
         public int Year { get; }
         private List<IMonthScheduler> monthSchedulers;

@@ -11,22 +11,26 @@ using FeetClinic_DAL.Abstarct;
 
 namespace FeetClinic_DAL.Conrete
 {
-    public class DalFacade : RepositoryContainer<Database>
+    public class DalFacade : RepositoryContainer<FeetClinicDb>
     {
         public DalFacade()
         {
-            Context = new Database();
+            Context = new FeetClinicDb();
         }
 
-        public Repository<Database, Address> Addresses;
-        public Repository<Database, CustomerProfile> CustomerProfiles;
-        public Repository<Database, Booking> Bookings;
-        public Repository<Database, Therapist> Therapists;
-        public Repository<Database, Treatment> Treatments;
-        public Repository<Database, TreatmentType> TreatmentTypes;
-        //public Repository<Database, DayAgenda> agendas;
-        //public Repository<Database, YearsScheduler> yearsScheduler;
-        //public Repository<Database, DayWorkingHours> workingHours;
+        private Repository<FeetClinicDb, Address> _addresses;
+        //public Repository<FeetClinicDb, CustomerProfile> CustomerProfiles;
+        //public Repository<FeetClinicDb, Booking> Bookings;
+        //public Repository<FeetClinicDb, Therapist> Therapists;
+        private Repository<FeetClinicDb, Treatment> _treatments;
+        //public Repository<FeetClinicDb, TreatmentType> TreatmentTypes;
+        //public Repository<FeetClinicDb, DayAgenda> agendas;
+        //public Repository<FeetClinicDb, YearsScheduler> yearsScheduler;
+        //public Repository<FeetClinicDb, DayWorkingHours> workingHours;
+        public Repository<FeetClinicDb,Address> Addresses => 
+            _addresses ?? (_addresses = new Repository<FeetClinicDb, Address>(Context));
 
+        public Repository<FeetClinicDb, Treatment> Treatments =>
+            _treatments ?? (_treatments = new Repository<FeetClinicDb, Treatment>(Context));
     }
 }

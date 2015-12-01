@@ -8,6 +8,6 @@ namespace DomainModel.BLL.Interfaces
 {
     public interface IEntity
     {
-        int GetId();
+        int Id { get; set; }
     }
 }

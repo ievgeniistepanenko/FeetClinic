@@ -71,7 +71,8 @@
   <ItemGroup>
     <Compile Include="Abstarct\RepositoryContainer.cs" />
     <Compile Include="Conrete\DALFacade.cs" />
-    <Compile Include="Conrete\Database.cs" />
+    <Compile Include="Conrete\FeetClinicDb.cs" />
+    <Compile Include="Conrete\DbInitializer.cs" />
     <Compile Include="Conrete\Repository.cs" />
     <Compile Include="Abstarct\IRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
