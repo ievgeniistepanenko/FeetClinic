@@ -23,9 +23,14 @@ namespace FeetClinic_Rest.Controllers
 
         protected virtual HttpResponseMessage GetAll()
         {
+            return GetAll("");
+
+        }
+        protected virtual HttpResponseMessage GetAll(string properties)
+        {
             try
             {
-                IEnumerable<TEntity> entities = Repository.GetAll();
+                IEnumerable<TEntity> entities = Repository.GetAll(null,null,properties);
                 if (entities.Any())
                 {
                     return Request.CreateResponse(HttpStatusCode.OK, entities);
@@ -40,9 +45,13 @@ namespace FeetClinic_Rest.Controllers
         }
         protected virtual HttpResponseMessage GetOne(int id)
         {
+            return GetOne(id, "");
+        }
+        protected virtual HttpResponseMessage GetOne(int id,string properties)
+        {
             try
             {
-                TEntity entity = Repository.GetOne(a => a.Id == id);
+                TEntity entity = Repository.GetOne(a => a.Id == id,properties);
                 if (entity == null)
                 {
                     return Request.CreateResponse(HttpStatusCode.NotFound, "Not found");
@@ -122,7 +131,6 @@ namespace FeetClinic_Rest.Controllers
             Facade.Dispose();
             base.Dispose(disposing);
         }
-
         protected bool IsExists(int id)
         {
             return Repository.Any(c => c.Id == id);

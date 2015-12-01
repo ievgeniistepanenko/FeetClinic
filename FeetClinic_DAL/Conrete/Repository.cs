@@ -19,7 +19,7 @@ namespace FeetClinic_DAL.Conrete
             DbSet = context.Set<TEntity>();
         }
         
-        public IEnumerable<TEntity> Get(
+        public IEnumerable<TEntity> GetAll(
             Expression<Func<TEntity, bool>> filter = null,
             Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null,
             string includeProperties = "")
@@ -44,29 +44,10 @@ namespace FeetClinic_DAL.Conrete
                 return query.Distinct().ToList();
             }
         }
-        public virtual IEnumerable<TEntity> GetAll(
-            Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null,
-            string includeProperties = "")
-        {
-            return Get(null, orderBy, includeProperties);
-        }
 
         public TEntity GetOne(Expression<Func<TEntity, bool>> filter = null, string includeProperties = "")
         {
-            return Get(filter, null, includeProperties).SingleOrDefault();
-        }
-        public TEntity GetFirst(Expression<Func<TEntity, bool>> filter = null, 
-                                Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null, 
-                                string includeProperties = "")
-        {
-            return Get(filter, orderBy, includeProperties).FirstOrDefault();
-        }
-
-        public TEntity GetLast(Expression<Func<TEntity, bool>> filter = null, 
-                               Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null, 
-                               string includeProperties = "")
-        {
-            return Get(filter, orderBy, includeProperties).LastOrDefault();
+            return GetAll(filter, null, includeProperties).SingleOrDefault();
         }
 
         public TEntity Create(TEntity entity)
@@ -94,7 +75,7 @@ namespace FeetClinic_DAL.Conrete
 
         public int Count(Expression<Func<TEntity, bool>> filter = null)
         {
-            return Get(filter).Count();
+            return GetAll(filter).Count();
         }
 
         public bool Any(Expression<Func<TEntity, bool>> filter = null)

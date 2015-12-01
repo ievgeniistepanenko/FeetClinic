@@ -5,7 +5,6 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using DomainModel.BE;
-using FeetClinic_DAL.Conrete;
 
 namespace FeetClinic_Rest.Controllers
 {
@@ -24,8 +23,11 @@ namespace FeetClinic_Rest.Controllers
         // GET: api/Addresses/5
         public HttpResponseMessage GetAddress(int id)
         {
-            return GetOne(id);
-
+            return GetAddress(id,"");
+        }
+        public HttpResponseMessage GetAddress(int id,string properties)
+        {
+            return GetOne(id,properties);
         }
 
         // PUT: api/Addresses/5
