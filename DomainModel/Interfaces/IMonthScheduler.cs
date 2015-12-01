@@ -8,7 +8,6 @@ namespace DomainModel.Interfaces
 {
     public interface IMonthScheduler
     {
-        int Id { get; set; }
         int Month { get; set; }
         List<DateTime> WorkingDays { get; set; }
         List<DateTime> HolidayDays { get; set;}

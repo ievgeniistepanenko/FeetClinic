@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
-namespace DomainModel.BE
+namespace DomainModel.BE.Customer
 {
     public class CustomerProfile
     {
@@ -15,6 +11,7 @@ namespace DomainModel.BE
         public string LastName { get; set; }
 
         public Address Address { get; set; }
+        public List<Booking> Bookings { get; set; } 
    
 
     }

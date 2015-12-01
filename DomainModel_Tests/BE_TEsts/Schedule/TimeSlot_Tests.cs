@@ -39,23 +39,23 @@ namespace DomainModel_Tests.BE_TEsts.Schedule
             int amount = 0;
             TimeSlot timeslot = new TimeSlot(0,new Time(0,0), new TimeSpan(0,0,15,0),true );
 
-            IWorkingHours workingHours = new WorkingHours(new Time(8, 0), new Time(15, 30),
+            IDayWorkingHours dayWorkingHours = new DayWorkingHours(new Time(8, 0), new Time(15, 30),
                 new Time(11, 30), new TimeSpan(0, 0, 30, 0));
-            amount = timeslot.GetSlotsAmount(workingHours);
+            amount = timeslot.GetSlotsAmount(dayWorkingHours);
             Assert.AreEqual(30,amount);
 
-            workingHours = new WorkingHours(new Time(8, 0), new Time(15, 35),
+            dayWorkingHours = new DayWorkingHours(new Time(8, 0), new Time(15, 35),
                new Time(11, 30), new TimeSpan(0, 0, 30, 0));
-            amount = timeslot.GetSlotsAmount(workingHours);
+            amount = timeslot.GetSlotsAmount(dayWorkingHours);
             Assert.AreEqual(31,amount);
 
-            workingHours = new WorkingHours(new Time(8, 0), new Time(15, 20),
+            dayWorkingHours = new DayWorkingHours(new Time(8, 0), new Time(15, 20),
              new Time( 11, 30), new TimeSpan(0, 0, 30, 0));
-            amount = timeslot.GetSlotsAmount(workingHours);
+            amount = timeslot.GetSlotsAmount(dayWorkingHours);
             Assert.AreEqual(30, amount);
 
-            workingHours = new WorkingHours(new Time(8,0),new Time(15,30),new Time(12,0),new TimeSpan(0,0,0) );
-            amount = timeslot.GetSlotsAmount(workingHours);
+            dayWorkingHours = new DayWorkingHours(new Time(8,0),new Time(15,30),new Time(12,0),new TimeSpan(0,0,0) );
+            amount = timeslot.GetSlotsAmount(dayWorkingHours);
             Assert.AreEqual(30, amount);
 
         }

@@ -9,7 +9,6 @@ namespace DomainModel.BE.Schedule
 {
     public class MonthScheduler : IMonthScheduler
     {
-        public int Id { get; set; }
         public int Month { get; set; }
         public List<DateTime> WorkingDays { get; set; }
         public List<DateTime> HolidayDays { get; set; }
@@ -24,12 +23,6 @@ namespace DomainModel.BE.Schedule
             _agendas = agendas;
             ValidateIncomingData(workingDays, holidayDays, agendas);
         }
-        public MonthScheduler(int id, int number, List<DateTime> workingDays, List<DateTime> holidayDays, List<IDayAgenda> agendas) 
-            : this(number,workingDays,holidayDays,agendas)
-        {
-            Id = id;
-        }
-
 
         public List<DateTime> GetAllWorkingDays()
         {

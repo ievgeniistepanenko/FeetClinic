@@ -20,6 +20,7 @@ namespace DomainModel.BE
         public TimeSpan Duration { get; set; }
 
         public TreatmentType TreatmentType { get; set; }
+        public List<Therapist> Therapists { get; set; } 
 
     }
 }

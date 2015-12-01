@@ -19,7 +19,7 @@ namespace DomainModel_Tests.BE_TEsts.Schedule
         [Test]
         public void Can_Create_Right_Antal_TimeSlots()
         {
-            IWorkingHours wh = new WorkingHours(new Time(8,0), new Time(15, 25),
+            IDayWorkingHours wh = new DayWorkingHours(new Time(8,0), new Time(15, 25),
                 new Time(11,30), new TimeSpan(0,0,30,0));
             DayAgenda agenda = new DayAgenda(new DateTime(2000,1,1), wh);
 
@@ -32,7 +32,7 @@ namespace DomainModel_Tests.BE_TEsts.Schedule
         [Test]
         public void Can_Create_TimeSlots_With_Unavailable_Slots_For_Lunch()
         {
-            WorkingHours wh = new WorkingHours(new Time(8, 0), new Time(15, 25),
+            DayWorkingHours wh = new DayWorkingHours(new Time(8, 0), new Time(15, 25),
                 new Time(11, 30), new TimeSpan(0, 0, 30, 0));
             DayAgenda agenda = new DayAgenda(new DateTime(2000, 1, 1), wh);
             
@@ -45,7 +45,7 @@ namespace DomainModel_Tests.BE_TEsts.Schedule
         [Test]
         public void Can_Create_With_Booking_And_Update_TimeSots()
         {
-            WorkingHours wh = new WorkingHours(new Time(8, 0), new Time(15, 25),
+            DayWorkingHours wh = new DayWorkingHours(new Time(8, 0), new Time(15, 25),
                new Time(11, 30), new TimeSpan(0, 0, 30, 0));
             List<Booking> bookings = new List<Booking>
             {
@@ -76,7 +76,7 @@ namespace DomainModel_Tests.BE_TEsts.Schedule
         [ExpectedException(typeof(ArgumentException))]
         public void Can_Not_Create_Agenda_With_Wrong_Booking_Duration()
         {
-            WorkingHours wh = new WorkingHours(new Time(8, 0), new Time(15, 25),
+            DayWorkingHours wh = new DayWorkingHours(new Time(8, 0), new Time(15, 25),
                new Time(11, 30), new TimeSpan(0, 0, 30, 0));
             List<Booking> bookings = new List<Booking>
             {
@@ -93,7 +93,7 @@ namespace DomainModel_Tests.BE_TEsts.Schedule
         [Test]
         public void Can_Add_Booking()
         {
-            WorkingHours wh = new WorkingHours(new Time(8, 0), new Time(15, 25),
+            DayWorkingHours wh = new DayWorkingHours(new Time(8, 0), new Time(15, 25),
                new Time(11, 30), new TimeSpan(0, 0, 30, 0));
             List<Booking> bookings = new List<Booking>
             {
@@ -126,7 +126,7 @@ namespace DomainModel_Tests.BE_TEsts.Schedule
         [ExpectedException(typeof(ArgumentException))]
         public void Can_Not_Add_Boking_If_No_Place()
         {
-            WorkingHours wh = new WorkingHours(new Time(8, 0), new Time(15, 25),
+            DayWorkingHours wh = new DayWorkingHours(new Time(8, 0), new Time(15, 25),
                new Time(11, 30), new TimeSpan(0, 0, 30, 0));
             List<Booking> bookings = new List<Booking>
             {
@@ -157,7 +157,7 @@ namespace DomainModel_Tests.BE_TEsts.Schedule
         [Test]
         public void Is_Place_For_Booking()
         {
-            WorkingHours wh = new WorkingHours(new Time(8, 0), new Time(15, 25),
+            DayWorkingHours wh = new DayWorkingHours(new Time(8, 0), new Time(15, 25),
                new Time(11, 30), new TimeSpan(0, 0, 30, 0));
             List<Booking> bookings = new List<Booking>
             {
@@ -189,21 +189,22 @@ namespace DomainModel_Tests.BE_TEsts.Schedule
         [Test]
         public void Can_Remove_Booking()
         {
-            WorkingHours wh = new WorkingHours(new Time(8, 0), new Time(15, 25),
+            DayWorkingHours wh = new DayWorkingHours(new Time(8, 0), new Time(15, 25),
                  new Time(11, 30), new TimeSpan(0, 0, 30, 0));
             DateTime now = System.DateTime.Now;
+            DateTime twoDaysFromNow = now.AddDays(2);
             List<Booking> bookings = new List<Booking>
             {
                 new Booking() {  Id = 1,
                                 Treatments = new List<Treatment>()
                 {                    new Treatment { Duration = new TimeSpan(0, 0, 50, 0)},
                                      new Treatment {Duration = new TimeSpan(0, 1, 15, 0)}
-                },              DateTime = new DateTime(now.Year,now.Month,now.Day+2,9,0,0) },
+                },              DateTime = new DateTime(twoDaysFromNow.Year,twoDaysFromNow.Month,twoDaysFromNow.Day,9,0,0) },
                 new Booking() {Id =2,
                                 Treatments = new List<Treatment>
                 {                       new Treatment {Duration = new TimeSpan(0, 0, 45, 0)},
                                         new Treatment { Duration = new TimeSpan(0, 1, 0, 0) }},
-                                DateTime = new DateTime(now.Year, now.Month,now.Day+2, 12, 30, 0)}
+                                DateTime = new DateTime(twoDaysFromNow.Year,twoDaysFromNow.Month,twoDaysFromNow.Day, 12, 30, 0)}
             };
 
             DayAgenda agenda = new DayAgenda(new DateTime(now.Year, now.Month, now.Day).AddDays(2), wh, bookings);
@@ -218,21 +219,22 @@ namespace DomainModel_Tests.BE_TEsts.Schedule
         [Test]
         public void Can_Remove_Booking_With_Given_Id()
         {
-            WorkingHours wh = new WorkingHours(new Time(8, 0), new Time(15, 25),
+            DayWorkingHours wh = new DayWorkingHours(new Time(8, 0), new Time(15, 25),
                  new Time(11, 30), new TimeSpan(0, 0, 30, 0));
             DateTime now = System.DateTime.Now;
+            DateTime twoDaysFromNow = now.AddDays(2);
             List<Booking> bookings = new List<Booking>
             {
                 new Booking() {  Id = 1,
                                 Treatments = new List<Treatment>()
                 {                    new Treatment { Duration = new TimeSpan(0, 0, 50, 0)},
                                      new Treatment {Duration = new TimeSpan(0, 1, 15, 0)}
-                },              DateTime = new DateTime(now.Year,now.Month,now.Day+2,9,0,0) },
+                },              DateTime = new DateTime(twoDaysFromNow.Year,twoDaysFromNow.Month,twoDaysFromNow.Day,9,0,0) },
                 new Booking() {Id =2,
                                 Treatments = new List<Treatment>
                 {                       new Treatment {Duration = new TimeSpan(0, 0, 45, 0)},
                                         new Treatment { Duration = new TimeSpan(0, 1, 0, 0) }},
-                                DateTime = new DateTime(now.Year, now.Month,now.Day+2, 12, 30, 0)}
+                                DateTime = new DateTime(twoDaysFromNow.Year,twoDaysFromNow.Month,twoDaysFromNow.Day, 12, 30, 0)}
             };
 
             DayAgenda agenda = new DayAgenda(new DateTime(now.Year, now.Month, now.Day).AddDays(2), wh, bookings);
@@ -249,16 +251,17 @@ namespace DomainModel_Tests.BE_TEsts.Schedule
         [ExpectedException(typeof(OperationCanceledException))]
         public void Can_Not_Remove_Booking_24hours_Before()
         {
-            WorkingHours wh = new WorkingHours(new Time(8, 0), new Time(15, 25),
+            DayWorkingHours wh = new DayWorkingHours(new Time(8, 0), new Time(15, 25),
                new Time(11, 30), new TimeSpan(0, 0, 30, 0));
             DateTime now = DateTime.Now;
+            DateTime oneDayFromNow = now.AddDays(1);
             List<Booking> bookings = new List<Booking>
             {
                 new Booking() {  Id = 1,
                                 Treatments = new List<Treatment>()
                 {                    new Treatment { Duration = new TimeSpan(0, 0, 50, 0)},
                                      new Treatment {Duration = new TimeSpan(0, 1, 15, 0)}
-                },              DateTime = new DateTime(now.Year,now.Month,now.Day+1,9,0,0) },
+                },              DateTime = new DateTime(oneDayFromNow.Year,oneDayFromNow.Month,oneDayFromNow.Day,9,0,0) },
                 new Booking() {Id =2,
                                 Treatments = new List<Treatment>
                 {                       new Treatment {Duration = new TimeSpan(0, 0, 45, 0)},

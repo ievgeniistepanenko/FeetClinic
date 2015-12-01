@@ -7,12 +7,14 @@ namespace DomainModel.BE.Schedule
 {
     public class DayAgenda : IDayAgenda
     {
+        private int Id { get; }
         private readonly int timeSlotDurationMinute = 15; //min
         public DateTime Date { get; }
         public List<Booking> Bookings { get; }
-        public List<ITimeSlot> TimeSlots { get; } 
+        public List<ITimeSlot> TimeSlots { get; }
+        private int YearSchedulerId;
 
-        public DayAgenda(DateTime date, IWorkingHours wh,List<Booking> bookings = null  )
+        public DayAgenda(DateTime date, IDayWorkingHours wh,List<Booking> bookings = null  )
         {
 
             Date = date.Date;
@@ -128,17 +130,17 @@ namespace DomainModel.BE.Schedule
             timeSlots.AddRange(TimeSlots.Where(ts => ts.IsAvailable));
             return timeSlots;
         }
-        private List<ITimeSlot> CreateTimeSlots(IWorkingHours workingHours,int slotDurationInMin)
+        private List<ITimeSlot> CreateTimeSlots(IDayWorkingHours dayWorkingHours,int slotDurationInMin)
         {
             List<ITimeSlot> timeSlots = new List<ITimeSlot>();
-            List<ITimeSlot> whTimeSlots = workingHours.GetWorkingHours();
+            List<ITimeSlot> whTimeSlots = dayWorkingHours.GetWorkingHours();
             whTimeSlots.Sort((ts1, ts2) => ts1.StartTime.CompareTo(ts2.StartTime));
 
             Time firstSlotTime = whTimeSlots[0].StartTime;
             TimeSpan timeSlotDuration = new TimeSpan(0,slotDurationInMin,0);
 
             ITimeSlot slot = new TimeSlot(1,firstSlotTime,timeSlotDuration,true);  // first timeslot
-            int amountOfTimeSlots = slot.GetSlotsAmount(workingHours.GetWorkDayDuration());
+            int amountOfTimeSlots = slot.GetSlotsAmount(dayWorkingHours.GetWorkDayDuration());
             if (amountOfTimeSlots > 0)
             {
                 timeSlots.Add(slot);

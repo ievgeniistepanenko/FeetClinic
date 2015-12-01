@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DomainModel.Interfaces
 {
-    public interface IWorkingHours
+    public interface IDayWorkingHours
     {
         List<ITimeSlot> GetWorkingHours();
         TimeSpan GetWorkDayDuration();

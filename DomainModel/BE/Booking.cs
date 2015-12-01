@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using DomainModel.BE.Customer;
 
 namespace DomainModel.BE
 {

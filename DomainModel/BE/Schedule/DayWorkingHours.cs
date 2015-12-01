@@ -4,14 +4,16 @@ using DomainModel.Interfaces;
 
 namespace DomainModel.BE.Schedule
 {
-    public class WorkingHours : IWorkingHours
+    public class DayWorkingHours : IDayWorkingHours
     {
+        public int DayOfWeek { get; set; }
         public Time StartTime { get; }
         public Time EndTime { get; }
         public Time StartLunch { get; }
         public TimeSpan LunchDuration { get; }
+        
 
-        public WorkingHours(Time startTime, Time endTime, Time startLunch, TimeSpan lunchDuration)
+        public DayWorkingHours(Time startTime, Time endTime, Time startLunch, TimeSpan lunchDuration)
         {
             StartTime = startTime;
             EndTime = endTime;

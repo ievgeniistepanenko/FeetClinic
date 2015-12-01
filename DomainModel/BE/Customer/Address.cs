@@ -3,6 +3,7 @@
     public class Address
 
     {
+        public int Id;
         public string StreetName { get; set; }
 
         public string StreetNumber { get; set; }

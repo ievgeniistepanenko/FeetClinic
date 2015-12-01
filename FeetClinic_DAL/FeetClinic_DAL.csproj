@@ -70,12 +70,18 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Abstarct\RepositoryContainer.cs" />
-    <Compile Include="Conrete\MainRepository.cs" />
+    <Compile Include="Conrete\DALFacade.cs" />
+    <Compile Include="Conrete\Database.cs" />
     <Compile Include="Conrete\Repository.cs" />
     <Compile Include="Abstarct\IRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\DomainModel\DomainModel.csproj">
+      <Project>{3010f794-238f-4f12-a793-bcef010fb83c}</Project>
+      <Name>DomainModel</Name>
+    </ProjectReference>
+  </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />

@@ -4,15 +4,14 @@ using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using FeetClinic_DAL.Abstarct;
 
 namespace FeetClinic_DAL.Conrete
 {
-    public class MainRepository:RepositoryContainer<DbContext>
+    public  class Database : DbContext
     {
-        public MainRepository()
+        public Database() : base("FeetClinicDB")
         {
+            Configuration.ProxyCreationEnabled = false;
         }
-
     }
 }

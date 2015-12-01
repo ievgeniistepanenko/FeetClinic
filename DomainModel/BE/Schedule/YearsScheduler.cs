@@ -3,21 +3,39 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using DomainModel.BLL;
+using DomainModel.BLL.Interfaces;
 using DomainModel.Interfaces;
 
 namespace DomainModel.BE.Schedule
 {
     public class YearsScheduler : IYearsScheduler
     {
-        public int Year;
+        private int TherapistId;
+        public int Year { get; }
         private List<IMonthScheduler> monthSchedulers;
-        private List<DateTime> Holidays;
-        private List<DateTime> WorkingDays; 
-         
+        private readonly List<DateTime> Holidays;
+        private readonly List<DateTime> WorkingDays;
+        private List<DayAgenda> dayAgendas;
+        private List<DayWorkingHours> workingHours;
+
+        
+        public YearsScheduler(int year)
+        {
+        }
+
+
         public IMonthScheduler GetMonthScheduler(int month)
         {
             ValidateMonth(month);
-            return monthSchedulers[month - 1];
+            //IMonthScheduler monthScheduler = 
+            //    new MonthScheduler(month,
+            //                       GetDaysForMonth(month, WorkingDays),
+            //                       GetDaysForMonth(month, Holidays),
+            //                       _agendaManager.GetAgendas( GetDaysForMonth(month, WorkingDays)) );
+
+            //return monthScheduler;
+            return monthSchedulers.Find(sc => sc.Month == month);
         }
 
         private static void ValidateMonth(int month)
@@ -107,5 +125,42 @@ namespace DomainModel.BE.Schedule
         {
             ValidateYear(date,date);
         }
+
+        private List<DateTime> GetDaysForMonth(int month, List<DateTime> days)
+        {
+            List<DateTime> daysForMonth = new List<DateTime>();
+            daysForMonth.AddRange(   days.Where( date => date.Month == month));
+            return daysForMonth;
+        }
+
+        private List<DateTime> GetDaysExcept (List<DateTime> dates, int year )
+        {
+            List<DateTime> days = new List<DateTime>();
+            int daysInYear = GetDaysInTheYear(year);
+            DateTime dateTime = new DateTime(year, 1, 1);
+            for (int i = 0; i < daysInYear; i++)
+            {
+                days.Add(dateTime);
+                dateTime = dateTime.AddDays(1);
+            }
+            return days.Except(dates).ToList();
+
+        }
+
+        private int GetDaysInTheYear(int year)
+        {
+            var thisYear = new DateTime(year,1,1);
+            var nextYear = new DateTime(year+1, 1, 1);
+            return (nextYear - thisYear).Days;
+        }
+        //public YearsScheduler(int year,List<DateTime> holidays,IWorkingHoursManager whManagerManager, 
+        //                    IAgendaManager agendaManager)
+        //{
+        //    Year = year;
+        //    Holidays = holidays;
+        //    WorkingDays = GetDaysExcept(holidays,year);
+        //    _workingHoursManagerManager = whManagerManager;
+        //    _agendaManager = agendaManager;
+        //}
     }
 }

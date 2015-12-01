@@ -8,6 +8,7 @@ namespace DomainModel.Interfaces
 {
     public interface IYearsScheduler
     {
+        int Year { get; }
         IMonthScheduler GetMonthScheduler(int month);
         List<DateTime> GetAllWorkingDays(DateTime startDate, DateTime endDate);
         List<DateTime> GetAllHolidaygDays(DateTime startDate, DateTime endDate);

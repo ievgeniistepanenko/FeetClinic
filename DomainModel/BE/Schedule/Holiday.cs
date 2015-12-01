@@ -3,11 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using DomainModel.Interfaces;
 
-namespace DomainModel_Tests.BE_TEsts.Schedule
+namespace DomainModel.BE.Schedule
 {
-    public class YearScheduler_Tests 
+    public class Holiday
     {
+        private int DayOfYear;
+        private int yearsSchedulerId;
+
     }
 }

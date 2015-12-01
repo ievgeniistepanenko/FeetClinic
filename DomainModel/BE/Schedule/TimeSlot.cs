@@ -32,9 +32,9 @@ namespace DomainModel.BE.Schedule
             return count;
         }
 
-        public int GetSlotsAmount(IWorkingHours workingHours)
+        public int GetSlotsAmount(IDayWorkingHours dayWorkingHours)
         {
-            List<ITimeSlot> timeSlots = workingHours.GetWorkingHours();
+            List<ITimeSlot> timeSlots = dayWorkingHours.GetWorkingHours();
             Time minTime = timeSlots.Min(ts => ts.StartTime);
             Time maxTime = timeSlots.Max(ts => ts.StartTime.Add( ts.Duration ) );
             return GetSlotsAmount(minTime.GetAbsoluteDifference(maxTime));
