@@ -21,7 +21,5 @@ namespace BLL.Managers
             return Repository;
             
         }
-
-      
     }
 }

@@ -10,13 +10,13 @@ using DomainModel.BE;
 
 namespace FeetClinic_Rest.Controllers
 {
-    public class AddressesController : AbstractApiController<Address>
+    public class AddressesController : AbstractApiController<Address, AddressManager>
     {
         public AddressesController()
         {
             Manager = BllFacade.AddressManager;
         }
-        protected override AbstractManager<Address> GetManager()
+        protected override AddressManager GetManager()
         {
             return Manager;
         }
@@ -53,8 +53,6 @@ namespace FeetClinic_Rest.Controllers
         {
             return DeleteOne(id);
         }
-
-        
     }
 }
 
