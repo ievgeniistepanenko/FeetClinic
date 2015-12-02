@@ -4,6 +4,8 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using BLL;
+using BLL.Managers;
 using DomainModel.BE;
 using DomainModel.BLL.Interfaces;
 using FeetClinic_DAL.Abstarct;
@@ -14,12 +16,16 @@ namespace FeetClinic_Rest.Controllers
     public abstract class AbstractApiController<TEntity> : ApiController where TEntity: class, IEntity
     {
 
-        protected DalFacade Facade;
-        protected IRepository<TEntity> Repository;
+        protected BllFacade BllFacade;
+        protected AbstractManager<TEntity> Manager; 
+
         protected AbstractApiController()
         {
-            Facade = new DalFacade();
+            BllFacade = new BllFacade();
+            
         }
+
+        protected abstract AbstractManager<TEntity> GetManager();
 
         protected virtual HttpResponseMessage GetAll()
         {
@@ -30,7 +36,7 @@ namespace FeetClinic_Rest.Controllers
         {
             try
             {
-                IEnumerable<TEntity> entities = Repository.GetAll(null,null,properties);
+                IEnumerable<TEntity> entities = Manager.GetAll(properties); 
                 if (entities.Any())
                 {
                     return Request.CreateResponse(HttpStatusCode.OK, entities);
@@ -51,7 +57,7 @@ namespace FeetClinic_Rest.Controllers
         {
             try
             {
-                TEntity entity = Repository.GetOne(a => a.Id == id,properties);
+                TEntity entity = Manager.GetOne(id,properties);
                 if (entity == null)
                 {
                     return Request.CreateResponse(HttpStatusCode.NotFound, "Not found");
@@ -77,8 +83,7 @@ namespace FeetClinic_Rest.Controllers
 
             try
             {
-                Repository.Update(entity);
-                Facade.Save();
+                Manager.Update(entity);
             }
             catch (Exception ex)
             {
@@ -98,8 +103,7 @@ namespace FeetClinic_Rest.Controllers
             }
             try
             {
-                entity = Repository.Create(entity);
-                Facade.Save();
+                entity = Manager.Create(entity);
                 var response = Request.CreateResponse(HttpStatusCode.Created, entity);
 
                 string uri = Url.Link("DefaultApi", new { id = entity.Id });
@@ -117,8 +121,7 @@ namespace FeetClinic_Rest.Controllers
         {
             try
             {
-                TEntity entity = Repository.Delete(id);
-                Facade.Save();
+                TEntity entity =  Manager.Delete(id);
                 return Request.CreateResponse(HttpStatusCode.OK, entity);
             }
             catch (Exception ex)
@@ -128,12 +131,12 @@ namespace FeetClinic_Rest.Controllers
         }
         protected override void Dispose(bool disposing)
         {
-            Facade.Dispose();
+            Manager.Dispose();
             base.Dispose(disposing);
         }
         protected bool IsExists(int id)
         {
-            return Repository.Any(c => c.Id == id);
+            return Manager.Any(e => e.Id == id);
         }
 
     }

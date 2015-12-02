@@ -4,6 +4,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using BLL.Managers;
 using DomainModel.BE;
 
 namespace FeetClinic_Rest.Controllers
@@ -12,7 +13,11 @@ namespace FeetClinic_Rest.Controllers
     {
         public AddressesController()
         {
-            Repository = Facade.Addresses;
+            Manager = BllFacade.AddressManager;
+        }
+        protected override AbstractManager<Address> GetManager()
+        {
+            return Manager;
         }
 
         public HttpResponseMessage GetAddresses()
@@ -47,6 +52,8 @@ namespace FeetClinic_Rest.Controllers
         {
             return DeleteOne(id);
         }
+
+        
     }
 }
 

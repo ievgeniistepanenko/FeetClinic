@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{3010F794-238F-4F12-A793-BCEF010FB83C}</ProjectGuid>
+    <ProjectGuid>{B1DAF15C-48CC-46D1-848B-7315C33CBA05}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>DomainModel</RootNamespace>
-    <AssemblyName>DomainModel</AssemblyName>
+    <RootNamespace>BLL</RootNamespace>
+    <AssemblyName>BLL</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -30,11 +30,16 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="nunit.framework, Version=2.6.4.14350, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77, processorArchitecture=MSIL">
-      <HintPath>..\packages\NUnit.2.6.4\lib\nunit.framework.dll</HintPath>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -44,36 +49,24 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BE\Customer\Address.cs" />
-    <Compile Include="BE\Booking.cs" />
-    <Compile Include="BE\Customer\CustomerProfile.cs" />
-    <Compile Include="BE\Schedule\DayAgenda.cs" />
-    <Compile Include="BE\Schedule\Holiday.cs" />
-    <Compile Include="BE\Schedule\MonthScheduler.cs" />
-    <Compile Include="BE\Schedule\Time.cs" />
-    <Compile Include="BE\Schedule\WorkingHoursManager.cs" />
-    <Compile Include="BE\Schedule\YearsScheduler.cs" />
-    <Compile Include="BE\Schedule\TimeSlot.cs" />
-    <Compile Include="BE\Schedule\DayWorkingHours.cs" />
-    <Compile Include="BE\Therapist.cs" />
-    <Compile Include="BE\Treatment\Treatment.cs" />
-    <Compile Include="BE\Treatment\TreatmentType.cs" />
-    <Compile Include="BLL\AgendaManager.cs" />
-    <Compile Include="BLL\Interfaces\IAgendaManager.cs" />
-    <Compile Include="BLL\Interfaces\IEntity.cs" />
-    <Compile Include="Interfaces\IDayAgenda.cs" />
-    <Compile Include="Interfaces\IMonthScheduler.cs" />
-    <Compile Include="BLL\Interfaces\IWorkingHoursManager.cs" />
-    <Compile Include="Interfaces\IYearsScheduler.cs" />
-    <Compile Include="Interfaces\ITimeSlot.cs" />
-    <Compile Include="Interfaces\IDayWorkingHours.cs" />
+    <Compile Include="BllFacade.cs" />
+    <Compile Include="Managers\AbstractManager.cs" />
+    <Compile Include="Managers\AddressManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="packages.config" />
+    <ProjectReference Include="..\DomainModel\DomainModel.csproj">
+      <Project>{3010f794-238f-4f12-a793-bcef010fb83c}</Project>
+      <Name>DomainModel</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\FeetClinic_DAL\FeetClinic_DAL.csproj">
+      <Project>{d619e0d0-f874-4fbf-8e2a-a5523a4f7244}</Project>
+      <Name>FeetClinic_DAL</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="BLL\Concrete\" />
+    <None Include="App.config" />
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
