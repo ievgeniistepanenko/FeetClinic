@@ -1,8 +1,7 @@
-﻿using DomainModel.BLL.Interfaces;
-using System;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
+using DomainModel.BLL.Interfaces;
 
-namespace DomainModel.BE
+namespace DomainModel.BE.Customer
 {
     public class Address : IEntity
     {

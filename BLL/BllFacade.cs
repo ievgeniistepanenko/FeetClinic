@@ -11,5 +11,11 @@ namespace BLL
     {
         private AddressManager _addressManager;
         public AddressManager AddressManager => _addressManager ?? (_addressManager = new AddressManager());
+
+
+        private CustomerProfileManager _customerManager;
+
+        public CustomerProfileManager CustomerManager
+            => _customerManager ?? (_customerManager = new CustomerProfileManager());
     }
 }

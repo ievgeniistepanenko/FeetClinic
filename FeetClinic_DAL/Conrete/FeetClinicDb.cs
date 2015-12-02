@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using DomainModel.BE;
+using DomainModel.BE.Customer;
 
 namespace FeetClinic_DAL.Conrete
 {
@@ -16,6 +17,7 @@ namespace FeetClinic_DAL.Conrete
             Database.SetInitializer(new DbInitializer());
         }
         public DbSet<Address> Addresses { get; set; }
+        public DbSet<CustomerProfile> CustomerProfiles { get; set; } 
         //public DbSet<Treatment> Treatments { get; set; } 
     }
 }
