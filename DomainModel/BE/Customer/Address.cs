@@ -1,8 +1,7 @@
-﻿using DomainModel.BLL.Interfaces;
-using System;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
+using DomainModel.BLL.Interfaces;
 
-namespace DomainModel.BE
+namespace DomainModel.BE.Customer
 {
     public class Address : IEntity
     {
@@ -24,7 +23,7 @@ namespace DomainModel.BE
         public string City { get; set; }
 
         [Required]
-        [MinLength(4),MaxLength(4)]
+        [Range(1000,9999)]
         [DataType(DataType.PostalCode)]
         public int ZipCode { get; set; }
     }
