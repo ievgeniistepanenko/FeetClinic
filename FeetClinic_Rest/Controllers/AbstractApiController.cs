@@ -13,11 +13,13 @@ using FeetClinic_DAL.Conrete;
 
 namespace FeetClinic_Rest.Controllers
 {
-    public abstract class AbstractApiController<TEntity> : ApiController where TEntity: class, IEntity
+    public abstract class AbstractApiController<TEntity,TManager> : ApiController 
+        where TEntity: class, IEntity 
+        where TManager : AbstractManager<TEntity>
     {
 
         protected BllFacade BllFacade;
-        protected AbstractManager<TEntity> Manager; 
+        protected TManager Manager; 
 
         protected AbstractApiController()
         {
@@ -25,7 +27,7 @@ namespace FeetClinic_Rest.Controllers
             
         }
 
-        protected abstract AbstractManager<TEntity> GetManager();
+        protected abstract TManager GetManager();
 
         protected virtual HttpResponseMessage GetAll()
         {
