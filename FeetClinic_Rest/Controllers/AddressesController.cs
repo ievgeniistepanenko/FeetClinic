@@ -7,6 +7,7 @@ using System.Web.Http;
 using BLL.Managers;
 using DomainModel.BE;
 
+
 namespace FeetClinic_Rest.Controllers
 {
     public class AddressesController : AbstractApiController<Address>

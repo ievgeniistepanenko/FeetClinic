@@ -19,7 +19,9 @@ namespace BLL.Managers
         protected override IRepository<Address> GetRepository()
         {
             return Repository;
+            
         }
 
+      
     }
 }
