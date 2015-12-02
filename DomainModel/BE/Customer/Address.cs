@@ -11,7 +11,7 @@ namespace DomainModel.BE
 
         [Required]
         [MinLength(4),MaxLength(30)]
-        [DataType(DataType.Text)]
+        
         public string StreetName { get; set; }
 
         [Required]
@@ -20,11 +20,11 @@ namespace DomainModel.BE
 
         [Required]
         [MaxLength(30)]
-        [DataType(DataType.Text)]
+       
         public string City { get; set; }
 
         [Required]
-        [MinLength(4),MaxLength(4)]
+        [Range(1000,9999)]
         [DataType(DataType.PostalCode)]
         public int ZipCode { get; set; }
     }
