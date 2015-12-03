@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.Net.Mime;
 using DomainModel.BLL.Interfaces;
 
 namespace DomainModel.BE.Customer
@@ -19,7 +20,7 @@ namespace DomainModel.BE.Customer
 
         [Required]
         [MaxLength(30)]
-       
+        [RegularExpression(pattern:" ")]
         public string City { get; set; }
 
         [Required]
