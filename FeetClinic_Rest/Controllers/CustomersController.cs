@@ -9,9 +9,9 @@ using DomainModel.BE.Customer;
 
 namespace FeetClinic_Rest.Controllers
 {
-    public class CustomerController : AbstractApiController<CustomerProfile,CustomerProfileManager>
+    public class CustomersController : AbstractApiController<CustomerProfile,CustomerProfileManager>
     {
-        public CustomerController()
+        public CustomersController()
         {
             Manager = BllFacade.CustomerManager;
         }
