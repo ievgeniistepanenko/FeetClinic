@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.Net.Mime;
 using DomainModel.BLL.Interfaces;
 
 namespace DomainModel.BE.Customer
@@ -10,7 +11,7 @@ namespace DomainModel.BE.Customer
 
         [Required]
         [MinLength(4),MaxLength(30)]
-        [DataType(DataType.Text)]
+        
         public string StreetName { get; set; }
 
         [Required]
@@ -19,7 +20,7 @@ namespace DomainModel.BE.Customer
 
         [Required]
         [MaxLength(30)]
-        [DataType(DataType.Text)]
+        [RegularExpression(pattern:" ")]
         public string City { get; set; }
 
         [Required]
