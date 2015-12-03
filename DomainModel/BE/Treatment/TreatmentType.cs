@@ -1,17 +1,13 @@
 ﻿using System.Collections.Generic;
+using DomainModel.BLL.Interfaces;
 
 namespace DomainModel.BE
 {
-    public class TreatmentType
+    public class TreatmentType : IEntity
     {
         public int Id { get; set; }
 
         public string Name { get; set; }
-        private List<Treatment> treatments;
-
-        public TreatmentType()
-        {
-            treatments = new List<Treatment>();
-        }
+        public virtual List<Treatment> Treatments { get; set; }
     }
 }

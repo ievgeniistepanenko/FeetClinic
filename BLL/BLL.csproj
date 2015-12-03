@@ -53,6 +53,7 @@
     <Compile Include="Managers\AbstractManager.cs" />
     <Compile Include="Managers\AddressManager.cs" />
     <Compile Include="Managers\CustomerProfileManager.cs" />
+    <Compile Include="Managers\TreatmentTypesManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

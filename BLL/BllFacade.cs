@@ -12,6 +12,10 @@ namespace BLL
         private AddressManager _addressManager;
         public AddressManager AddressManager => _addressManager ?? (_addressManager = new AddressManager());
 
+        private TreatmentTypesManager _treatmentTypesManager;
+
+        public TreatmentTypesManager TreatmentTypesManager
+            => _treatmentTypesManager ?? (_treatmentTypesManager = new TreatmentTypesManager());
 
         private CustomerProfileManager _customerManager;
 

@@ -16,13 +16,6 @@ namespace DomainModel.BE.Customer
         public string LastName { get; set; }
         public virtual Address Address { get; set; }
         public virtual List<Booking> Bookings { get; set; }
-
-        //public CustomerProfile()
-        //{
-        //    Address = new Address();
-        //    Bookings = new List<Booking>();
-        //}
-
-    }
+        }
 
 }
