@@ -21,12 +21,15 @@ namespace FeetClinic_DAL.Conrete
         private Repository<FeetClinicDb, Address> _addresses;
         private Repository<FeetClinicDb, CustomerProfile> _customerProfiles;
         private Repository<FeetClinicDb, Booking> _bookings;
-        //public Repository<FeetClinicDb, Therapist> Therapists;
+        private Repository<FeetClinicDb, Therapist> _therapists;
         private Repository<FeetClinicDb, Treatment> _treatments;
         private Repository<FeetClinicDb, TreatmentType> _treatmentTypes;
         //public Repository<FeetClinicDb, DayAgenda> agendas;
         //public Repository<FeetClinicDb, YearsScheduler> yearsScheduler;
         //public Repository<FeetClinicDb, DayWorkingHours> workingHours;
+
+        public Repository<FeetClinicDb, Therapist> Therapist
+            => _therapists ?? (_therapists = new Repository<FeetClinicDb, Therapist>(Context));
 
         public Repository<FeetClinicDb, TreatmentType> TreamentTypes
             => _treatmentTypes ?? (_treatmentTypes = new Repository<FeetClinicDb, TreatmentType>(Context)); 
