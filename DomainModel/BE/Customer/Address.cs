@@ -20,7 +20,7 @@ namespace DomainModel.BE.Customer
 
         [Required]
         [MaxLength(30)]
-        [RegularExpression(pattern:" ")]
+        
         public string City { get; set; }
 
         [Required]
