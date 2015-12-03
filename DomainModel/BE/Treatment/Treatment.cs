@@ -22,7 +22,10 @@ namespace DomainModel.BE
         [Required]
         public TimeSpan Duration { get; set; }
         [Required]
-        public TreatmentType TreatmentType { get; set; }
-     
+        public virtual TreatmentType TreatmentType { get; set; }
+        [Required]
+        public virtual List<Therapist> Therapists { get; set; }
+        public virtual  List<Booking> Bookings { get; set; } 
+
     }
 }

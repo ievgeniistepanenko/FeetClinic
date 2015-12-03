@@ -10,6 +10,15 @@ namespace BLL
 {
     public class BllFacade
     {
+        private DayAgendasManager _dayAgendasManager;
+
+        public DayAgendasManager DayAgendasManager
+            => _dayAgendasManager ?? (_dayAgendasManager = new DayAgendasManager());
+
+        private BookingsManager _bookingsManager;
+        public BookingsManager BookingsManager
+            => _bookingsManager ?? (_bookingsManager = new BookingsManager());
+
         private TreatmentsManager _treatmentManager;
         public TreatmentsManager TreatmentsManager =>
             _treatmentManager ?? (_treatmentManager = new TreatmentsManager());

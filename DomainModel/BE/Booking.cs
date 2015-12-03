@@ -1,28 +1,27 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using DomainModel.BE.Customer;
+using DomainModel.BLL.Interfaces;
 
 namespace DomainModel.BE
 {
-   public class Booking
+   public class Booking : IEntity
     {
+        [Key]
        public int Id { get; set; }
-
+        [Required]
        public DateTime BookingDate { get; set; }
-
+        [Required]
        public DateTime DateTime { get; set; }
-
+        [Required]
        public CustomerProfile CustomerProfile { get; set; }
-
+        [Required]
        public List<Treatment> Treatments { get; set; }
-
+        [Required]
        public Therapist Therapist { get; set; }
 
-       public Booking()
-       {
-            Treatments = new List<Treatment>();
-       }
-
+      
        public TimeSpan GetDuration()
        {
            TimeSpan time = new TimeSpan(0,0,0,0);

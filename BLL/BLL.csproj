@@ -52,7 +52,9 @@
     <Compile Include="BllFacade.cs" />
     <Compile Include="Managers\AbstractManager.cs" />
     <Compile Include="Managers\AddressManager.cs" />
+    <Compile Include="Managers\BookingsManager.cs" />
     <Compile Include="Managers\CustomerProfileManager.cs" />
+    <Compile Include="Managers\DayAgendasManager.cs" />
     <Compile Include="Managers\TherapistsManager.cs" />
     <Compile Include="Managers\TreatmentsManager.cs" />
     <Compile Include="Managers\TreatmentTypesManager.cs" />

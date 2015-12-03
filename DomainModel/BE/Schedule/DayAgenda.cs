@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using DomainModel.BLL.Interfaces;
 using DomainModel.Interfaces;
 
 namespace DomainModel.BE.Schedule
 {
-    public class DayAgenda : IDayAgenda
+    public class DayAgenda : IDayAgenda, IEntity
     {
         private int Id { get; }
         private readonly int timeSlotDurationMinute = 15; //min
