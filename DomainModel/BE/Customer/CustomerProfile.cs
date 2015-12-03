@@ -17,11 +17,11 @@ namespace DomainModel.BE.Customer
         public virtual Address Address { get; set; }
         public virtual List<Booking> Bookings { get; set; }
 
-        public CustomerProfile()
-        {
-            Address = new Address();
-            Bookings = new List<Booking>();
-        }
+        //public CustomerProfile()
+        //{
+        //    Address = new Address();
+        //    Bookings = new List<Booking>();
+        //}
 
     }
 
