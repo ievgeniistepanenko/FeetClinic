@@ -1,5 +1,4 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using System.Net.Mime;
 using DomainModel.BLL.Interfaces;
 
 namespace DomainModel.BE.Customer
