@@ -15,6 +15,7 @@ namespace BLL.Managers
     {
         private DayWorkingHoursManager _whManager;
         private DayAgendasManager _dayAgendasManager;
+        private HolidayManager _holidayManager;
         public BookingsManager()
         {
             Repository = Facade.Bookings;
@@ -59,6 +60,7 @@ namespace BLL.Managers
 
         public override Booking Create(Booking entity)
         {
+            _holidayManager = new HolidayManager();
             _whManager = new DayWorkingHoursManager();
             _dayAgendasManager = new DayAgendasManager();
             DayWorkingHours wh = _whManager.GetWorkingHours(entity.TherapistId, 

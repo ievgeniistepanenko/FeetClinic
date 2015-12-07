@@ -58,6 +58,7 @@
     <Compile Include="Managers\CustomerProfileManager.cs" />
     <Compile Include="Managers\DayAgendasManager.cs" />
     <Compile Include="Managers\DayWorkingHoursManager.cs" />
+    <Compile Include="Managers\HolidayManager.cs" />
     <Compile Include="Managers\TherapistsManager.cs" />
     <Compile Include="Managers\TreatmentsManager.cs" />
     <Compile Include="Managers\TreatmentTypesManager.cs" />

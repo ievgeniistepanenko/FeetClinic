@@ -10,18 +10,18 @@ namespace BE.BE.Treatments
     {
         [Key]
         public int Id { get; set; }
-        [Required]
+        //[Required]
         public string Name { get; set; }
-        [Required]
+        //[Required]
         public string Description { get; set; }
-        [Required]
-        [DataType(DataType.Currency)]
+        //[Required]
+        //[DataType(DataType.Currency)]
         public decimal Price { get; set; }
-        [Required]
+        //[Required]
         public TimeSpan Duration { get; set; }
-        [Required]
+        //[Required]
         public virtual TreatmentType TreatmentType { get; set; }
-        [Required]
+        //[Required]
         public virtual List<Therapist> Therapists { get; set; }
         public virtual  List<Booking> Bookings { get; set; } 
 

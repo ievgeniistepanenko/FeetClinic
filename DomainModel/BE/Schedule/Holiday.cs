@@ -1,10 +1,12 @@
 ﻿using System;
+using BE.Interfaces;
 
 namespace BE.BE.Schedule
 {
-    public class Holiday
+    public class Holiday : IEntity
     {
         public int Id { get; set; }
+        public int TherapistId { get; set; }
         private DateTime _startDate;
         public DateTime StartDate
         { get { return _startDate; }
