@@ -10,9 +10,9 @@ namespace BE.BE
     {
         public int Id { get; set; }
 
-        //[Required]
+        [Required]
         public string Name { get; set; }
-        //[Required]
+        [Required]
         public string Description { get; set; }
         public virtual List<Holiday> Holidays { get; set; }
         public virtual List<DayWorkingHours> WorkingHourses { get; set; }

@@ -11,17 +11,17 @@ namespace BE.BE
     {
        [Key]
        public int Id { get; set; }
-       //[Required]
-       public DateTime BookingDate { get; set; }
-       //[Required]
-       public DateTime DateTime { get; set; }
-       //[Required]
-       public CustomerProfile CustomerProfile { get; set; }
+        [Required]
+        public DateTime BookingDate { get; set; }
+        [Required]
+        public DateTime DateTime { get; set; }
+        [Required]
+        public CustomerProfile CustomerProfile { get; set; }
        public int CustomerProfileId { get; set; }
-       //[Required]
-       public List<Treatment> Treatments { get; set; }
-        //[Required]
-       public Therapist Therapist { get; set; }
+        [Required]
+        public List<Treatment> Treatments { get; set; }
+        [Required]
+        public Therapist Therapist { get; set; }
        public int TherapistId { get; set; }
 
       

@@ -17,9 +17,8 @@ namespace BE.BE.Schedule
         [Key, Column(Order = 8)]
         public int TherapistId { get; set; }
 
-        public DayWorkingHours(int day,Time startTime, Time endTime, Time startLunch, TimeSpan lunchDuration)
+        public DayWorkingHours(Time startTime, Time endTime, Time startLunch, TimeSpan lunchDuration)
         {
-            DayOfWeek = day;
             StartTime = startTime;
             EndTime = endTime;
             StartLunch = startLunch;

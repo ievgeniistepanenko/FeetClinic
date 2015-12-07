@@ -20,7 +20,9 @@ namespace FeetClinic_DAL.Conrete
             CustomerProfile customer = new CustomerProfile
             { Address = address, FirstName = "Lars",Id = 1, LastName = "Larsen" };
 
-            DayWorkingHours working = new DayWorkingHours(2,new Time(8,0),new Time(15,0),new Time(11,30),new TimeSpan(0,0,30,0));
+            DayWorkingHours working = new DayWorkingHours(new Time(8,0),new Time(15,0),new Time(11,30),new TimeSpan(0,0,30,0));
+
+            working.DayOfWeek = 2;
 
             List<DayWorkingHours> listWh = new List<DayWorkingHours>();
             listWh.Add(working);
@@ -28,17 +30,25 @@ namespace FeetClinic_DAL.Conrete
             Therapist therapist = new Therapist
             {
                 Id = 1,
-                Description = " ",
+                Description = "Pisse træls ",
                 Name = "andy",
                 WorkingHourses = listWh
             };
 
+            TreatmentType treatment = new TreatmentType
+            {
+                Id = 1,
+                Name = "behandling",
+               
+            };
+
             Treatment treatment1 = new Treatment
             {
-                Description = " ",
+                Description = "hår ",
                 Name = "first",
                 Duration = new TimeSpan(0, 45, 0),
                 Price = 300,
+                TreatmentType = treatment,
                 Therapists = new List<Therapist> { therapist}
             };
 
