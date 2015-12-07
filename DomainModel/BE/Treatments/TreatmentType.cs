@@ -1,8 +1,9 @@
 ﻿using System.Collections.Generic;
-using DomainModel.Interfaces;
+using BE.Interfaces;
 
-namespace DomainModel.BE.Treatments
+namespace BE.BE.Treatments
 {
+
     public class TreatmentType : IEntity
     {
         public int Id { get; set; }

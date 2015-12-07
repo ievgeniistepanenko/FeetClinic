@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using DomainModel.BE.Customer;
-using DomainModel.BE.Treatments;
-using DomainModel.Interfaces;
+using BE.BE.Customer;
+using BE.BE.Treatments;
+using BE.Interfaces;
 
-namespace DomainModel.BE
+namespace BE.BE
 {
    public class Booking : IEntity
     {
@@ -20,7 +20,7 @@ namespace DomainModel.BE
        public int CustomerProfileId { get; set; }
        [Required]
        public List<Treatment> Treatments { get; set; }
-       [Required]
+        [Required]
        public Therapist Therapist { get; set; }
        public int TherapistId { get; set; }
 

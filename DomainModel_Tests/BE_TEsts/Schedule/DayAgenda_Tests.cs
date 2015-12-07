@@ -3,11 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using DomainModel.BE;
-using DomainModel.BE.Schedule;
-using DomainModel.BE.Treatments;
-using DomainModel.Interfaces;
-using Moq;
+using BE.BE;
+using BE.BE.Schedule;
+using BE.BE.Treatments;
+using BE.Interfaces;
 using NUnit.Framework;
 
 namespace DomainModel_Tests.BE_TEsts.Schedule

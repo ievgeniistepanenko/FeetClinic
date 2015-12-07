@@ -2,10 +2,9 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Threading;
-using DomainModel.Interfaces;
+using BE.Interfaces;
 
-namespace DomainModel.BE.Schedule
+namespace BE.BE.Schedule
 {
     public class DayWorkingHours : IDayWorkingHours
     {

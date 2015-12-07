@@ -1,8 +1,6 @@
 ﻿using System;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 
-namespace DomainModel.BE.Schedule
+namespace BE.BE.Schedule
 {
     public class Time : IComparable<Time>
     {

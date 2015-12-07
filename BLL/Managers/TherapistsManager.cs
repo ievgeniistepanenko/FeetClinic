@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using BE.BE;
 using DomainModel.BE;
 using FeetClinic_DAL.Abstarct;
 

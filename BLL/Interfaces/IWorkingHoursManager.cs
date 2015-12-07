@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using DomainModel.Interfaces;
+using BE.Interfaces;
 
 namespace DomainModel.BLL.Interfaces
 {

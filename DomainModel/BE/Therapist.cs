@@ -1,14 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using DomainModel.BE.Schedule;
-using DomainModel.BE.Treatments;
-using DomainModel.Interfaces;
+using BE.BE.Schedule;
+using BE.BE.Treatments;
+using BE.Interfaces;
 
-namespace DomainModel.BE
+namespace BE.BE
 {
     public class Therapist : IEntity
     {
@@ -18,9 +14,10 @@ namespace DomainModel.BE
         public string Name { get; set; }
         [Required]
         public string Description { get; set; }
-        public virtual  List<Treatment> Treatments { get; set; }
         public virtual List<Holiday> Holidays { get; set; }
         public virtual List<DayWorkingHours> WorkingHourses { get; set; }
+        
+        public virtual  List<Treatment> Treatments { get; set; } 
 
     }
 }

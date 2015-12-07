@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using DomainModel.BE.Schedule;
+using BE.BE.Schedule;
 using NUnit.Framework;
 
 namespace DomainModel_Tests.BE_TEsts.Schedule

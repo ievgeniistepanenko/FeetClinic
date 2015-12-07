@@ -5,8 +5,7 @@ using System.Data.Entity.ModelConfiguration.Conventions;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using DomainModel.BE;
-using DomainModel.BE.Customer;
+using BE.BE.Customer;
 
 namespace FeetClinic_DAL.Conrete
 {

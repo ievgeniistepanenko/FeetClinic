@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using DomainModel.Interfaces;
+using BE.Interfaces;
 
-namespace DomainModel.BE.Customer
+namespace BE.BE.Customer
 {
     public class Address : IEntity
     {

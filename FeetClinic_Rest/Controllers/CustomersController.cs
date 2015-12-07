@@ -4,8 +4,8 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using BE.BE.Customer;
 using BLL.Managers;
-using DomainModel.BE.Customer;
 
 namespace FeetClinic_Rest.Controllers
 {

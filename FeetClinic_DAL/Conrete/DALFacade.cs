@@ -4,10 +4,10 @@ using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using DomainModel.BE;
-using DomainModel.BE.Customer;
-using DomainModel.BE.Schedule;
-using DomainModel.BE.Treatments;
+using BE.BE;
+using BE.BE.Customer;
+using BE.BE.Schedule;
+using BE.BE.Treatments;
 using FeetClinic_DAL.Abstarct;
 
 namespace FeetClinic_DAL.Conrete

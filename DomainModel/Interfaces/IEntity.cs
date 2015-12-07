@@ -1,4 +1,4 @@
-﻿namespace DomainModel.Interfaces
+﻿namespace BE.Interfaces
 {
     public interface IEntity
     {

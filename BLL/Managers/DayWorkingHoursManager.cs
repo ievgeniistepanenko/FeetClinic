@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using BE.BE.Schedule;
 using DomainModel.BE.Schedule;
 using FeetClinic_DAL.Abstarct;
 using FeetClinic_DAL.Conrete;

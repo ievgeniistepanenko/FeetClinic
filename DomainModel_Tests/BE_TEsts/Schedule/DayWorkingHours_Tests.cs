@@ -1,5 +1,5 @@
 ﻿using System;
-using DomainModel.BE.Schedule;
+using BE.BE.Schedule;
 using NUnit.Core;
 using NUnit.Framework;
 
