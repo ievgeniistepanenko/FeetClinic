@@ -66,5 +66,7 @@ namespace DomainModel.BE.Schedule
         {
             return EndTime.GetAbsoluteDifference(StartTime);
         }
+
+        
     }
 }

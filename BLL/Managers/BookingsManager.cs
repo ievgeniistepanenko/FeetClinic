@@ -4,12 +4,16 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using DomainModel.BE;
+using DomainModel.BE.Schedule;
+using DomainModel.Interfaces;
 using FeetClinic_DAL.Abstarct;
 
 namespace BLL.Managers
 {
     public class BookingsManager : AbstractManager<Booking>
     {
+        private DayWorkingHoursManager _whManager;
+        private DayAgendasManager _dayAgendasManager;
         public BookingsManager()
         {
             Repository = Facade.Bookings;
@@ -49,17 +53,25 @@ namespace BLL.Managers
         public override Booking Update(Booking entity)
         {
 
-            return base.Update(entity);
+            throw new InvalidOperationException();
         }
 
         public override Booking Create(Booking entity)
         {
+            _whManager = new DayWorkingHoursManager();
+            _dayAgendasManager = new DayAgendasManager();
+            DayWorkingHours wh = _whManager.GetWorkingHours(entity.TherapistId, 
+                (int) entity.DateTime.DayOfWeek);
+
+            List<Booking> bookings = GetAllForTherapist(entity.TherapistId, entity.DateTime.DayOfYear,
+                entity.DateTime.Year).ToList();
+            DayAgenda dayAgenda =  _dayAgendasManager.GetDayAgenda(entity.DateTime,wh,bookings);
+            if (dayAgenda.IsAvailableForBooking(entity))
+
             return base.Create(entity);
+            throw new ArgumentException("This is no place for booking");
         }
 
-        public override Booking Delete(Booking entity)
-        {
-            return base.Delete(entity);
-        }
+        
     }
 }

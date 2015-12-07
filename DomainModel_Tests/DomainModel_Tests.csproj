@@ -75,9 +75,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\DomainModel\DomainModel.csproj">
+    <ProjectReference Include="..\DomainModel\BE.csproj">
       <Project>{3010f794-238f-4f12-a793-bcef010fb83c}</Project>
-      <Name>DomainModel</Name>
+      <Name>BE</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

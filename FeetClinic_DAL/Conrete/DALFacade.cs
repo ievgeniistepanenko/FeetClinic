@@ -25,6 +25,7 @@ namespace FeetClinic_DAL.Conrete
         private Repository<FeetClinicDb, Therapist> _therapists;
         private Repository<FeetClinicDb, Treatment> _treatments;
         private Repository<FeetClinicDb, TreatmentType> _treatmentTypes;
+        private Repository<FeetClinicDb, DayWorkingHours> _workingHours;
         //private Repository<FeetClinicDb, DayAgenda> _agendas;
         //public Repository<FeetClinicDb, YearsScheduler> yearsScheduler;
         //public Repository<FeetClinicDb, DayWorkingHours> workingHours;
@@ -32,6 +33,8 @@ namespace FeetClinic_DAL.Conrete
         //public Repository<FeetClinicDb, DayAgenda> DayAgenda
         //    => _agendas ?? (_agendas = new Repository<FeetClinicDb, DayAgenda>(Context)); 
 
+        public Repository<FeetClinicDb, DayWorkingHours> WorkingHours =>
+            _workingHours ?? (_workingHours = new Repository<FeetClinicDb, DayWorkingHours>(Context)); 
         public Repository<FeetClinicDb, Therapist> Therapist
             => _therapists ?? (_therapists = new Repository<FeetClinicDb, Therapist>(Context));
 

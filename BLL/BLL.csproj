@@ -57,6 +57,7 @@
     <Compile Include="Managers\BookingsManager.cs" />
     <Compile Include="Managers\CustomerProfileManager.cs" />
     <Compile Include="Managers\DayAgendasManager.cs" />
+    <Compile Include="Managers\DayWorkingHoursManager.cs" />
     <Compile Include="Managers\TherapistsManager.cs" />
     <Compile Include="Managers\TreatmentsManager.cs" />
     <Compile Include="Managers\TreatmentTypesManager.cs" />
@@ -64,9 +65,9 @@
     <Compile Include="WorkingHoursManager.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\DomainModel\DomainModel.csproj">
+    <ProjectReference Include="..\DomainModel\BE.csproj">
       <Project>{3010f794-238f-4f12-a793-bcef010fb83c}</Project>
-      <Name>DomainModel</Name>
+      <Name>BE</Name>
     </ProjectReference>
     <ProjectReference Include="..\FeetClinic_DAL\FeetClinic_DAL.csproj">
       <Project>{d619e0d0-f874-4fbf-8e2a-a5523a4f7244}</Project>
