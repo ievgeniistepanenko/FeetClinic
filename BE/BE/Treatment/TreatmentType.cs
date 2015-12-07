@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using DomainModel.BLL.Interfaces;
 
-namespace DomainModel.BE
+namespace DomainModel.BE.Treatment
 {
     public class TreatmentType : IEntity
     {

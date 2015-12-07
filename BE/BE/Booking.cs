@@ -17,7 +17,7 @@ namespace DomainModel.BE
         [Required]
        public CustomerProfile CustomerProfile { get; set; }
         [Required]
-       public List<Treatment> Treatments { get; set; }
+       public List<Treatment.Treatment> Treatments { get; set; }
         [Required]
        public Therapist Therapist { get; set; }
 
@@ -25,7 +25,7 @@ namespace DomainModel.BE
        public TimeSpan GetDuration()
        {
            TimeSpan time = new TimeSpan(0,0,0,0);
-           foreach (Treatment treatment in Treatments)
+           foreach (Treatment.Treatment treatment in Treatments)
            {
                time = time.Add(treatment.Duration.Duration());
            }

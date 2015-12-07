@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using DomainModel.BE;
 using DomainModel.BE.Customer;
 using DomainModel.BE.Schedule;
+using DomainModel.BE.Treatment;
 using FeetClinic_DAL.Abstarct;
 
 namespace FeetClinic_DAL.Conrete

@@ -18,7 +18,7 @@ namespace DomainModel.BE
         [Required]
         public string Description { get; set; }
         
-        public virtual  List<Treatment> Treatments { get; set; } 
+        public virtual  List<Treatment.Treatment> Treatments { get; set; } 
 
         public virtual List<YearsScheduler> Schedulers { get; set; } 
 

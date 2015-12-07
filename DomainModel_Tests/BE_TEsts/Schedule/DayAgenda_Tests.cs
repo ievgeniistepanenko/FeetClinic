@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using DomainModel.BE;
 using DomainModel.BE.Schedule;
+using DomainModel.BE.Treatment;
 using DomainModel.Interfaces;
 using Moq;
 using NUnit.Framework;
