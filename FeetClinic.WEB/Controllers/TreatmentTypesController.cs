@@ -1,22 +1,23 @@
-﻿using DomainModel.BE.Treatment;
+﻿using BE.BE.Treatments;
 using FeetClinic.WEB.ServiceGate;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using BE.Interfaces;
 
 namespace FeetClinic.WEB.Controllers
 {
     public class TreatmentTypesController : Controller
     {
 
-        ServiceGateway<TreatmentType> service = new ServiceGateway<TreatmentType>("api/treatmenttypes/");
+        ServiceGateway<TreatmentType> service = new ServiceGateway<TreatmentType>("");
 
         // GET: TreatmentTypes
         public ActionResult Index()
         {
-            return View(service.GetAll());
+            return View();
         }
 
         // GET: TreatmentTypes/Details/5

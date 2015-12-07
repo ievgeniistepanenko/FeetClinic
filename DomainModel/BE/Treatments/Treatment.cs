@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using BE.Interfaces;
+using DomainModel.BE;
 
 namespace BE.BE.Treatments
 
