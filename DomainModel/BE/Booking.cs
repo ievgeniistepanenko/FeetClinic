@@ -24,7 +24,11 @@ namespace BE.BE
         public Therapist Therapist { get; set; }
        public int TherapistId { get; set; }
 
-      
+       public Booking()
+       {
+            Treatments = new List<Treatment>();
+       }
+
        public TimeSpan GetDuration()
        {
            TimeSpan time = new TimeSpan(0,0,0,0);
