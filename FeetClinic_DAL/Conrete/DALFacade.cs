@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using DomainModel.BE;
 using DomainModel.BE.Customer;
 using DomainModel.BE.Schedule;
+using DomainModel.BE.Treatments;
 using FeetClinic_DAL.Abstarct;
 
 namespace FeetClinic_DAL.Conrete
@@ -24,12 +25,12 @@ namespace FeetClinic_DAL.Conrete
         private Repository<FeetClinicDb, Therapist> _therapists;
         private Repository<FeetClinicDb, Treatment> _treatments;
         private Repository<FeetClinicDb, TreatmentType> _treatmentTypes;
-        private Repository<FeetClinicDb, DayAgenda> _agendas;
+        //private Repository<FeetClinicDb, DayAgenda> _agendas;
         //public Repository<FeetClinicDb, YearsScheduler> yearsScheduler;
         //public Repository<FeetClinicDb, DayWorkingHours> workingHours;
 
-        public Repository<FeetClinicDb, DayAgenda> DayAgenda
-            => _agendas ?? (_agendas = new Repository<FeetClinicDb, DayAgenda>(Context)); 
+        //public Repository<FeetClinicDb, DayAgenda> DayAgenda
+        //    => _agendas ?? (_agendas = new Repository<FeetClinicDb, DayAgenda>(Context)); 
 
         public Repository<FeetClinicDb, Therapist> Therapist
             => _therapists ?? (_therapists = new Repository<FeetClinicDb, Therapist>(Context));

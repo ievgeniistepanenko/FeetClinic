@@ -1,5 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using DomainModel.BLL.Interfaces;
+using DomainModel.Interfaces;
 
 namespace DomainModel.BE.Customer
 {

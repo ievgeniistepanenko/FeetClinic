@@ -8,6 +8,7 @@ using BLL;
 using BLL.Managers;
 using DomainModel.BE;
 using DomainModel.BLL.Interfaces;
+using DomainModel.Interfaces;
 using FeetClinic_DAL.Abstarct;
 using FeetClinic_DAL.Conrete;
 

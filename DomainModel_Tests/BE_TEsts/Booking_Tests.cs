@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using DomainModel.BE;
+using DomainModel.BE.Treatments;
 using NUnit.Framework;
 
 namespace DomainModel_Tests.BE_TEsts

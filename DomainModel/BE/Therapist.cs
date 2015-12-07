@@ -5,7 +5,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using DomainModel.BE.Schedule;
-using DomainModel.BLL.Interfaces;
+using DomainModel.BE.Treatments;
+using DomainModel.Interfaces;
 
 namespace DomainModel.BE
 {
@@ -17,10 +18,9 @@ namespace DomainModel.BE
         public string Name { get; set; }
         [Required]
         public string Description { get; set; }
-        
-        public virtual  List<Treatment> Treatments { get; set; } 
-
-        public virtual List<YearsScheduler> Schedulers { get; set; } 
+        public virtual  List<Treatment> Treatments { get; set; }
+        public virtual List<Holiday> Holidays { get; set; }
+        public virtual List<DayWorkingHours> WorkingHourses { get; set; }
 
     }
 }

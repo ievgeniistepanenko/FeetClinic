@@ -1,19 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using DomainModel.BLL.Interfaces;
 using DomainModel.Interfaces;
 
 namespace DomainModel.BE.Schedule
 {
     public class DayAgenda : IDayAgenda, IEntity
     {
-        private int Id { get; }
+        public int Id { get; set; }
         private readonly int timeSlotDurationMinute = 15; //min
         public DateTime Date { get; }
         public List<Booking> Bookings { get; }
         public List<ITimeSlot> TimeSlots { get; }
-        private int YearSchedulerId;
 
         public DayAgenda(DateTime date, IDayWorkingHours wh,List<Booking> bookings = null  )
         {

@@ -1,8 +1,10 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace DomainModel.BE.Schedule
 {
-    public struct Time : IComparable<Time>
+    public class Time : IComparable<Time>
     {
         
 
@@ -12,7 +14,6 @@ namespace DomainModel.BE.Schedule
             get { return _time.Hour; }
             private set { value = Hour; }
         }
-
         public int Minute
         {
             get { return _time.Minute; }

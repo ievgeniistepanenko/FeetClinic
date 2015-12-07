@@ -1,12 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using DomainModel.BLL.Interfaces;
+using DomainModel.Interfaces;
 
-namespace DomainModel.BE
+namespace DomainModel.BE.Treatments
 {
     public class Treatment : IEntity
     {

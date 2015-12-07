@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq.Expressions;
 using DomainModel.BLL.Interfaces;
+using DomainModel.Interfaces;
 using FeetClinic_DAL.Abstarct;
 using FeetClinic_DAL.Conrete;
 
