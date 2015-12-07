@@ -1,11 +1,11 @@
 ﻿using BE.BE.Treatments;
-using FeetClinic.WEB.ServiceGate;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using BE.Interfaces;
+using FeetClinic.WEB.ServiceGateway;
 
 namespace FeetClinic.WEB.Controllers
 {

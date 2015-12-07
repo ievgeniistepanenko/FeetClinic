@@ -1,14 +1,10 @@
-﻿using DomainModel.BLL.Interfaces;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
-using System.Text;
-using System.Threading.Tasks;
+using BE.Interfaces;
 
-
-namespace FeetClinic.WEB.ServiceGate
+namespace FeetClinic.WEB.ServiceGateway
 {
     public class ServiceGateway<TEntity> where TEntity : IEntity
     {
