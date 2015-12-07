@@ -1,26 +1,22 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using DomainModel.BLL;
-using DomainModel.BLL.Interfaces;
-using DomainModel.Interfaces;
+using BE.Interfaces;
 
-namespace DomainModel.BE.Schedule
+namespace BE.BE.Schedule
 {
     public class YearsScheduler : IYearsScheduler
     {
         public int Id { get; set; }
-        private int TherapistId;
-        public int Year { get; }
+        public int Year { get; set; }
+        public virtual List<Holiday> Holidays { get; set; }
+        public virtual List<DayWorkingHours> WorkingHourses { get; set; }
         private List<IMonthScheduler> monthSchedulers;
-        private readonly List<DateTime> Holidays;
         private readonly List<DateTime> WorkingDays;
-        private List<DayAgenda> dayAgendas;
-        private List<DayWorkingHours> workingHours;
 
-        
+
+
+
         public YearsScheduler(int year)
         {
         }
@@ -55,8 +51,9 @@ namespace DomainModel.BE.Schedule
 
         public List<DateTime> GetAllHolidaygDays(DateTime startDate, DateTime endDate)
         {
-            ValidateYear(startDate, endDate);
-            return (List<DateTime>) Holidays.Where(day => day.Date >= startDate.Date && day.Date <= endDate.Date);
+            //ValidateYear(startDate, endDate);
+            //return   Holidays.Where(day => day.Date >= startDate.Date && day.Date <= endDate.Date).ToList();
+            throw new NotImplementedException();
         }
 
        
@@ -64,20 +61,21 @@ namespace DomainModel.BE.Schedule
         public void AddHolidayDay(DateTime date)
         {
             ValidateYear(date);
-            Holidays.Add(date);
+            Holidays.Add(new Holiday(date,date));
         }
 
         public void AddHolidayDays(DateTime startDate, DateTime endDate)
         {
             ValidateYear(startDate,endDate);
-            List<DateTime> holidays = new List<DateTime>();
-            DateTime tempDate = startDate;
-            while (startDate.Date <= endDate.Date)
-            {
-                holidays.Add(tempDate);
-                tempDate = tempDate.AddDays(1);
-            }
-            Holidays.AddRange(holidays);
+            Holidays.Add(new Holiday(startDate,endDate));
+            //List<DateTime> holidays = new List<DateTime>();
+            //DateTime tempDate = startDate;
+            //while (startDate.Date <= endDate.Date)
+            //{
+            //    holidays.Add(tempDate);
+            //    tempDate = tempDate.AddDays(1);
+            //}
+            //Holidays.AddRange(holidays);
 
 
         }

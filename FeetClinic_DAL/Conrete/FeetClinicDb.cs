@@ -5,8 +5,10 @@ using System.Data.Entity.ModelConfiguration.Conventions;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using DomainModel.BE;
-using DomainModel.BE.Customer;
+using BE.BE;
+using BE.BE.Customer;
+using BE.BE.Schedule;
+using BE.BE.Treatments;
 
 namespace FeetClinic_DAL.Conrete
 {
@@ -22,8 +24,13 @@ namespace FeetClinic_DAL.Conrete
         {
             modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
         }
-        public DbSet<Address> Addresses { get; set; }
-        public DbSet<CustomerProfile> CustomerProfiles { get; set; } 
+        public DbSet<Booking> Bookings { get; set; }
+
+        //public DbSet<Address> Addresses { get; set; }
+        //public DbSet<CustomerProfile> CustomerProfiles { get; set; } 
+        
+        //public DbSet<DayWorkingHours> DayWorkingHourses { get; set; } 
+        //public DbSet<Therapist> Therapists { get; set; } 
         //public DbSet<Treatment> Treatments { get; set; } 
     }
 }

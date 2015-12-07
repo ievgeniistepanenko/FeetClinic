@@ -1,10 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using DomainModel.BLL.Interfaces;
-using DomainModel.Interfaces;
+using BE.Interfaces;
 
-namespace DomainModel.BE.Schedule
+namespace BE.BE.Schedule
 {
     public class DayAgenda :IDayAgenda, IEntity
     {
@@ -13,7 +12,6 @@ namespace DomainModel.BE.Schedule
         public DateTime Date { get; }
         public List<Booking> Bookings { get; }
         public List<ITimeSlot> TimeSlots { get; }
-        private int YearSchedulerId;
 
         public DayAgenda(DateTime date, IDayWorkingHours wh,List<Booking> bookings = null  )
         {

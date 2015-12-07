@@ -1,11 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using DomainModel.BE.Schedule;
+using BE.BE.Schedule;
 
-namespace DomainModel.Interfaces
+namespace BE.Interfaces
 {
     public interface ITimeSlot 
     {

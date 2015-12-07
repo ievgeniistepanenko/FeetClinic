@@ -52,19 +52,15 @@
     <Compile Include="BE\Schedule\Holiday.cs" />
     <Compile Include="BE\Schedule\MonthScheduler.cs" />
     <Compile Include="BE\Schedule\Time.cs" />
-    <Compile Include="BE\Schedule\WorkingHoursManager.cs" />
     <Compile Include="BE\Schedule\YearsScheduler.cs" />
     <Compile Include="BE\Schedule\TimeSlot.cs" />
     <Compile Include="BE\Schedule\DayWorkingHours.cs" />
     <Compile Include="BE\Therapist.cs" />
-    <Compile Include="BE\Treatment\Treatment.cs" />
-    <Compile Include="BE\Treatment\TreatmentType.cs" />
-    <Compile Include="BLL\AgendaManager.cs" />
-    <Compile Include="BLL\Interfaces\IAgendaManager.cs" />
-    <Compile Include="BLL\Interfaces\IEntity.cs" />
+    <Compile Include="BE\Treatments\Treatment.cs" />
+    <Compile Include="BE\Treatments\TreatmentType.cs" />
+    <Compile Include="Interfaces\IEntity.cs" />
     <Compile Include="Interfaces\IDayAgenda.cs" />
     <Compile Include="Interfaces\IMonthScheduler.cs" />
-    <Compile Include="BLL\Interfaces\IWorkingHoursManager.cs" />
     <Compile Include="Interfaces\IYearsScheduler.cs" />
     <Compile Include="Interfaces\ITimeSlot.cs" />
     <Compile Include="Interfaces\IDayWorkingHours.cs" />
@@ -73,9 +69,7 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="BLL\Concrete\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

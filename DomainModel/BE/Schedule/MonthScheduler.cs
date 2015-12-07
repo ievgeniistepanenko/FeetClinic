@@ -1,11 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using DomainModel.Interfaces;
+using BE.Interfaces;
 
-namespace DomainModel.BE.Schedule
+namespace BE.BE.Schedule
 {
     public class MonthScheduler : IMonthScheduler
     {

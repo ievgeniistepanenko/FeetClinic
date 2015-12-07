@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using DomainModel.BLL.Interfaces;
+using BE.Interfaces;
 
-namespace DomainModel.BE.Customer
+namespace BE.BE.Customer
 {
     public class CustomerProfile : IEntity
     {

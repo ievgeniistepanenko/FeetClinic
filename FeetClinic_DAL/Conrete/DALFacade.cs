@@ -4,10 +4,10 @@ using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using DomainModel.BE;
-using DomainModel.BE.Customer;
-using DomainModel.BE.Schedule;
-using DomainModel.BE.Treatment;
+using BE.BE;
+using BE.BE.Customer;
+using BE.BE.Schedule;
+using BE.BE.Treatments;
 using FeetClinic_DAL.Abstarct;
 
 namespace FeetClinic_DAL.Conrete
@@ -25,13 +25,14 @@ namespace FeetClinic_DAL.Conrete
         private Repository<FeetClinicDb, Therapist> _therapists;
         private Repository<FeetClinicDb, Treatment> _treatments;
         private Repository<FeetClinicDb, TreatmentType> _treatmentTypes;
-        private Repository<FeetClinicDb, DayAgenda> _agendas;
-        //public Repository<FeetClinicDb, YearsScheduler> yearsScheduler;
-        //public Repository<FeetClinicDb, DayWorkingHours> workingHours;
+        private Repository<FeetClinicDb, DayWorkingHours> _workingHours;
+        private Repository<FeetClinicDb, Holiday> _holidays;
 
-        public Repository<FeetClinicDb, DayAgenda> DayAgenda
-            => _agendas ?? (_agendas = new Repository<FeetClinicDb, DayAgenda>(Context)); 
 
+        public Repository<FeetClinicDb, Holiday> Holidays =>
+            _holidays ?? (_holidays = new Repository<FeetClinicDb, Holiday>(Context)); 
+        public Repository<FeetClinicDb, DayWorkingHours> WorkingHours =>
+            _workingHours ?? (_workingHours = new Repository<FeetClinicDb, DayWorkingHours>(Context)); 
         public Repository<FeetClinicDb, Therapist> Therapist
             => _therapists ?? (_therapists = new Repository<FeetClinicDb, Therapist>(Context));
 

@@ -1,17 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
-using DomainModel.Interfaces;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using BE.Interfaces;
 
-namespace DomainModel.BE.Schedule
+namespace BE.BE.Schedule
 {
     public class DayWorkingHours : IDayWorkingHours
     {
+        [Key,Column(Order = 0)]
         public int DayOfWeek { get; set; }
-        public Time StartTime { get; }
-        public Time EndTime { get; }
-        public Time StartLunch { get; }
-        public TimeSpan LunchDuration { get; }
-        
+        public Time StartTime { get; set; }
+        public Time EndTime { get; set; }
+        public Time StartLunch { get; set; }
+        public TimeSpan LunchDuration { get; set; }
+        [Key, Column(Order = 8)]
+        public int TherapistId { get; set; }
 
         public DayWorkingHours(Time startTime, Time endTime, Time startLunch, TimeSpan lunchDuration)
         {
@@ -61,5 +65,7 @@ namespace DomainModel.BE.Schedule
         {
             return EndTime.GetAbsoluteDifference(StartTime);
         }
+
+        
     }
 }

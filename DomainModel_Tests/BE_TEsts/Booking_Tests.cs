@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using DomainModel.BE;
-using DomainModel.BE.Treatment;
+using BE.BE;
+using BE.BE.Treatments;
 using NUnit.Framework;
 
 namespace DomainModel_Tests.BE_TEsts

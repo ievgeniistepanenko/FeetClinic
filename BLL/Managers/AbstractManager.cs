@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
+using BE.Interfaces;
 using DomainModel.BLL.Interfaces;
 using FeetClinic_DAL.Abstarct;
 using FeetClinic_DAL.Conrete;

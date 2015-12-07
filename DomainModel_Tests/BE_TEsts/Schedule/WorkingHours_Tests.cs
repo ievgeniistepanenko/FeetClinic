@@ -3,9 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using DomainModel.BE.Schedule;
-using DomainModel.BLL.Interfaces;
-using DomainModel.Interfaces;
+using BE.Interfaces;
 using Moq;
 using NUnit.Core;
 using NUnit.Framework;
@@ -23,7 +21,7 @@ namespace DomainModel_Tests.BE_TEsts.Schedule
             Mock<Dictionary<DayOfWeek,IDayWorkingHours>> mockDayOfWeek = 
                 new Mock<Dictionary<DayOfWeek, IDayWorkingHours>>();
 
-            IWorkingHoursManager wh = new WorkingHoursManager(mockDate.Object,mockDayOfWeek.Object);
+            //IWorkingHoursManager wh = new WorkingHoursManager(mockDate.Object,mockDayOfWeek.Object);
         }
 
     }

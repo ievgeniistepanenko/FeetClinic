@@ -50,15 +50,20 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BllFacade.cs" />
+    <Compile Include="Interfaces\IAgendaManager.cs" />
+    <Compile Include="Interfaces\IWorkingHoursManager.cs" />
     <Compile Include="Managers\AbstractManager.cs" />
     <Compile Include="Managers\AddressManager.cs" />
     <Compile Include="Managers\BookingsManager.cs" />
     <Compile Include="Managers\CustomerProfileManager.cs" />
     <Compile Include="Managers\DayAgendasManager.cs" />
+    <Compile Include="Managers\DayWorkingHoursManager.cs" />
+    <Compile Include="Managers\HolidayManager.cs" />
     <Compile Include="Managers\TherapistsManager.cs" />
     <Compile Include="Managers\TreatmentsManager.cs" />
     <Compile Include="Managers\TreatmentTypesManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="WorkingHoursManager.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DomainModel\BE.csproj">
