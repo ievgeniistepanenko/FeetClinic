@@ -5,7 +5,7 @@ using DomainModel.Interfaces;
 
 namespace DomainModel.BE.Schedule
 {
-    public class DayAgenda : IDayAgenda, IEntity
+    public class DayAgenda :IDayAgenda, IEntity
     {
         public int Id { get; set; }
         private readonly int timeSlotDurationMinute = 15; //min
