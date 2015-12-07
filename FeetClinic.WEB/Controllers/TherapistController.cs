@@ -6,32 +6,27 @@ using System.Web.Mvc;
 
 namespace FeetClinic.WEB.Controllers
 {
-    public class CustomerController : Controller
+    public class TherapistController : Controller
     {
-        public CustomerController()
-        {
-
-        }
-
-        // GET: Customer
+        // GET: Therapist
         public ActionResult Index()
         {
             return View();
         }
 
-        // GET: Customer/Details/5
+        // GET: Therapist/Details/5
         public ActionResult Details(int id)
         {
             return View();
         }
 
-        // GET: Customer/Create
+        // GET: Therapist/Create
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: Customer/Create
+        // POST: Therapist/Create
         [HttpPost]
         public ActionResult Create(FormCollection collection)
         {
@@ -47,13 +42,13 @@ namespace FeetClinic.WEB.Controllers
             }
         }
 
-        // GET: Customer/Edit/5
+        // GET: Therapist/Edit/5
         public ActionResult Edit(int id)
         {
             return View();
         }
 
-        // POST: Customer/Edit/5
+        // POST: Therapist/Edit/5
         [HttpPost]
         public ActionResult Edit(int id, FormCollection collection)
         {
@@ -69,13 +64,13 @@ namespace FeetClinic.WEB.Controllers
             }
         }
 
-        // GET: Customer/Delete/5
+        // GET: Therapist/Delete/5
         public ActionResult Delete(int id)
         {
             return View();
         }
 
-        // POST: Customer/Delete/5
+        // POST: Therapist/Delete/5
         [HttpPost]
         public ActionResult Delete(int id, FormCollection collection)
         {

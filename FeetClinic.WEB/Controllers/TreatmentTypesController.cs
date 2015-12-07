@@ -1,4 +1,6 @@
-﻿using System;
+﻿using DomainModel.BE.Treatment;
+using FeetClinic.WEB.ServiceGate;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -6,32 +8,30 @@ using System.Web.Mvc;
 
 namespace FeetClinic.WEB.Controllers
 {
-    public class CustomerController : Controller
+    public class TreatmentTypesController : Controller
     {
-        public CustomerController()
-        {
 
-        }
+        ServiceGateway<TreatmentType> service = new ServiceGateway<TreatmentType>("api/treatmenttypes/");
 
-        // GET: Customer
+        // GET: TreatmentTypes
         public ActionResult Index()
         {
-            return View();
+            return View(service.GetAll());
         }
 
-        // GET: Customer/Details/5
+        // GET: TreatmentTypes/Details/5
         public ActionResult Details(int id)
         {
             return View();
         }
 
-        // GET: Customer/Create
+        // GET: TreatmentTypes/Create
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: Customer/Create
+        // POST: TreatmentTypes/Create
         [HttpPost]
         public ActionResult Create(FormCollection collection)
         {
@@ -47,13 +47,13 @@ namespace FeetClinic.WEB.Controllers
             }
         }
 
-        // GET: Customer/Edit/5
+        // GET: TreatmentTypes/Edit/5
         public ActionResult Edit(int id)
         {
             return View();
         }
 
-        // POST: Customer/Edit/5
+        // POST: TreatmentTypes/Edit/5
         [HttpPost]
         public ActionResult Edit(int id, FormCollection collection)
         {
@@ -69,13 +69,13 @@ namespace FeetClinic.WEB.Controllers
             }
         }
 
-        // GET: Customer/Delete/5
+        // GET: TreatmentTypes/Delete/5
         public ActionResult Delete(int id)
         {
             return View();
         }
 
-        // POST: Customer/Delete/5
+        // POST: TreatmentTypes/Delete/5
         [HttpPost]
         public ActionResult Delete(int id, FormCollection collection)
         {
