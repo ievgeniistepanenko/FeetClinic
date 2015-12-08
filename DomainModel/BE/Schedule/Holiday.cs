@@ -24,5 +24,10 @@ namespace BE.BE.Schedule
             _startDate = startDate;
             _endDate = endDate;
         }
+
+        public bool IsHoliday(DateTime date)
+        {
+            return date.Date >= StartDate && date.Date <=EndDate;
+        }
     }
 }

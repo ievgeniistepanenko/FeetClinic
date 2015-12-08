@@ -19,7 +19,7 @@ namespace FeetClinic_DAL.Conrete
             
             Address address = new Address {City = "Esbjerg", Id = 1,StreetName = "Stormgade",StreetNumber = "36",ZipCode = 7660};
             CustomerProfile customer = new CustomerProfile
-            { Address = address, FirstName = "Lars",Id = 1, LastName = "Larsen" };
+            { Address = address, FirstName = "Lars",Id = 2, LastName = "Larsen" };
 
             DayWorkingHours working = new DayWorkingHours(new Time(8,0),new Time(15,0),new Time(11,30),new TimeSpan(0,0,30,0));
 
@@ -30,7 +30,7 @@ namespace FeetClinic_DAL.Conrete
 
             Therapist therapist = new Therapist
             {
-                Id = 1,
+                Id = 3,
                 Description = "Pisse træls ",
                 Name = "andy",
                 WorkingHourses = listWh

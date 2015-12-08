@@ -8,6 +8,7 @@ namespace BE.BE.Schedule
 {
     public class DayWorkingHours : IDayWorkingHours
     {
+        [Range(1,6)]
         [Key,Column(Order = 0)]
         public int DayOfWeek { get; set; }
         public Time StartTime { get; set; }

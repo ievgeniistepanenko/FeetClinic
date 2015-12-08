@@ -21,12 +21,40 @@ namespace FeetClinic_Rest.Controllers
         {
             return Manager;
         }
-        public HttpResponseMessage GetBookings()
+        public HttpResponseMessage GetBookings(int customerId, string properties="")
         {
-            return GetAll();
+            try
+            {
+                List<Booking> bookings = Manager.GetAllForCustomer(customerId,properties).ToList();
+                if (bookings.Any())
+                {
+                    return Request.CreateResponse(HttpStatusCode.OK, bookings);
+                }
+                return Request.CreateResponse(HttpStatusCode.NotFound, "Not found");
+            }
+            catch (Exception ex)
+            {
+                return Request.CreateResponse(HttpStatusCode.InternalServerError, ex.Message);
+            }
+        }
+        public HttpResponseMessage GetBookings(int therapistId,int week, int year, string properties)
+        {
+            try
+            {
+                List<Booking> bookings = Manager.GetAllForTherapist(therapistId, day,year, properties).ToList();
+                if (bookings.Any())
+                {
+                    return Request.CreateResponse(HttpStatusCode.OK, bookings);
+                }
+                return Request.CreateResponse(HttpStatusCode.NotFound, "Not found");
+            }
+            catch (Exception ex)
+            {
+                return Request.CreateResponse(HttpStatusCode.InternalServerError, ex.Message);
+            }
         }
 
-        // GET: api/Bookings/5
+        //GET: api/Bookings/5
         public HttpResponseMessage GetBooking(int id)
         {
             return GetBooking(id, "");
@@ -37,10 +65,10 @@ namespace FeetClinic_Rest.Controllers
         }
 
         // PUT: api/Bookings/5
-        public HttpResponseMessage PutBookings(int id, Booking booking)
-        {
-            return UpdateOne(id, booking);
-        }
+        //public HttpResponseMessage PutBookings(int id, Booking booking)
+        //{
+        //    return UpdateOne(id, booking);
+        //}
 
         // POST: api/Bookings
         public HttpResponseMessage PostBooking(Booking booking)

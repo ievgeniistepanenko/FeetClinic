@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -26,19 +27,24 @@ namespace BLL.Managers
             return Repository;
         }
 
-        public IEnumerable<Booking> GetAllForCustomer(int customerId)
+        public IEnumerable<Booking> GetAllForCustomer(int customerId, string properties)
         {
-            return Repository.GetAll(b=>b.CustomerProfileId == customerId,
+            return Repository.GetAll(b=>b.CustomerProfileId == customerId &&
+                                        b.DateTime >= DateTime.Now.Subtract(new TimeSpan(365,0,0,0)),
                                         b => b.OrderBy(bok => bok.DateTime),
-                                        "Treatments");
+                                        properties);
         }
 
-        public IEnumerable<Booking> GetAllForTherapist(int therapistId, int day, int year)
+        public IEnumerable<Booking> GetAllForTherapist(int therapistId, int week, int year, string properties)
         {
+            DateTime firsDateOfWeekOfYear = FirstDateOfWeekISO8601(year,week);
+            DateTime lastDateOfWeekOfYear = firsDateOfWeekOfYear.AddDays(6);
 
-            return Repository.GetAll(b => b.TherapistId == therapistId && b.DateTime.DayOfYear == day,
+            return Repository.GetAll(b => b.TherapistId == therapistId && 
+                                          b.DateTime >= firsDateOfWeekOfYear && 
+                                          b.DateTime <= lastDateOfWeekOfYear,
                                      b => b.OrderBy(bok => bok.DateTime),
-                                     "Treatments");
+                                     properties);
         }
           
         public override IEnumerable<Booking> GetAll()
@@ -51,10 +57,9 @@ namespace BLL.Managers
             return GetAll();
         }
 
-
+        //throws Exception
         public override Booking Update(Booking entity)
         {
-
             throw new InvalidOperationException();
         }
 
@@ -63,18 +68,52 @@ namespace BLL.Managers
             _holidayManager = new HolidayManager();
             _whManager = new DayWorkingHoursManager();
             _dayAgendasManager = new DayAgendasManager();
-            DayWorkingHours wh = _whManager.GetWorkingHours(entity.TherapistId, 
-                (int) entity.DateTime.DayOfWeek);
+            DayWorkingHours wh;
+
+            List<Holiday> holidaysForTherapist = _holidayManager.GetAllForTherapist(entity.TherapistId);
+            if (holidaysForTherapist.Any(holiday => holiday.IsHoliday(entity.DateTime)))
+            {
+                throw new ArgumentException("This is holiday day");
+            }
+
+            try
+            {
+                wh = _whManager.GetWorkingHours(entity.TherapistId,
+                (int)entity.DateTime.DayOfWeek);
+            }
+            catch (Exception)
+            {
+                
+                throw new Exception("Opening hours for given day of week not exist");
+            }
+            
 
             List<Booking> bookings = GetAllForTherapist(entity.TherapistId, entity.DateTime.DayOfYear,
-                entity.DateTime.Year).ToList();
-            DayAgenda dayAgenda =  _dayAgendasManager.GetDayAgenda(entity.DateTime,wh,bookings);
-            if (dayAgenda.IsAvailableForBooking(entity))
+                entity.DateTime.Year,"").ToList();
 
+            DayAgenda dayAgenda =  _dayAgendasManager.GetDayAgenda(entity.DateTime,wh,bookings);
+
+            if (dayAgenda.IsAvailableForBooking(entity))
             return base.Create(entity);
+
             throw new ArgumentException("This is no place for booking");
         }
+        private  DateTime FirstDateOfWeekISO8601(int year, int weekOfYear)
+        {
+            DateTime jan1 = new DateTime(year, 1, 1);
+            int daysOffset = DayOfWeek.Thursday - jan1.DayOfWeek;
 
-        
+            DateTime firstThursday = jan1.AddDays(daysOffset);
+            var cal = CultureInfo.CurrentCulture.Calendar;
+            int firstWeek = cal.GetWeekOfYear(firstThursday, CalendarWeekRule.FirstFourDayWeek, DayOfWeek.Monday);
+
+            var weekNum = weekOfYear;
+            if (firstWeek <= 1)
+            {
+                weekNum -= 1;
+            }
+            var result = firstThursday.AddDays(weekNum * 7);
+            return result.AddDays(-3);
+        }
     }
 }
