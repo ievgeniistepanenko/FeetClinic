@@ -4,10 +4,7 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using BE.Interfaces;
 
-<<<<<<< HEAD
 
-=======
->>>>>>> c3d4cfab2133fec978445d4bffeb97cf0e0bb162
 namespace FeetClinic.WEB.ServiceGateway
 {
     public class ServiceGateway<TEntity> where TEntity : IEntity

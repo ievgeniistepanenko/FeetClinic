@@ -8,7 +8,6 @@ using BE.BE;
 using BE.BE.Customer;
 using BE.BE.Schedule;
 using BE.BE.Treatments;
-using DomainModel.BE;
 
 namespace FeetClinic_DAL.Conrete
 {

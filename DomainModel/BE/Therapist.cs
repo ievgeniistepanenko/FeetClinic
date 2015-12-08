@@ -20,13 +20,9 @@ namespace BE.BE
         [Required]
         public string Description { get; set; }
         
-<<<<<<< HEAD
-        public virtual  List<Treatment> Treatments { get; set; } 
 
-=======
         public virtual  List<Treatment> Treatments { get; set; }
         public virtual List<DayWorkingHours> WorkingHourses { get; set; }
->>>>>>> c3d4cfab2133fec978445d4bffeb97cf0e0bb162
         public virtual List<YearsScheduler> Schedulers { get; set; } 
 
     }
