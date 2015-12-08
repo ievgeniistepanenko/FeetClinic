@@ -5,7 +5,6 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using BLL.Managers;
-using DomainModel.BE.Schedule;
 
 namespace FeetClinic_Rest.Controllers
 {

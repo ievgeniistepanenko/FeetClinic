@@ -13,6 +13,7 @@ using System.Web.Http.Controllers;
 using System.Web.Http.Description;
 using FeetClinic_Rest.Areas.HelpPage.ModelDescriptions;
 using FeetClinic_Rest.Areas.HelpPage.Models;
+using FeetClinic_Rest.Areas.HelpPage.SampleGeneration;
 
 namespace FeetClinic_Rest.Areas.HelpPage
 {

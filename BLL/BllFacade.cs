@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using BLL.Managers;
-using DomainModel.BE;
+using BE.BE;
 
 namespace BLL
 {

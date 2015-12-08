@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using BE.Interfaces;
 
-namespace DomainModel.BLL.Interfaces
+namespace BLL.Interfaces
 {
     public interface IWorkingHoursManager
     {

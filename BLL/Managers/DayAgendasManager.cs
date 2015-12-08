@@ -5,8 +5,6 @@ using System.Text;
 using System.Threading.Tasks;
 using BE.BE;
 using BE.BE.Schedule;
-using DomainModel.BE;
-using DomainModel.BE.Schedule;
 using FeetClinic_DAL.Abstarct;
 
 namespace BLL.Managers

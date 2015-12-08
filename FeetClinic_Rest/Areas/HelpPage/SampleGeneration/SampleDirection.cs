@@ -1,4 +1,4 @@
-namespace FeetClinic_Rest.Areas.HelpPage
+namespace FeetClinic_Rest.Areas.HelpPage.SampleGeneration
 {
     /// <summary>
     /// Indicates whether the sample is used for request or response

@@ -32,7 +32,7 @@ namespace FeetClinic_DAL.Conrete
                 Id = 1,
                 Description = "Pisse træls ",
                 Name = "andy",
-                WorkingHourses = listWh
+                
             };
 
             TreatmentType treatment = new TreatmentType

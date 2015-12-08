@@ -1,5 +1,6 @@
 using System.Web.Http;
 using System.Web.Mvc;
+using FeetClinic_Rest.Areas.HelpPage.App_Start;
 
 namespace FeetClinic_Rest.Areas.HelpPage
 {

@@ -19,9 +19,9 @@ namespace BLL.Managers
             return Repository;
         }
 
-        public List<Holiday> GetAllForTherapist(int therapistId)
-        {
-            return Repository.GetAll(h => h.TherapistId == therapistId).ToList();
-        }
+        //public List<Holiday> GetAllForTherapist(int therapistId)
+        //{
+        //    return Repository.GetAll(h => h.TherapistId == therapistId).ToList();
+        //}
     }
 }

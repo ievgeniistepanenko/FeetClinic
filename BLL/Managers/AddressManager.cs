@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using BE.BE.Customer;
-using DomainModel.BE;
+using BE.BE;
 using FeetClinic_DAL.Abstarct;
 using FeetClinic_DAL.Conrete;
 

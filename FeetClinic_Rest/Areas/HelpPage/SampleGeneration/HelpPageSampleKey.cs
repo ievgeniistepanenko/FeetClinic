@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Net.Http.Headers;
 
-namespace FeetClinic_Rest.Areas.HelpPage
+namespace FeetClinic_Rest.Areas.HelpPage.SampleGeneration
 {
     /// <summary>
     /// This is used to identify the place where the sample should be applied.
