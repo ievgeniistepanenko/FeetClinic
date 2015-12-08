@@ -8,7 +8,6 @@ using BE.BE;
 using BE.BE.Customer;
 using BE.BE.Schedule;
 using BE.BE.Treatments;
-using DomainModel.BE;
 
 namespace FeetClinic_DAL.Conrete
 {
@@ -33,7 +32,7 @@ namespace FeetClinic_DAL.Conrete
                 Id = 3,
                 Description = "Pisse træls ",
                 Name = "andy",
-                WorkingHourses = listWh
+                
             };
 
             TreatmentType treatment = new TreatmentType

@@ -8,7 +8,8 @@ using BE.BE.Schedule;
 using BE.BE.Treatments;
 using BE.Interfaces;
 
-namespace DomainModel.BE
+
+namespace BE.BE
 {
     public class Therapist : IEntity
     {
@@ -19,6 +20,7 @@ namespace DomainModel.BE
         [Required]
         public string Description { get; set; }
         
+
         public virtual  List<Treatment> Treatments { get; set; }
         public virtual List<DayWorkingHours> WorkingHourses { get; set; }
         public virtual List<YearsScheduler> Schedulers { get; set; } 

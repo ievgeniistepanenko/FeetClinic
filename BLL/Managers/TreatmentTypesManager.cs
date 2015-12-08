@@ -4,7 +4,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using BE.BE.Treatments;
-using DomainModel.BE;
 using FeetClinic_DAL.Abstarct;
 
 namespace BLL.Managers

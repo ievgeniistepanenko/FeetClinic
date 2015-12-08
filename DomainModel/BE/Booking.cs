@@ -4,7 +4,6 @@ using System.ComponentModel.DataAnnotations;
 using BE.BE.Customer;
 using BE.BE.Treatments;
 using BE.Interfaces;
-using DomainModel.BE;
 
 namespace BE.BE
 {

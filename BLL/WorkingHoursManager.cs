@@ -1,12 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using BE.Interfaces;
-using DomainModel.BLL.Interfaces;
+using BLL.Interfaces;
 
-namespace DomainModel.BE.Schedule
+namespace BLL
 {
     public class WorkingHoursManager : IWorkingHoursManager
     {

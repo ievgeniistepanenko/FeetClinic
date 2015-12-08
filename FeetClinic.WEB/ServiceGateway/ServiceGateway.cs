@@ -4,6 +4,7 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using BE.Interfaces;
 
+
 namespace FeetClinic.WEB.ServiceGateway
 {
     public class ServiceGateway<TEntity> where TEntity : IEntity
@@ -73,5 +74,7 @@ namespace FeetClinic.WEB.ServiceGateway
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
             return client;
         }
+
+       
     }
 }

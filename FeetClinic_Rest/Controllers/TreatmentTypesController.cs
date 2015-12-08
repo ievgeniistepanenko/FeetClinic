@@ -6,7 +6,7 @@ using System.Net.Http;
 using System.Web.Http;
 using BE.BE.Treatments;
 using BLL.Managers;
-using DomainModel.BE;
+using BE.BE;
 
 namespace FeetClinic_Rest.Controllers
 {
