@@ -16,22 +16,26 @@ namespace BLL.Managers
         private DayAgendasManager _dayAgendasManager;
         private HolidayManager _holidayManager;
         private BookingsManager _bookingsManager;
-        public List<List<ITimeSlot>> GetAvailableTimeSlots(int therapistId, int week, int year)
+
+        private void InstanceMembers()
         {
             _whManager = new DayWorkingHoursManager();
             _dayAgendasManager = new DayAgendasManager();
             _holidayManager = new HolidayManager();
             _bookingsManager = new BookingsManager();
+        }
 
-            TherapistsManager therapistsManager = new TherapistsManager();
-            Therapist t = therapistsManager.GetOne(1, "WorkingHourses");
+        public List<List<ITimeSlot>> GetAvailableTimeSlots(int therapistId, int week, int year)
+        {
+            InstanceMembers();
 
             List<Holiday> holidaysForTherapist = _holidayManager.GetAllForTherapist(therapistId);
             DateTime firstDate = FirstDateOfWeekISO8601(year, week);
 
             List<DayWorkingHours> dayWorkingHourses = _whManager.GetAllWorkingHours(therapistId).ToList();
 
-            List<Booking> bookings = _bookingsManager.GetAllForTherapistForWeek(therapistId, week, year,"").ToList();
+            List<Booking> bookings = _bookingsManager.
+                GetAllForTherapistForWeek(therapistId, week, year, "Treatments").ToList();
 
             List<List<ITimeSlot>> timeSlots = new List<List<ITimeSlot>>();
 
@@ -53,10 +57,11 @@ namespace BLL.Managers
 
                 DayWorkingHours dwh = dayWorkingHourses.FirstOrDefault(wh => wh.DayOfWeek == dayOfWeek);
 
+                List<Booking> dayBookings = bookings.Where(b => b.DateTime.Date == tempDate.Date).ToList();
                 DayAgenda dayAgenda = _dayAgendasManager.GetDayAgenda(
                      tempDate,
                      dwh,
-                     bookings.Where(b => b.DateTime.Date == tempDate.Date).ToList());
+                     dayBookings);
 
                 List<ITimeSlot> timeS = dayAgenda.GetAllAvailableTimeSlots();
                 ts.AddRange(timeS);

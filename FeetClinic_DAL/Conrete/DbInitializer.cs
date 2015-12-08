@@ -21,7 +21,7 @@ namespace FeetClinic_DAL.Conrete
             { Address = address, FirstName = "Lars",Id = 2, LastName = "Larsen" };
 
             List<DayWorkingHours> listWh = new List<DayWorkingHours>();
-            for (int i = 0; i < 7; i++)
+            for (int i = 1; i < 6; i++)
             {
                 DayWorkingHours working = new DayWorkingHours(new Time(8, 0), new Time(15, 0), new Time(11, 30), new TimeSpan(0, 0, 30, 0));
                 working.DayOfWeek = i;
@@ -57,7 +57,7 @@ namespace FeetClinic_DAL.Conrete
 
             Booking booking = new Booking
             {
-                DateTime = DateTime.Now.AddDays(1),
+                DateTime = DateTime.Now.AddDays(1).AddHours(14),
                 BookingDate = DateTime.Now,
                 CustomerProfile = customer,
                 Therapist = therapist,

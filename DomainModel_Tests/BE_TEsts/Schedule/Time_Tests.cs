@@ -9,7 +9,7 @@ using NUnit.Framework;
 namespace DomainModel_Tests.BE_TEsts.Schedule
 {
     [TestFixture]
-    class Time_Tests
+    public class Time_Tests
     {
         [Test]
         public void Can_Create_Time()
@@ -17,6 +17,16 @@ namespace DomainModel_Tests.BE_TEsts.Schedule
             Time time = new Time(12,30);
             Assert.AreEqual(12,time.Hour);
             Assert.AreEqual(30,time.Minute);
+        }
+
+        [Test]
+        public void Can_Create_Time_And_Set_Minute_And_Hours()
+        {
+            Time time = new Time(12, 30);
+            time.Hour = 13;
+            time.Minute = 40;
+            Assert.AreEqual(13, time.Hour);
+            Assert.AreEqual(40, time.Minute);
         }
 
         [Test]

@@ -12,20 +12,20 @@ namespace BLL.Managers
     public class DayWorkingHoursManager 
         //: AbstractManager<DayWorkingHours>
     {
-        private DalFacade facade;
+        private readonly DalFacade _facade;
         public DayWorkingHoursManager()
         {
-            facade = new DalFacade();
+            _facade = new DalFacade();
         }
 
         public IEnumerable<DayWorkingHours> GetAllWorkingHours(int therapistId)
         {
-            return facade.WorkingHours.GetAll(wh => wh.TherapistId == therapistId);
+            return _facade.WorkingHours.GetAll(wh => wh.TherapistId == therapistId);
         }
 
         public DayWorkingHours GetWorkingHours(int therapistId, int dayOfWeek)
         {
-            return facade.WorkingHours.GetOne(wh => wh.TherapistId == therapistId && wh.DayOfWeek == dayOfWeek);
+            return _facade.WorkingHours.GetOne(wh => wh.TherapistId == therapistId && wh.DayOfWeek == dayOfWeek);
         } 
 
     }

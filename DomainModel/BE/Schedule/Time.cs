@@ -6,8 +6,20 @@ namespace BE.BE.Schedule
     {
         
         private DateTime _time;
-        public int Hour { get; set; }
-        public int Minute { get; set; }
+        private readonly DateTime scabalon = new DateTime(100, 1, 1, 0, 0, 0);
+
+        public int Hour
+        {
+            get { return _time.Hour; }
+            set { _time = scabalon.AddHours(value).AddMinutes(Minute); }
+        }
+
+        public int Minute
+        {
+            get { return _time.Minute; }
+            set { _time = scabalon.AddHours(Hour).AddMinutes(value); }
+        }
+
         [Obsolete("Only needed for serialization and materialization", true)]
         public Time() { }
         private Time (TimeSpan timeSpan) : this(timeSpan.Hours, timeSpan.Minutes) { }
@@ -18,7 +30,8 @@ namespace BE.BE.Schedule
             {
                 throw new ArgumentException("Invalid time parameter");
             }
-            _time = new DateTime(100,1,1,hour,minute,0);
+            _time = scabalon.AddHours(hour).AddMinutes(minute); 
+                //new DateTime(100,1,1,hour,minute,0);
             Hour = _time.Hour;
             Minute = _time.Minute;
             

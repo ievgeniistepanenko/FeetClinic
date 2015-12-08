@@ -51,22 +51,22 @@ namespace BE.BE.Schedule
         }
         public List<ITimeSlot> GetWorkingHours()
         {
-            List<ITimeSlot> workingHours = new List<ITimeSlot>();
+            List<ITimeSlot> workingHours = new List<ITimeSlot>
 
-            TimeSpan timeSlot1Duration = StartLunch.GetAbsoluteDifference(StartTime);
-            TimeSlot timeSlot1 = new TimeSlot(1,StartTime, timeSlot1Duration ,true);
+            //TimeSpan timeSlot1Duration = StartLunch.GetAbsoluteDifference(StartTime);
+            //TimeSlot timeSlot1 = new TimeSlot(1,StartTime, timeSlot1Duration ,true);
 
 
-            //{
-            //    new TimeSlot(1,
-            //        StartTime,
-            //        StartLunch.GetAbsoluteDifference(StartTime),
-            //        true),
-            //    new TimeSlot(2,
-            //        StartLunch.Add(LunchDuration),
-            //        EndTime.GetAbsoluteDifference(StartLunch.Add(LunchDuration)),
-            //        true)
-            //};
+            {
+                new TimeSlot(1,
+                    StartTime,
+                    StartLunch.GetAbsoluteDifference(StartTime),
+                    true),
+                new TimeSlot(2,
+                    StartLunch.Add(LunchDuration),
+                    EndTime.GetAbsoluteDifference(StartLunch.Add(LunchDuration)),
+                    true)
+            };
             return workingHours;
         }
 
