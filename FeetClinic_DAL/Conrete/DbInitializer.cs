@@ -20,18 +20,20 @@ namespace FeetClinic_DAL.Conrete
             CustomerProfile customer = new CustomerProfile
             { Address = address, FirstName = "Lars",Id = 2, LastName = "Larsen" };
 
-            DayWorkingHours working = new DayWorkingHours(new Time(8,0),new Time(15,0),new Time(11,30),new TimeSpan(0,0,30,0));
-
-            working.DayOfWeek = 2;
-
             List<DayWorkingHours> listWh = new List<DayWorkingHours>();
-            listWh.Add(working);
+            for (int i = 0; i < 7; i++)
+            {
+                DayWorkingHours working = new DayWorkingHours(new Time(8, 0), new Time(15, 0), new Time(11, 30), new TimeSpan(0, 0, 30, 0));
+                working.DayOfWeek = i;
+                listWh.Add(working);
+            }
 
             Therapist therapist = new Therapist
             {
                 Id = 3,
                 Description = "Pisse træls ",
                 Name = "andy",
+                WorkingHourses = listWh
                 
             };
 

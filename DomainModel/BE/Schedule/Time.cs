@@ -5,19 +5,11 @@ namespace BE.BE.Schedule
     public class Time : IComparable<Time>
     {
         
-
         private DateTime _time;
-        public int Hour
-        {
-            get { return _time.Hour; }
-            private set { value = Hour; }
-        }
-        public int Minute
-        {
-            get { return _time.Minute; }
-            private set { value = Minute; }
-        }
-
+        public int Hour { get; set; }
+        public int Minute { get; set; }
+        [Obsolete("Only needed for serialization and materialization", true)]
+        public Time() { }
         private Time (TimeSpan timeSpan) : this(timeSpan.Hours, timeSpan.Minutes) { }
         public Time(DateTime dateTime) : this(dateTime.Hour,dateTime.Minute){}
         public Time(int hour, int minute)

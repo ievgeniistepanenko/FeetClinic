@@ -9,12 +9,6 @@ namespace BE.BE.Schedule
 {
     public class Holiday : IEntity
     {
-        private DateTime date1;
-        private DateTime date2;
-        private int DayOfYear;
-        private int yearsSchedulerId;
-
-    
         public int Id { get; set; }
         public int TherapistId { get; set; }
         private DateTime _startDate;
@@ -28,7 +22,8 @@ namespace BE.BE.Schedule
             get { return _endDate; }
             set { _endDate = value.Date; }
         }
-
+        [Obsolete("Only needed for serialization and materialization", true)]
+        public Holiday() { }
         public Holiday(DateTime startDate, DateTime endDate)
         {
             _startDate = startDate;

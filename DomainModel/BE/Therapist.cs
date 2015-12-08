@@ -20,10 +20,9 @@ namespace BE.BE
         [Required]
         public string Description { get; set; }
         
-
+        public virtual List<Holiday> Holidays {get; set; } 
         public virtual  List<Treatment> Treatments { get; set; }
         public virtual List<DayWorkingHours> WorkingHourses { get; set; }
-        public virtual List<YearsScheduler> Schedulers { get; set; } 
 
     }
 }

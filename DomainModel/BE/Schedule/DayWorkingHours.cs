@@ -8,7 +8,7 @@ namespace BE.BE.Schedule
 {
     public class DayWorkingHours : IDayWorkingHours
     {
-        [Range(1,6)]
+        [Range(0,6)]
         [Key,Column(Order = 0)]
         public int DayOfWeek { get; set; }
         public Time StartTime { get; set; }
@@ -17,6 +17,9 @@ namespace BE.BE.Schedule
         public TimeSpan LunchDuration { get; set; }
         [Key, Column(Order = 8)]
         public int TherapistId { get; set; }
+        [Obsolete("Only needed for serialization and materialization", true)]
+        public DayWorkingHours() { }
+
 
         public DayWorkingHours(Time startTime, Time endTime, Time startLunch, TimeSpan lunchDuration)
         {
@@ -48,17 +51,22 @@ namespace BE.BE.Schedule
         }
         public List<ITimeSlot> GetWorkingHours()
         {
-            List<ITimeSlot> workingHours = new List<ITimeSlot>
-            {
-                new TimeSlot(1,
-                    StartTime,
-                    StartLunch.GetAbsoluteDifference(StartTime),
-                    true),
-                new TimeSlot(2,
-                    StartLunch.Add(LunchDuration),
-                    EndTime.GetAbsoluteDifference(StartLunch.Add(LunchDuration)),
-                    true)
-            };
+            List<ITimeSlot> workingHours = new List<ITimeSlot>();
+
+            TimeSpan timeSlot1Duration = StartLunch.GetAbsoluteDifference(StartTime);
+            TimeSlot timeSlot1 = new TimeSlot(1,StartTime, timeSlot1Duration ,true);
+
+
+            //{
+            //    new TimeSlot(1,
+            //        StartTime,
+            //        StartLunch.GetAbsoluteDifference(StartTime),
+            //        true),
+            //    new TimeSlot(2,
+            //        StartLunch.Add(LunchDuration),
+            //        EndTime.GetAbsoluteDifference(StartLunch.Add(LunchDuration)),
+            //        true)
+            //};
             return workingHours;
         }
 

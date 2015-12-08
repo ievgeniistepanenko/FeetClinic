@@ -20,30 +20,45 @@ namespace FeetClinic_Rest
             // Web API routes
             config.MapHttpAttributeRoutes();
 
+
             config.Routes.MapHttpRoute(
                 name: "route1",
-                routeTemplate: "api/{controller}/{therapistId}/{day}/{year}/{properties}",
-                defaults: new { therapistId = RouteParameter.Optional,
-                                day = RouteParameter.Optional,
-                                year = RouteParameter.Optional,
-                                properties = "" }
+                routeTemplate: "api/{controller}/{therapistId}/{week}/{year}/{properties}",
+                defaults: new
+                {
+                    //therapistId = RouteParameter.Optional,
+                    //day = RouteParameter.Optional,
+                    //year = RouteParameter.Optional,
+                    properties = RouteParameter.Optional
+                }
             );
 
             config.Routes.MapHttpRoute(
                 name: "route2",
-                routeTemplate: "api/{controller}/{id}/{properties}",
-                defaults: new { id = RouteParameter.Optional, properties = "" }
+                routeTemplate: "api/{controller}/{therapistId}/{week}/{year}",
+                defaults: new
+                {
+                    therapistId = RouteParameter.Optional,
+                    day = RouteParameter.Optional,
+                    year = RouteParameter.Optional,
+                }
             );
 
             config.Routes.MapHttpRoute(
                 name: "route3",
                 routeTemplate: "api/{controller}/{customerId}/{properties}",
-                defaults: new { customerId = RouteParameter.Optional, properties = "" }
+                defaults: new { customerId = RouteParameter.Optional, properties = RouteParameter.Optional }
             );
-            
+
 
             config.Routes.MapHttpRoute(
-                name: "DefaultApi",
+                name: "DefaultApiCustomerId",
+                routeTemplate: "api/{controller}/{customerId}",
+                defaults: new { customerId = RouteParameter.Optional }
+            );
+
+            config.Routes.MapHttpRoute(
+                name: "DefaultApiId",
                 routeTemplate: "api/{controller}/{id}",
                 defaults: new { id = RouteParameter.Optional }
             );

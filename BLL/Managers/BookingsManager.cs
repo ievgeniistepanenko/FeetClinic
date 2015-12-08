@@ -27,13 +27,14 @@ namespace BLL.Managers
 
         public IEnumerable<Booking> GetAllForCustomer(int customerId, string properties)
         {
+            DateTime oneYearAgo = DateTime.Now.Subtract(new TimeSpan(365, 0, 0, 0));
             return Repository.GetAll(b=>b.CustomerProfileId == customerId &&
-                                        b.DateTime >= DateTime.Now.Subtract(new TimeSpan(365,0,0,0)),
+                                        b.DateTime >= oneYearAgo,
                                         b => b.OrderBy(bok => bok.DateTime),
                                         properties);
         }
 
-        public IEnumerable<Booking> GetAllForTherapist(int therapistId, int week, int year, string properties)
+        public IEnumerable<Booking> GetAllForTherapistForWeek(int therapistId, int week, int year, string properties)
         {
             DateTime firsDateOfWeekOfYear = FirstDateOfWeekISO8601(year,week);
             DateTime lastDateOfWeekOfYear = firsDateOfWeekOfYear.AddDays(6);
@@ -44,7 +45,16 @@ namespace BLL.Managers
                                      b => b.OrderBy(bok => bok.DateTime),
                                      properties);
         }
-          
+        public IEnumerable<Booking> GetAllForTherapistForDay(int therapistId, int dayOfYear, int year, string properties )
+        {
+
+            return Repository.GetAll(b => b.TherapistId == therapistId &&
+                                          b.DateTime.DayOfYear == dayOfYear &&
+                                          b.DateTime.Year == year,
+                                     b => b.OrderBy(bok => bok.DateTime),
+                                     properties);
+        }
+
         public override IEnumerable<Booking> GetAll()
         {
             throw new InvalidOperationException();
@@ -86,7 +96,7 @@ namespace BLL.Managers
             }
             
 
-            List<Booking> bookings = GetAllForTherapist(entity.TherapistId, entity.DateTime.DayOfYear,
+            List<Booking> bookings = GetAllForTherapistForDay(entity.TherapistId, entity.DateTime.DayOfYear,
                 entity.DateTime.Year,"").ToList();
 
             DayAgenda dayAgenda =  _dayAgendasManager.GetDayAgenda(entity.DateTime,wh,bookings);

@@ -5,9 +5,8 @@ using BE.Interfaces;
 
 namespace BE.BE.Schedule
 {
-    public class DayAgenda :IDayAgenda, IEntity
+    public class DayAgenda :IDayAgenda
     {
-        public int Id { get; set; }
         private readonly int timeSlotDurationMinute = 15; //min
         public DateTime Date { get; }
         public List<Booking> Bookings { get; }
@@ -123,7 +122,7 @@ namespace BE.BE.Schedule
 
         }
 
-        private List<ITimeSlot> GetAllAvailableTimeSlots()
+        public List<ITimeSlot> GetAllAvailableTimeSlots()
         {
             List<ITimeSlot> timeSlots = new List<ITimeSlot>();
             timeSlots.AddRange(TimeSlots.Where(ts => ts.IsAvailable));

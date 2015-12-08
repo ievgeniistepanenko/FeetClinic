@@ -21,7 +21,10 @@ namespace BLL.Managers
 
         public List<Holiday> GetAllForTherapist(int therapistId)
         {
-            return Repository.GetAll(h => h.TherapistId == therapistId).ToList();
+            List<Holiday> holidays = new List<Holiday>();
+
+            holidays.AddRange(Repository.GetAll(h => h.TherapistId == therapistId)); 
+            return holidays;
         }
     }
 }

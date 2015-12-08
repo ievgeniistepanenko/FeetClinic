@@ -28,8 +28,8 @@ namespace FeetClinic_DAL.Conrete
 
         //public DbSet<Address> Addresses { get; set; }
         //public DbSet<CustomerProfile> CustomerProfiles { get; set; } 
-        
-        //public DbSet<DayWorkingHours> DayWorkingHourses { get; set; } 
+
+        public DbSet<DayWorkingHours> DayWorkingHourses { get; set; }
         //public DbSet<Therapist> Therapists { get; set; } 
         //public DbSet<Treatment> Treatments { get; set; } 
     }

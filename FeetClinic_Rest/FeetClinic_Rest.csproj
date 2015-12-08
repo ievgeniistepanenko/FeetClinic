@@ -210,9 +210,9 @@
     <Compile Include="Controllers\AddressesController.cs" />
     <Compile Include="Controllers\BookingsController.cs" />
     <Compile Include="Controllers\CustomersController.cs" />
-    <Compile Include="Controllers\DayAgendasController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\TherapistsController.cs" />
+    <Compile Include="Controllers\TimeSlotsController.cs" />
     <Compile Include="Controllers\TreatmentsController.cs" />
     <Compile Include="Controllers\TreatmentTypesController.cs" />
     <Compile Include="Global.asax.cs">
