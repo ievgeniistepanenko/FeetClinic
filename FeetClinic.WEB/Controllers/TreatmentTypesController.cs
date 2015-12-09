@@ -12,12 +12,13 @@ namespace FeetClinic.WEB.Controllers
     public class TreatmentTypesController : Controller
     {
 
-        ServiceGateway<TreatmentType> service = new ServiceGateway<TreatmentType>("");
+        ServiceGateway<TreatmentType> service = new ServiceGateway<TreatmentType>("api/TreatmentTypes/");
 
         // GET: TreatmentTypes
         public ActionResult Index()
         {
-            return View();
+            IEnumerable<TreatmentType> types = service.GetAll();
+            return View(types);
         }
 
         // GET: TreatmentTypes/Details/5

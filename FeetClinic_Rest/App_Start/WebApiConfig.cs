@@ -21,41 +21,46 @@ namespace FeetClinic_Rest
             config.MapHttpAttributeRoutes();
 
 
-            config.Routes.MapHttpRoute(
-                name: "route1",
-                routeTemplate: "api/{controller}/{therapistId}/{week}/{year}/{properties}",
-                defaults: new
-                {
-                    //therapistId = RouteParameter.Optional,
-                    //day = RouteParameter.Optional,
-                    //year = RouteParameter.Optional,
-                    properties = RouteParameter.Optional
-                }
-            );
+            //config.Routes.MapHttpRoute(
+            //    name: "route1",
+            //    routeTemplate: "api/{controller}/{therapistId}/{week}/{year}/{properties}",
+            //    defaults: new
+            //    {
+            //        //therapistId = RouteParameter.Optional,
+            //        //day = RouteParameter.Optional,
+            //        //year = RouteParameter.Optional,
+            //        properties = RouteParameter.Optional
+            //    }
+            //);
 
-            config.Routes.MapHttpRoute(
-                name: "route2",
-                routeTemplate: "api/{controller}/{therapistId}/{week}/{year}",
-                defaults: new
-                {
-                    therapistId = RouteParameter.Optional,
-                    day = RouteParameter.Optional,
-                    year = RouteParameter.Optional,
-                }
-            );
+            //config.Routes.MapHttpRoute(
+            //    name: "route2",
+            //    routeTemplate: "api/{controller}/{therapistId}/{week}/{year}",
+            //    defaults: new
+            //    {
+            //        therapistId = RouteParameter.Optional,
+            //        day = RouteParameter.Optional,
+            //        year = RouteParameter.Optional,
+            //    }
+            //);
 
-            config.Routes.MapHttpRoute(
-                name: "route3",
-                routeTemplate: "api/{controller}/{customerId}/{properties}",
-                defaults: new { customerId = RouteParameter.Optional, properties = RouteParameter.Optional }
-            );
+            //config.Routes.MapHttpRoute(
+            //    name: "route3",
+            //    routeTemplate: "api/{controller}/{customerId}/{properties}",
+            //    defaults: new {  }
+            //);
 
+            //config.Routes.MapHttpRoute(
+            //    name: "route4",
+            //    routeTemplate: "api/{controller}/{Id}/{properties}",
+            //    defaults: new {  }
+            //);
 
-            config.Routes.MapHttpRoute(
-                name: "DefaultApiCustomerId",
-                routeTemplate: "api/{controller}/{customerId}",
-                defaults: new { customerId = RouteParameter.Optional }
-            );
+            //config.Routes.MapHttpRoute(
+            //    name: "DefaultApiCustomerId",
+            //    routeTemplate: "api/{controller}/{customerId}",
+            //    defaults: new { }
+            //);
 
             config.Routes.MapHttpRoute(
                 name: "DefaultApiId",

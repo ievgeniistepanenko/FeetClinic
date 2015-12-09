@@ -57,7 +57,7 @@ namespace FeetClinic_DAL.Conrete
 
             Booking booking = new Booking
             {
-                DateTime = DateTime.Now.AddDays(1).AddHours(14),
+                DateTime = DateTime.Now.AddDays(1).AddHours(2),
                 BookingDate = DateTime.Now,
                 CustomerProfile = customer,
                 Therapist = therapist,

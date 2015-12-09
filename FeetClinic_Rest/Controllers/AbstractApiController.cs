@@ -38,7 +38,7 @@ namespace FeetClinic_Rest.Controllers
         {
             try
             {
-                List<TEntity> entities = Manager.GetAll(properties).ToList(); 
+                IEnumerable<TEntity> entities = Manager.GetAll(properties); 
                 if (entities.Any())
                 {
                     return Request.CreateResponse(HttpStatusCode.OK, entities);

@@ -13,7 +13,7 @@ namespace FeetClinic.WEB.ServiceGateway
         private readonly string path;
         private readonly string hostUri;
 
-        public ServiceGateway(string path, string hostUri = "http://localhost:1993/")
+        public ServiceGateway(string path, string hostUri = "http://feetclinicrest.azurewebsites.net/")
         {
             this.hostUri = hostUri;
             this.path = path;

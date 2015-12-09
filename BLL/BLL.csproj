@@ -73,7 +73,6 @@
     <Compile Include="Managers\TreatmentsManager.cs" />
     <Compile Include="Managers\TreatmentTypesManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="WorkingHoursManager.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DomainModel\BE.csproj">
