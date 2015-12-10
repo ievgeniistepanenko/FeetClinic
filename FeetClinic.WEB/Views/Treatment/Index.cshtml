@@ -1,4 +1,4 @@
-﻿@model IEnumerable<BE.BE.Therapist>
+﻿@model IEnumerable<BE.BE.Treatments.Treatment>
 
 @{
     ViewBag.Title = "Index";
@@ -17,6 +17,12 @@
         <th>
             @Html.DisplayNameFor(model => model.Description)
         </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Price)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Duration)
+        </th>
         <th></th>
     </tr>
 
@@ -27,6 +33,12 @@
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Description)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Price)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Duration)
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |

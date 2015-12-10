@@ -10,12 +10,13 @@ namespace FeetClinic.WEB.Controllers
 {
     public class TreatmentController : Controller
     {
-        ServiceGateway<TreatmentType> service = new ServiceGateway<TreatmentType>("api/treatmenttypes/");
+        ServiceGateway<Treatment> service = new ServiceGateway<Treatment>("api/treatments/");
 
         // GET: Treatment
         public ActionResult Index()
         {
-            return View();
+            IEnumerable<Treatment> treat = service.GetAll();
+            return View(treat);
         }
 
         // GET: Treatment
@@ -27,7 +28,13 @@ namespace FeetClinic.WEB.Controllers
         // GET: Treatment/Details/5
         public ActionResult Details(int id)
         {
-            return View();
+            Treatment treat = service.GetOne(id);
+
+            if (treat == null)
+            {
+                return HttpNotFound();
+            }
+            return View(treat);
         }
 
         // GET: Treatment/Details/5
@@ -50,13 +57,16 @@ namespace FeetClinic.WEB.Controllers
 
         // POST: Treatment/Create
         [HttpPost]
-        public ActionResult Create(FormCollection collection)
+        public ActionResult Create(Treatment treat)
         {
             try
             {
-                // TODO: Add insert logic here
-
-                return RedirectToAction("Index");
+                if (ModelState.IsValid)
+                {
+                    service.CreateOne(treat);
+                    return RedirectToAction("Index");
+                }
+                return View(treat);
             }
             catch
             {
@@ -83,7 +93,12 @@ namespace FeetClinic.WEB.Controllers
         // GET: Treatment/Edit/5
         public ActionResult Edit(int id)
         {
-            return View();
+            Treatment treat = service.GetOne(id);
+            if (treat == null)
+            {
+                return HttpNotFound();
+            }
+            return View(treat);
         }
 
         // GET: Treatment/Edit/5
@@ -94,13 +109,17 @@ namespace FeetClinic.WEB.Controllers
 
         // POST: Treatment/Edit/5
         [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
+        public ActionResult Edit(int id, Treatment treat)
         {
             try
             {
-                // TODO: Add update logic here
+                if (ModelState.IsValid)
+                {
+                    service.Update(treat);
 
-                return RedirectToAction("Index");
+                    return RedirectToAction("Index");
+                }
+                return View(treat);
             }
             catch
             {
@@ -127,7 +146,8 @@ namespace FeetClinic.WEB.Controllers
         // GET: Treatment/Delete/5
         public ActionResult Delete(int id)
         {
-            return View();
+            Treatment treat = service.GetOne(id);
+            return View(treat);
         }
 
         // GET: Treatment/Delete/5
@@ -138,12 +158,12 @@ namespace FeetClinic.WEB.Controllers
 
         // POST: Treatment/Delete/5
         [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
+        public ActionResult Delete(int id, Treatment treat)
         {
             try
             {
                 // TODO: Add delete logic here
-
+                service.Delete(id);
                 return RedirectToAction("Index");
             }
             catch
