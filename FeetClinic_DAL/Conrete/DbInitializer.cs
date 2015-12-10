@@ -18,7 +18,7 @@ namespace FeetClinic_DAL.Conrete
             
             Address address = new Address {City = "Esbjerg", Id = 1,StreetName = "Stormgade",StreetNumber = "36",ZipCode = 7660};
             CustomerProfile customer = new CustomerProfile
-            { Address = address, FirstName = "Lars",Id = 2, LastName = "Larsen" };
+            { Address = address, FirstName = "Lars",Id = 1, LastName = "Larsen" };
 
             List<DayWorkingHours> listWh = new List<DayWorkingHours>();
             for (int i = 1; i < 6; i++)
