@@ -21,6 +21,7 @@ namespace FeetClinic.WEB.Controllers
     public class AccountController : Controller
     {
         private readonly UserDalFacade _facade = new UserDalFacade();
+        private readonly ServiceGatewayFactory serviceFactory = new ServiceGatewayFactory();
         private IAuthenticationManager AuthenticationManager => 
             HttpContext.GetOwinContext().Authentication;
 
@@ -37,7 +38,7 @@ namespace FeetClinic.WEB.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public ActionResult Register(AccountViewModels.RegisterViewModel model)
+        public ActionResult Register(RegisterViewModel model)
         {
             if (ModelState.IsValid)
             {
@@ -66,7 +67,7 @@ namespace FeetClinic.WEB.Controllers
                         LastName = model.LastName,
                         Id = userWithId.Id
                     };
-                    ServiceGateway<CustomerProfile> serviceGateway = new ServiceGateway<CustomerProfile>("api/Customers");
+                    ServiceGateway<CustomerProfile> serviceGateway = serviceFactory.CustomersGateway;
                     HttpResponseMessage response = serviceGateway.CreateOne(customer);
                     if (response.StatusCode == HttpStatusCode.Created)
                     {
@@ -94,7 +95,7 @@ namespace FeetClinic.WEB.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public ActionResult Login(AccountViewModels.LoginViewModel model, string returnUrl)
+        public ActionResult Login(LoginViewModel model, string returnUrl)
         {
             if (ModelState.IsValid)
             {

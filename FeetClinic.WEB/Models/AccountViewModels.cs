@@ -3,12 +3,11 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
+using BE.BE.Customer;
+using BE.BE.Identity;
 
 namespace FeetClinic.WEB.Models
 {
-    public class AccountViewModels
-    {
-
         public class LoginViewModel
         {
             [Required]
@@ -63,7 +62,19 @@ namespace FeetClinic.WEB.Models
             [Display(Name = "Confirm password")]
             [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
             public string ConfirmPassword { get; set; }
-        }
 
-    }
+            public RegisterViewModel() { }
+            public RegisterViewModel(User user, CustomerProfile profile)
+            {
+                Email = user.Email;
+                Phone = user.Phone;
+                Password = user.Password;
+                FirstName = profile.FirstName;
+                LastName = profile.LastName;
+                StreetName = profile.Address.StreetName;
+                StreetNumber = profile.Address.StreetNumber;
+                City = profile.Address.City;
+                ZipCode = profile.Address.ZipCode;
+            }
+        }
 }
