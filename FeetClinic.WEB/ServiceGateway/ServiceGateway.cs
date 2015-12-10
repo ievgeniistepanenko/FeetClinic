@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Net.Http.Headers;
+using System.Web.Configuration;
 using BE.Interfaces;
 
 
@@ -11,9 +12,9 @@ namespace FeetClinic.WEB.ServiceGateway
     {
 
         private readonly string path;
-        private readonly string hostUri;
+        private string hostUri;
 
-        public ServiceGateway(string path, string hostUri = "http://feetclinicrest.azurewebsites.net/")
+        public ServiceGateway(string path, string hostUri = "")
         {
             this.hostUri = hostUri;
             this.path = path;
@@ -68,6 +69,13 @@ namespace FeetClinic.WEB.ServiceGateway
 
         private HttpClient GetHttpClient()
         {
+            string baseAddress =
+                WebConfigurationManager.AppSettings["FeetClinicRestApiBaseAddress"];
+            if (hostUri == "")
+            {
+                hostUri = baseAddress;
+            }
+
             HttpClient client = new HttpClient();
             client.BaseAddress = new Uri(hostUri);
             client.DefaultRequestHeaders.Accept.Clear();

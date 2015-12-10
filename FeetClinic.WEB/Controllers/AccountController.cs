@@ -44,8 +44,12 @@ namespace FeetClinic.WEB.Controllers
                 Role role = _facade.Roles.GetOne(r => r.Name == "user");
                 User user = new User {Email = model.Email,Password = model.Password,
                     Phone = model.Phone,Role = role};
-                User userWithId = _facade.Users.Create(user);
 
+                _facade.Users.Create(user);
+                _facade.Save();
+
+                User userWithId = _facade.Users.GetOne(u => u.Email ==user.Email && u.Password == user.Password 
+                                    && u.Phone == user.Phone && u.RoleId == role.Id );
                 if (userWithId.Id != 0)
                 {
                     Address address = new Address
@@ -62,12 +66,14 @@ namespace FeetClinic.WEB.Controllers
                         LastName = model.LastName,
                         Id = userWithId.Id
                     };
-                    ServiceGateway<CustomerProfile> serviceGateway = new ServiceGateway<CustomerProfile>("api/Cusomers");
+                    ServiceGateway<CustomerProfile> serviceGateway = new ServiceGateway<CustomerProfile>("api/Customers");
                     HttpResponseMessage response = serviceGateway.CreateOne(customer);
                     if (response.StatusCode == HttpStatusCode.Created)
                     {
                         return RedirectToAction("Index", "Home");
                     }
+                    _facade.Users.Delete(userWithId);
+                    _facade.Save();
                 }
             }
 
