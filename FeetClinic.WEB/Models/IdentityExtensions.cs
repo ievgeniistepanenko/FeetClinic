@@ -27,6 +27,23 @@ namespace FeetClinic.WEB.Models
             }
             return default(T);
         }
+        public static T GetUserPhone<T>(this IIdentity identity) where T : IConvertible
+        {
+            if (identity == null)
+            {
+                throw new ArgumentNullException("identity");
+            }
+            var ci = identity as ClaimsIdentity;
+            if (ci != null)
+            {
+                var id = ci.FindFirst(ClaimTypes.MobilePhone);
+                if (id != null)
+                {
+                    return (T)Convert.ChangeType(id.Value, typeof(T), CultureInfo.InvariantCulture);
+                }
+            }
+            return default(T);
+        }
         public static string GetUserRole(this IIdentity identity)
         {
             if (identity == null)
@@ -43,5 +60,7 @@ namespace FeetClinic.WEB.Models
             }
             return role;
         }
+
+        
     }
 }

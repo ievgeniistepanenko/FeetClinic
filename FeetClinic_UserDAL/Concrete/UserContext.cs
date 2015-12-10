@@ -9,7 +9,7 @@ namespace FeetClinic_UserDAL.Concrete
         public UserContext() : base("DBConnection")
         {
             Configuration.ProxyCreationEnabled = false;
-            Database.SetInitializer<UserContext>(new UserDbInitializer());
+            //Database.SetInitializer<UserContext>(new UserDbInitializer());
         }
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

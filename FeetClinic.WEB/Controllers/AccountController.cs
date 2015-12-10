@@ -70,7 +70,7 @@ namespace FeetClinic.WEB.Controllers
                     HttpResponseMessage response = serviceGateway.CreateOne(customer);
                     if (response.StatusCode == HttpStatusCode.Created)
                     {
-                        return RedirectToAction("Index", "Home");
+                        return RedirectToAction("Login");
                     }
                     _facade.Users.Delete(userWithId);
                     _facade.Save();
@@ -92,6 +92,7 @@ namespace FeetClinic.WEB.Controllers
         
 
         [HttpPost]
+        [AllowAnonymous]
         [ValidateAntiForgeryToken]
         public ActionResult Login(AccountViewModels.LoginViewModel model, string returnUrl)
         {
@@ -101,11 +102,11 @@ namespace FeetClinic.WEB.Controllers
                 User user;
                 if (int.TryParse(model.LogIn,out phone))
                 {
-                    user = _facade.Users.GetOne(u => u.Phone == phone, "Role");
+                    user = _facade.Users.GetFirst(u => u.Phone == phone, "Role");
                 }
                 else
                 {
-                    user = _facade.Users.GetOne(u => u.Email == model.LogIn && u.Password == model.Password, "Role");
+                    user = _facade.Users.GetFirst(u => u.Email == model.LogIn && u.Password == model.Password, "Role");
                 }
                 
                 if (user == null)
@@ -116,7 +117,9 @@ namespace FeetClinic.WEB.Controllers
                 {
                     ClaimsIdentity claim = new ClaimsIdentity("ApplicationCookie", ClaimsIdentity.DefaultNameClaimType, ClaimsIdentity.DefaultRoleClaimType);
                     claim.AddClaim(new Claim(ClaimTypes.NameIdentifier, user.Id.ToString(), ClaimValueTypes.String));
+                    claim.AddClaim(new Claim(ClaimTypes.MobilePhone, user.Phone.ToString(),ClaimValueTypes.String));
                     claim.AddClaim(new Claim(ClaimsIdentity.DefaultNameClaimType, user.Email, ClaimValueTypes.String));
+
                     claim.AddClaim(new Claim("http://schemas.microsoft.com/accesscontrolservice/2010/07/claims/identityprovider",
                         "OWIN Provider", ClaimValueTypes.String));
                     if (user.Role != null)
