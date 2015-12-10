@@ -180,9 +180,7 @@
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityExtensions.cs" />
-    <Compile Include="Models\TherapistModel.cs" />
-    <Compile Include="Models\TreatmentModels.cs" />
-    <Compile Include="Models\WorkTimeModels.cs" />
+    <Compile Include="Models\TherapistViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ServiceGateway\ServiceGateway.cs" />
     <Compile Include="ServiceGateway\ServiceGatewayFactory.cs" />
@@ -223,25 +221,36 @@
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Customer\Create.cshtml" />
-    <Content Include="Views\Therapist\Create.cshtml" />
-    <Content Include="Views\Therapist\Details.cshtml" />
-    <Content Include="Views\Therapist\Edit.cshtml" />
-    <Content Include="Views\Therapist\Delete.cshtml" />
-    <Content Include="Views\Therapist\Index.cshtml" />
     <Content Include="Views\Customer\Details.cshtml" />
     <Content Include="Views\Customer\Edit.cshtml" />
     <Content Include="Views\Customer\Delete.cshtml" />
     <Content Include="Views\Customer\Index.cshtml" />
-    <Content Include="Views\TreatmentTypes\Index.cshtml" />
     <Content Include="Views\Account\Login.cshtml" />
     <Content Include="Views\Account\Register.cshtml" />
+<<<<<<< HEAD
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Manage\Index.cshtml" />
+=======
+    <Content Include="Views\TreatmentTypes\Index.cshtml" />
+    <Content Include="Views\TreatmentTypes\Details.cshtml" />
+    <Content Include="Views\TreatmentTypes\Create.cshtml" />
+    <Content Include="Views\TreatmentTypes\Edit.cshtml" />
+    <Content Include="Views\TreatmentTypes\Delete.cshtml" />
+    <Content Include="Views\Treatment\Index.cshtml" />
+    <Content Include="Views\Treatment\Details.cshtml" />
+    <Content Include="Views\Treatment\Create.cshtml" />
+    <Content Include="Views\Treatment\Edit.cshtml" />
+    <Content Include="Views\Treatment\Delete.cshtml" />
+    <Content Include="Views\Therapist\Index.cshtml" />
+    <Content Include="Views\Therapist\Details.cshtml" />
+    <Content Include="Views\Therapist\Edit.cshtml" />
+    <Content Include="Views\Therapist\Delete.cshtml" />
+    <Content Include="Views\Therapist\Create.cshtml" />
+>>>>>>> dfc76b0d32bc940c2a1a1f160f5a389bd38da896
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Views\Booking\" />
-    <Folder Include="Views\Treatment\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
