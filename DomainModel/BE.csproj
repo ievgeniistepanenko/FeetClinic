@@ -48,6 +48,7 @@
     <Compile Include="BE\Customer\Address.cs" />
     <Compile Include="BE\Booking.cs" />
     <Compile Include="BE\Customer\CustomerProfile.cs" />
+    <Compile Include="BE\Identity\Role.cs" />
     <Compile Include="BE\Schedule\DayAgenda.cs" />
     <Compile Include="BE\Schedule\Holiday.cs" />
     <Compile Include="BE\Schedule\MonthScheduler.cs" />
@@ -58,6 +59,7 @@
     <Compile Include="BE\Therapist.cs" />
     <Compile Include="BE\Treatments\Treatment.cs" />
     <Compile Include="BE\Treatments\TreatmentType.cs" />
+    <Compile Include="BE\Identity\User.cs" />
     <Compile Include="Interfaces\IEntity.cs" />
     <Compile Include="Interfaces\IDayAgenda.cs" />
     <Compile Include="Interfaces\IMonthScheduler.cs" />
@@ -69,7 +71,9 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Interfaces\DAL\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
