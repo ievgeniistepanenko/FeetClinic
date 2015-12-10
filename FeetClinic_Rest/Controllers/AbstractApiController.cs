@@ -105,10 +105,9 @@ namespace FeetClinic_Rest.Controllers
             }
             try
             {
-                entity = Manager.Create(entity);
-                var response = Request.CreateResponse(HttpStatusCode.Created, entity);
-
-                string uri = Url.Link("DefaultApi", new { id = entity.Id });
+                TEntity createdEntity = Manager.Create(entity);
+                var response = Request.CreateResponse(HttpStatusCode.Created, createdEntity);
+                string uri = Url.Link("DefaultApi", new { id = createdEntity.Id });
                 response.Headers.Location = new Uri(uri);
 
                 return response;
