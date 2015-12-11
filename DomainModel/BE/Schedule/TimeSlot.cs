@@ -5,7 +5,7 @@ using BE.Interfaces;
 
 namespace BE.BE.Schedule
 {
-    public class  TimeSlot : ITimeSlot
+    public class  TimeSlot : ITimeSlot, IEntity
     {
         public int Number { get; }
         public Time StartTime { get; set; }
