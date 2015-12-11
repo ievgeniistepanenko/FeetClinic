@@ -171,6 +171,7 @@
     <Compile Include="Controllers\BookingController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\NewController.cs" />
     <Compile Include="Controllers\TherapistController.cs" />
     <Compile Include="Controllers\TreatmentController.cs" />
     <Compile Include="Controllers\TreatmentTypesController.cs" />
@@ -238,10 +239,12 @@
     <Content Include="Views\Therapist\Edit.cshtml" />
     <Content Include="Views\Therapist\Delete.cshtml" />
     <Content Include="Views\Therapist\Create.cshtml" />
+    <Content Include="Views\Manage\Edit.cshtml" />
+    <Content Include="Views\Booking\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\Booking\" />
+    <Folder Include="Views\New\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
