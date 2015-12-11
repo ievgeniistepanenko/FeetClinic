@@ -13,7 +13,7 @@ namespace FeetClinic.WEB.Models
     {
         // Display Attribute will appear in the Html.LabelFor
         [Display(Name = "Treatment")]
-        public int SelectedUserRoleId { get; set; }
+        public int SelectedTreatmentId { get; set; }
         public IEnumerable<SelectListItem> treatments { get; set; }
 
         public int Id { get; set; }
