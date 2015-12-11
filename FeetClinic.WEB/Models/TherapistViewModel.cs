@@ -11,6 +11,10 @@ namespace FeetClinic.WEB.Models
 {
     public class TherapistViewModel
     {
+
+
+
+
         public int Id { get; }
 
         [Required]

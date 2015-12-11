@@ -42,25 +42,17 @@ namespace FeetClinic.WEB.Controllers
         // GET: Therapist/Create
         public ActionResult Create()
         {
-            IEnumerable<Treatment> treats = service.TreatmentGateway.GetAll();
             return View();
         }
 
         // POST: Therapist/Create
         [HttpPost]
-        public ActionResult Create(TherapistViewModel model)
+        public ActionResult Create(Therapist model)
         {
 
                 if (ModelState.IsValid)
                 {
                         
-
-                Therapist therapist = new Therapist
-                {
-                    Name = model.Name,
-                    Description = model.Description,
-                };
-
 
                     return RedirectToAction("Index");
                 }
