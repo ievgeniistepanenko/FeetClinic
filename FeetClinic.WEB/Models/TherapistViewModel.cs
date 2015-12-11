@@ -11,21 +11,20 @@ namespace FeetClinic.WEB.Models
 {
     public class TherapistViewModel
     {
-        // Display Attribute will appear in the Html.LabelFor
-        [Display(Name = "Treatment")]
-        public int SelectedUserRoleId { get; set; }
-        public IEnumerable<SelectListItem> treatments { get; set; }
 
-        public int Id { get; set; }
+
+
+
+        public int Id { get; }
 
         [Required]
         public string Name { get; set; }
         [Required]
         public string Description { get; set; }
 
-        public Holiday Holidays { get; set; }
-        public Treatment Treatments { get; set; }
-        public DayWorkingHours WorkingHourses { get; set; }
+        public List<Holiday> Holidays { get; set; }
+        public List<Treatment> Treatments { get; set; }
+        public List<DayWorkingHours> WorkingHourses { get; set; }
     }
 
 }
