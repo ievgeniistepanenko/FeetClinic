@@ -10,12 +10,17 @@ namespace FeetClinic.WEB.Controllers
 {
     public class TreatmentController : Controller
     {
-        ServiceGateway<Treatment> service = new ServiceGateway<Treatment>("api/treatments/");
+        private readonly ServiceGatewayFactory service;
+
+        public TreatmentController()
+        {
+            service = new ServiceGatewayFactory();
+        }
 
         // GET: Treatment
         public ActionResult Index()
         {
-            IEnumerable<Treatment> treat = service.GetAll();
+            IEnumerable<Treatment> treat = service.TreatmentGateway.GetAll();
             return View(treat);
         }
 
@@ -28,7 +33,7 @@ namespace FeetClinic.WEB.Controllers
         // GET: Treatment/Details/5
         public ActionResult Details(int id)
         {
-            Treatment treat = service.GetOne(id);
+            Treatment treat = service.TreatmentGateway.GetOne(id);
 
             if (treat == null)
             {
@@ -63,7 +68,7 @@ namespace FeetClinic.WEB.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    service.CreateOne(treat);
+                    service.TreatmentGateway.CreateOne(treat);
                     return RedirectToAction("Index");
                 }
                 return View(treat);
@@ -93,7 +98,7 @@ namespace FeetClinic.WEB.Controllers
         // GET: Treatment/Edit/5
         public ActionResult Edit(int id)
         {
-            Treatment treat = service.GetOne(id);
+            Treatment treat = service.TreatmentGateway.GetOne(id);
             if (treat == null)
             {
                 return HttpNotFound();
@@ -115,7 +120,7 @@ namespace FeetClinic.WEB.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    service.Update(treat);
+                    service.TreatmentGateway.Update(treat);
 
                     return RedirectToAction("Index");
                 }
@@ -146,7 +151,7 @@ namespace FeetClinic.WEB.Controllers
         // GET: Treatment/Delete/5
         public ActionResult Delete(int id)
         {
-            Treatment treat = service.GetOne(id);
+            Treatment treat = service.TreatmentGateway.GetOne(id);
             return View(treat);
         }
 
@@ -163,7 +168,7 @@ namespace FeetClinic.WEB.Controllers
             try
             {
                 // TODO: Add delete logic here
-                service.Delete(id);
+                service.TreatmentGateway.Delete(id);
                 return RedirectToAction("Index");
             }
             catch

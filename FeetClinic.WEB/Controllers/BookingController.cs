@@ -6,10 +6,13 @@ using System.Web.Mvc;
 
 namespace FeetClinic.WEB.Controllers
 {
+    [Authorize]
     public class BookingController : Controller
     {
+
+        [Authorize]
         // GET: Booking
-        public ActionResult Index()
+        public ActionResult Index(int userId)
         {
             return View();
         }

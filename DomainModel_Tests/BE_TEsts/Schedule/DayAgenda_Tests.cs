@@ -247,31 +247,31 @@ namespace DomainModel_Tests.BE_TEsts.Schedule
 
         }
 
-        [Test]
-        [ExpectedException(typeof(OperationCanceledException))]
-        public void Can_Not_Remove_Booking_24hours_Before()
-        {
-            DayWorkingHours wh = new DayWorkingHours(new Time(8, 0), new Time(15, 25),
-               new Time(11, 30), new TimeSpan(0, 0, 30, 0));
-            DateTime now = DateTime.Now;
-            DateTime oneDayFromNow = now.AddDays(1);
-            List<Booking> bookings = new List<Booking>
-            {
-                new Booking() {  Id = 1,
-                                Treatments = new List<Treatment>()
-                {                    new Treatment { Duration = new TimeSpan(0, 0, 50, 0)},
-                                     new Treatment {Duration = new TimeSpan(0, 1, 15, 0)}
-                },              DateTime = new DateTime(oneDayFromNow.Year,oneDayFromNow.Month,oneDayFromNow.Day,9,0,0) },
-                new Booking() {Id =2,
-                                Treatments = new List<Treatment>
-                {                       new Treatment {Duration = new TimeSpan(0, 0, 45, 0)},
-                                        new Treatment { Duration = new TimeSpan(0, 1, 0, 0) }},
-                                DateTime = new DateTime(2000, 1, 1, 12, 30, 0)}
-            };
+        //[Test]
+        //[ExpectedException(typeof(OperationCanceledException))]
+        //public void Can_Not_Remove_Booking_24hours_Before()
+        //{
+        //    DayWorkingHours wh = new DayWorkingHours(new Time(8, 0), new Time(15, 25),
+        //       new Time(11, 30), new TimeSpan(0, 0, 30, 0));
+        //    DateTime now = DateTime.Now;
+        //    DateTime oneDayFromNow = now.AddDays(1);
+        //    List<Booking> bookings = new List<Booking>
+        //    {
+        //        new Booking() {  Id = 1,
+        //                        Treatments = new List<Treatment>()
+        //        {                    new Treatment { Duration = new TimeSpan(0, 0, 50, 0)},
+        //                             new Treatment {Duration = new TimeSpan(0, 1, 15, 0)}
+        //        },              DateTime = new DateTime(oneDayFromNow.Year,oneDayFromNow.Month,oneDayFromNow.Day,9,0,0) },
+        //        new Booking() {Id =2,
+        //                        Treatments = new List<Treatment>
+        //        {                       new Treatment {Duration = new TimeSpan(0, 0, 45, 0)},
+        //                                new Treatment { Duration = new TimeSpan(0, 1, 0, 0) }},
+        //                        DateTime = new DateTime(2000, 1, 1, 12, 30, 0)}
+        //    };
 
-            DayAgenda agenda = new DayAgenda(new DateTime(now.Year, now.Month, now.Day), wh, bookings);
-            agenda.RemoveBooking(bookings[0]);
-        }
+        //    DayAgenda agenda = new DayAgenda(new DateTime(now.Year, now.Month, now.Day), wh, bookings);
+        //    agenda.RemoveBooking(bookings[0]);
+        //}
 
     }
 }
