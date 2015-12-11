@@ -1,5 +1,6 @@
 ﻿using BE.BE;
 using BE.BE.Treatments;
+using FeetClinic.WEB.Models;
 using FeetClinic.WEB.ServiceGateway;
 using System;
 using System.Collections.Generic;
@@ -35,30 +36,31 @@ namespace FeetClinic.WEB.Controllers
         // GET: Therapist/Create
         public ActionResult Create()
         {
-            var model = new Models.TherapistViewModel
-            {
-                treatments = GetTreatments()
-            };
+
+            var model = new TherapistViewModel{ treatments = GetTreatments()};
             return View(model);
         }
 
         // POST: Therapist/Create
         [HttpPost]
-        public ActionResult Create(Therapist therapist)
+        public ActionResult Create(TherapistViewModel model)
         {
-            try
-            {
+
                 if (ModelState.IsValid)
                 {
-                    service.CreateOne(therapist);
+                        
+
+                Therapist therapist = new Therapist
+                {
+                    Name = model.Name,
+                    Description = model.Description,
+                };
+
+
                     return RedirectToAction("Index");
                 }
-                return View(therapist);
-            }
-            catch
-            {
                 return View();
-            }
+
         }
 
         // GET: Therapist/Edit/5
@@ -118,7 +120,7 @@ namespace FeetClinic.WEB.Controllers
         private IEnumerable<SelectListItem> GetTreatments()
         {
             ServiceGateway<Treatment> service = new ServiceGateway<Treatment>("api/treatments/");
-            var roles = service.GetAll()
+            var treatments = service.GetAll()
                         .Select(x =>
                                 new SelectListItem
                                 {
@@ -126,7 +128,7 @@ namespace FeetClinic.WEB.Controllers
                                     Text = x.Name
                                 });
 
-            return new SelectList(roles, "Value", "Text");
+            return new SelectList(treatments, "Value", "Text");
         }
 
     }
