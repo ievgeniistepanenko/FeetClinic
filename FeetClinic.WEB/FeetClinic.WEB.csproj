@@ -182,6 +182,7 @@
     <Compile Include="Models\IdentityExtensions.cs" />
     <Compile Include="Models\TherapistViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ServiceGateway\BookingServiceGateway.cs" />
     <Compile Include="ServiceGateway\ServiceGateway.cs" />
     <Compile Include="ServiceGateway\ServiceGatewayFactory.cs" />
   </ItemGroup>
