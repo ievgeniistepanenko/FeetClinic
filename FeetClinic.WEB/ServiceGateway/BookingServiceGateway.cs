@@ -19,24 +19,14 @@ namespace FeetClinic.WEB.ServiceGateway
             IEnumerable<Booking> entity;
             HttpClient client = GetHttpClient();
             HttpResponseMessage response = client.GetAsync(path + "?customerId="+customerId).Result;
-            if (response.StatusCode == HttpStatusCode.OK)
-            {
-                entity = response.Content.ReadAsAsync<IEnumerable<Booking>>().Result;
-            }
-            else
-            {
-                entity = new List<Booking>();
-            }
-            
-            return entity;
+            return GetBookingsFromResponse(response);
         }
 
         public IEnumerable<Booking> GetForCustomer(int customerId, string properties)
         {
             HttpClient client = GetHttpClient();
             HttpResponseMessage response = client.GetAsync(path + "?customerId=" + customerId + "&properties=" + properties).Result;
-            var entity = response.Content.ReadAsAsync<IEnumerable<Booking>>().Result;
-            return entity;
+            return GetBookingsFromResponse(response);
         }
 
         public IEnumerable<Booking> GetForTherapist(int therapistId, int week, int year)
@@ -44,8 +34,7 @@ namespace FeetClinic.WEB.ServiceGateway
             HttpClient client = GetHttpClient();
             HttpResponseMessage response = client.GetAsync(path + "?therapistId=" + therapistId +
                 "&week=" + week + "&year=" + year).Result;
-            var entity = response.Content.ReadAsAsync<IEnumerable<Booking>>().Result;
-            return entity;
+            return GetBookingsFromResponse(response);
         }
 
         public IEnumerable<Booking> GetForTherapist(int therapistId, int week, int year, string properties)
@@ -53,8 +42,25 @@ namespace FeetClinic.WEB.ServiceGateway
             HttpClient client = GetHttpClient();
             HttpResponseMessage response = client.GetAsync(path + "?therapistId=" + therapistId +
                 "&week=" + week + "&year=" + year + "&properties=" + properties).Result;
-            var entity = response.Content.ReadAsAsync<IEnumerable<Booking>>().Result;
-            return entity;
+            return GetBookingsFromResponse(response);
         }
+
+        private IEnumerable<Booking> GetBookingsFromResponse(HttpResponseMessage response)
+        {
+            IEnumerable<Booking> bookings = new List<Booking>();
+            if (response.StatusCode == HttpStatusCode.OK)
+            {
+                bookings = response.Content.ReadAsAsync<IEnumerable<Booking>>().Result;
+            }
+            if (response.StatusCode == HttpStatusCode.NotFound)
+            {
+                return bookings;
+            }
+            if (response.StatusCode == HttpStatusCode.InternalServerError)
+            {
+                throw new Exception(response.ReasonPhrase);
+            }
+            return bookings;
+        } 
     }
 }
