@@ -227,10 +227,10 @@
     <Content Include="Views\Customer\Index.cshtml" />
     <Content Include="Views\Account\Login.cshtml" />
     <Content Include="Views\Account\Register.cshtml" />
-<<<<<<< HEAD
+
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Manage\Index.cshtml" />
-=======
+
     <Content Include="Views\TreatmentTypes\Index.cshtml" />
     <Content Include="Views\TreatmentTypes\Details.cshtml" />
     <Content Include="Views\TreatmentTypes\Create.cshtml" />
@@ -246,7 +246,7 @@
     <Content Include="Views\Therapist\Edit.cshtml" />
     <Content Include="Views\Therapist\Delete.cshtml" />
     <Content Include="Views\Therapist\Create.cshtml" />
->>>>>>> dfc76b0d32bc940c2a1a1f160f5a389bd38da896
+
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
