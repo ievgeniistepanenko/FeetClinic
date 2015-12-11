@@ -6,13 +6,16 @@
     {
     @Html.AntiForgeryToken()
 
-    <ul class="nav navbar-nav navbar-right">
-        <li>
-            
-            @Html.ActionLink("Hello " + User.Identity.Name + " ", "Index", "Manage", routeValues:new{userId = User.Identity.GetUserId<int>()}, htmlAttributes: new {title = "Manage"})
-        </li>
-        <li><a href="javascript:document.getElementById('logoutForm').submit()">Log off</a></li>
-    </ul>
+
+        <ul class="nav navbar-nav navbar-right">
+            <li>
+                @Html.ActionLink("My bookings","Index","Booking",routeValues:new {userId = User.Identity.GetUserId<int>()},htmlAttributes:new {title = "Bookings"})
+            </li>
+            <li>
+                @Html.ActionLink("Hello " + User.Identity.Name + " ", "Index", "Manage", routeValues: new { userId = User.Identity.GetUserId<int>() }, htmlAttributes: new { title = "Manage" })
+            </li>
+            <li><a href="javascript:document.getElementById('logoutForm').submit()">Log off</a></li>
+        </ul>
     }
 }
 else

@@ -172,6 +172,7 @@
     <Compile Include="Controllers\CustomerController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\NewController.cs" />
     <Compile Include="Controllers\TherapistController.cs" />
     <Compile Include="Controllers\TreatmentController.cs" />
     <Compile Include="Controllers\TreatmentTypesController.cs" />
@@ -227,10 +228,8 @@
     <Content Include="Views\Customer\Index.cshtml" />
     <Content Include="Views\Account\Login.cshtml" />
     <Content Include="Views\Account\Register.cshtml" />
-
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Manage\Index.cshtml" />
-
     <Content Include="Views\TreatmentTypes\Index.cshtml" />
     <Content Include="Views\TreatmentTypes\Details.cshtml" />
     <Content Include="Views\TreatmentTypes\Create.cshtml" />
@@ -246,11 +245,12 @@
     <Content Include="Views\Therapist\Edit.cshtml" />
     <Content Include="Views\Therapist\Delete.cshtml" />
     <Content Include="Views\Therapist\Create.cshtml" />
-
+    <Content Include="Views\Manage\Edit.cshtml" />
+    <Content Include="Views\Booking\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\Booking\" />
+    <Folder Include="Views\New\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
