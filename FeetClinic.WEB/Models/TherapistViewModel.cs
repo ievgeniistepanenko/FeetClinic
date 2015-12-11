@@ -11,13 +11,6 @@ namespace FeetClinic.WEB.Models
 {
     public class TherapistViewModel
     {
-        // Display Attribute will appear in the Html.LabelFor
-        [Display(Name = "Treatment")]
-        public int SelectedTreatmentId { get; set; }
-        public IEnumerable<SelectListItem> treatments { get; set; }
-
-
-
         public int Id { get; }
 
         [Required]

@@ -12,19 +12,25 @@ namespace FeetClinic.WEB.Controllers
 {
     public class TherapistController : Controller
     {
-        ServiceGateway<Therapist> service = new ServiceGateway<Therapist>("api/Therapists/");
+        private readonly ServiceGatewayFactory service;
+
+
+        public TherapistController()
+        {
+            service = new ServiceGatewayFactory();
+        }
 
         // GET: Therapist
         public ActionResult Index()
         {
-            IEnumerable<Therapist> therapists = service.GetAll();
+            IEnumerable<Therapist> therapists = service.TherapistGateway.GetAll();
             return View(therapists);
         }
 
         // GET: Therapist/Details/5
         public ActionResult Details(int id)
         {
-            Therapist therapist = service.GetOne(id);
+            Therapist therapist = service.TherapistGateway.GetOne(id);
 
             if (therapist == null)
             {
@@ -36,9 +42,8 @@ namespace FeetClinic.WEB.Controllers
         // GET: Therapist/Create
         public ActionResult Create()
         {
-
-            var model = new TherapistViewModel{ treatments = GetTreatments()};
-            return View(model);
+            IEnumerable<Treatment> treats = service.TreatmentGateway.GetAll();
+            return View();
         }
 
         // POST: Therapist/Create
@@ -66,7 +71,7 @@ namespace FeetClinic.WEB.Controllers
         // GET: Therapist/Edit/5
         public ActionResult Edit(int id)
         {
-            Therapist therapist = service.GetOne(id);
+            Therapist therapist = service.TherapistGateway.GetOne(id);
             if (therapist == null)
             {
                 return HttpNotFound();
@@ -82,7 +87,7 @@ namespace FeetClinic.WEB.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    service.Update(therapist);
+                    service.TherapistGateway.Update(therapist);
 
                     return RedirectToAction("Index");
                 }
@@ -97,7 +102,7 @@ namespace FeetClinic.WEB.Controllers
         // GET: Therapist/Delete/5
         public ActionResult Delete(int id)
         {
-            Therapist therapist = service.GetOne(id);
+            Therapist therapist = service.TherapistGateway.GetOne(id);
             return View(therapist);
         }
 
@@ -108,7 +113,7 @@ namespace FeetClinic.WEB.Controllers
             try
             {
                 // TODO: Add delete logic here
-                service.Delete(id);
+                service.TherapistGateway.Delete(id);
                 return RedirectToAction("Index");
             }
             catch
@@ -117,19 +122,6 @@ namespace FeetClinic.WEB.Controllers
             }
         }
 
-        private IEnumerable<SelectListItem> GetTreatments()
-        {
-            ServiceGateway<Treatment> service = new ServiceGateway<Treatment>("api/treatments/");
-            var treatments = service.GetAll()
-                        .Select(x =>
-                                new SelectListItem
-                                {
-                                    Value = x.Id.ToString(),
-                                    Text = x.Name
-                                });
-
-            return new SelectList(treatments, "Value", "Text");
-        }
 
     }
 }
