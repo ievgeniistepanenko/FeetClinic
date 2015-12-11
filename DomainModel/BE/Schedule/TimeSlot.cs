@@ -5,7 +5,7 @@ using BE.Interfaces;
 
 namespace BE.BE.Schedule
 {
-    public class  TimeSlot : ITimeSlot
+    public class  TimeSlot : ITimeSlot, IEntity
     {
         public int Number { get; }
         public Time StartTime { get; set; }
@@ -39,6 +39,8 @@ namespace BE.BE.Schedule
             Time maxTime = timeSlots.Max(ts => ts.StartTime.Add( ts.Duration ) );
             return GetSlotsAmount(minTime.GetAbsoluteDifference(maxTime));
         }
+
+        public int Id { get; set; }
     }
 
 }
