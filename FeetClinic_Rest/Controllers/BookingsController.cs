@@ -21,6 +21,14 @@ namespace FeetClinic_Rest.Controllers
             return Manager;
         }
 
+        public HttpResponseMessage GetBooking(int id)
+        {
+            return GetOne(id,"");
+        }
+        public HttpResponseMessage GetBooking(int id, string properties)
+        {
+            return GetOne(id,properties);
+        }
         /// <summary>
         /// Return all booking for customer with given id no older than one year
         /// </summary>
