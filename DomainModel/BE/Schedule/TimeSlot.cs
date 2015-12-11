@@ -39,6 +39,8 @@ namespace BE.BE.Schedule
             Time maxTime = timeSlots.Max(ts => ts.StartTime.Add( ts.Duration ) );
             return GetSlotsAmount(minTime.GetAbsoluteDifference(maxTime));
         }
+
+        public int Id { get; set; }
     }
 
 }
