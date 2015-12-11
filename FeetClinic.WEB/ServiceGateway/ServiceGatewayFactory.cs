@@ -15,12 +15,13 @@ namespace FeetClinic.WEB.ServiceGateway
         private ServiceGateway<CustomerProfile> _customers;
         private ServiceGateway<TreatmentType> _treatmentTypes;
         private ServiceGateway<Treatment> _treatments;
-        private ServiceGateway<Booking> _bookings;
         private ServiceGateway<Address> _addresses;
         private ServiceGateway<Therapist> _therapists;
         private ServiceGateway<TimeSlot> _timeslots;
-        
-             
+        private BookingServiceGateway _bookings;
+
+        public BookingServiceGateway BookingGateway =>
+            _bookings ?? (_bookings = new BookingServiceGateway("api/Bookings"));
         public ServiceGateway<CustomerProfile> CustomersGateway =>
             _customers ?? (_customers = new ServiceGateway<CustomerProfile>("api/Customers/"));
 

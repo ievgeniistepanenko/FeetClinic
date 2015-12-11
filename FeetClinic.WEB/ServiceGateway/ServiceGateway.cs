@@ -11,8 +11,8 @@ namespace FeetClinic.WEB.ServiceGateway
     public class ServiceGateway<TEntity> where TEntity : IEntity
     {
 
-        private readonly string path;
-        private string hostUri;
+        protected readonly string path;
+        protected string hostUri;
 
         public ServiceGateway(string path, string hostUri = "")
         {
@@ -67,7 +67,7 @@ namespace FeetClinic.WEB.ServiceGateway
             return response;
         }
 
-        private HttpClient GetHttpClient()
+        protected HttpClient GetHttpClient()
         {
             string baseAddress =
                 WebConfigurationManager.AppSettings["FeetClinicRestApiBaseAddress"];
@@ -75,7 +75,6 @@ namespace FeetClinic.WEB.ServiceGateway
             {
                 hostUri = baseAddress;
             }
-
             HttpClient client = new HttpClient();
             client.BaseAddress = new Uri(hostUri);
             client.DefaultRequestHeaders.Accept.Clear();

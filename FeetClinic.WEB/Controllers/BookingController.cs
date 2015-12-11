@@ -3,18 +3,27 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using BE.BE;
+using FeetClinic.WEB.ServiceGateway;
 
 namespace FeetClinic.WEB.Controllers
 {
     [Authorize]
     public class BookingController : Controller
     {
+        private ServiceGatewayFactory factory;
+
+        public BookingController()
+        {
+            factory = new ServiceGatewayFactory();
+        }
 
         [Authorize]
         // GET: Booking
         public ActionResult Index(int userId)
         {
-            return View();
+            IEnumerable<Booking> bookings = factory.BookingGateway.GetForCustomer(userId);
+            return View(bookings);
         }
 
         // GET: Booking/Details/5
