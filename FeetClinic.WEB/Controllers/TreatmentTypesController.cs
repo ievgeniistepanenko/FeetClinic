@@ -12,19 +12,25 @@ namespace FeetClinic.WEB.Controllers
     public class TreatmentTypesController : Controller
     {
 
-        ServiceGateway<TreatmentType> service = new ServiceGateway<TreatmentType>("api/TreatmentTypes/");
+        private readonly ServiceGatewayFactory service;
+
+        
+        public TreatmentTypesController()
+        {
+            service = new ServiceGatewayFactory();
+        }
 
         // GET: TreatmentTypes
         public ActionResult Index()
         {
-            IEnumerable<TreatmentType> types = service.GetAll();
+            IEnumerable<TreatmentType> types = service.TreatmentTypeGateway.GetAll();
             return View(types);
         }
 
         // GET: TreatmentTypes/Details/5
         public ActionResult Details(int id)
         {
-            TreatmentType type = service.GetOne(id);
+            TreatmentType type = service.TreatmentTypeGateway.GetOne(id);
 
             if (type == null)
             {
@@ -47,7 +53,7 @@ namespace FeetClinic.WEB.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    service.CreateOne(type);
+                    service.TreatmentTypeGateway.CreateOne(type);
                     return RedirectToAction("Index");
                 }
                 return View(type);
@@ -61,7 +67,7 @@ namespace FeetClinic.WEB.Controllers
         // GET: TreatmentTypes/Edit/5
         public ActionResult Edit(int id)
         {
-            TreatmentType type = service.GetOne(id);
+            TreatmentType type = service.TreatmentTypeGateway.GetOne(id);
             if (type == null)
             {
                 return HttpNotFound();
@@ -77,7 +83,7 @@ namespace FeetClinic.WEB.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    service.Update(type);
+                    service.TreatmentTypeGateway.Update(type);
 
                     return RedirectToAction("Index");
                 }
@@ -92,7 +98,7 @@ namespace FeetClinic.WEB.Controllers
         // GET: TreatmentTypes/Delete/5
         public ActionResult Delete(int id)
         {
-            TreatmentType type = service.GetOne(id);
+            TreatmentType type = service.TreatmentTypeGateway.GetOne(id);
             return View(type);
         }
 
@@ -103,7 +109,7 @@ namespace FeetClinic.WEB.Controllers
             try
             {
                 // TODO: Add delete logic here
-                service.Delete(id);
+                service.TreatmentTypeGateway.Delete(id);
                 return RedirectToAction("Index");
             }
             catch
