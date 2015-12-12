@@ -94,7 +94,7 @@ namespace FeetClinic.WEB.Controllers
                 service.TreatmentGateway.CreateOne(treatment);
                 return RedirectToAction("Index");
             }
-            return View(model);
+            return View();
 
         }
 
