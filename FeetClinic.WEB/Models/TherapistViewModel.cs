@@ -12,8 +12,11 @@ namespace FeetClinic.WEB.Models
     public class TherapistViewModel
     {
 
+        [Display(Name = "Treatments")]
+        public int SelectedTreatmentId { get; set; }
+        public IEnumerable<SelectListItem> treats { get; set; }
 
-
+        
 
         public int Id { get; }
 
