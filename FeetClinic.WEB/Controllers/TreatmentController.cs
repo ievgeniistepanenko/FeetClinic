@@ -5,6 +5,8 @@ using System.Web;
 using System.Web.Mvc;
 using BE.BE.Treatments;
 using FeetClinic.WEB.ServiceGateway;
+using BE.BE;
+using FeetClinic.WEB.Models;
 
 namespace FeetClinic.WEB.Controllers
 {
@@ -51,7 +53,12 @@ namespace FeetClinic.WEB.Controllers
         // GET: Treatment/Create
         public ActionResult Create()
         {
-            return View();
+            var model = new TreatmentViewModel
+            {
+                theras = GetTherapists(),
+                types = GetTypes()
+            };
+            return View(model);
         }
 
         // GET: Treatment/Create
@@ -62,21 +69,33 @@ namespace FeetClinic.WEB.Controllers
 
         // POST: Treatment/Create
         [HttpPost]
-        public ActionResult Create(Treatment treat)
+        public ActionResult Create(TreatmentViewModel model)
         {
-            try
+
+            if (ModelState.IsValid)
             {
-                if (ModelState.IsValid)
+                Therapist thera = service.TherapistGateway.GetOne(model.SelectedTherapistId);
+                TreatmentType type = service.TreatmentTypeGateway.GetOne(model.SelectedTypeId);
+
+                List<Therapist> allThera = new List<Therapist>();
+
+                allThera.Add(thera);
+
+                Treatment treatment = new Treatment
                 {
-                    service.TreatmentGateway.CreateOne(treat);
-                    return RedirectToAction("Index");
-                }
-                return View(treat);
+                    Name = model.Name,
+                    Description = model.Description,
+                    Price = model.Price,
+                    Duration = model.Duration,
+                    TreatmentType = type,
+                    Therapists = allThera
+                };
+
+                service.TreatmentGateway.CreateOne(treatment);
+                return RedirectToAction("Index");
             }
-            catch
-            {
-                return View();
-            }
+            return View();
+
         }
 
         // POST: Treatment/Create
@@ -191,6 +210,32 @@ namespace FeetClinic.WEB.Controllers
             {
                 return View();
             }
+        }
+
+        private IEnumerable<SelectListItem> GetTherapists()
+        {
+            var allTheras = service.TherapistGateway.GetAll()
+                        .Select(x =>
+                                new SelectListItem
+                                {
+                                    Value = x.Id.ToString(),
+                                    Text = x.Name
+                                });
+
+            return new SelectList(allTheras, "Value", "Text");
+        }
+
+        private IEnumerable<SelectListItem> GetTypes()
+        {
+            var allTypes = service.TreatmentTypeGateway.GetAll()
+                        .Select(x =>
+                                new SelectListItem
+                                {
+                                    Value = x.Id.ToString(),
+                                    Text = x.Name
+                                });
+
+            return new SelectList(allTypes, "Value", "Text");
         }
     }
 }
