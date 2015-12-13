@@ -155,5 +155,9 @@ namespace BE.BE.Schedule
             return _time.GetHashCode();
         }
 
+        public override string ToString()
+        {
+            return Hour + " : " + Minute;
+        }
     }
 }

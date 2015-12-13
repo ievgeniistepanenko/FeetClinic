@@ -18,6 +18,12 @@ namespace FeetClinic_Rest.Controllers
             tsManager = new TimeSlotManager();
         }
 
+        public HttpResponseMessage GetTimeSlots(int therapistId, int week)
+        {
+            DateTime dateTime = DateTime.Today;
+            int year = dateTime.Year;
+            return GetTimeSlots(therapistId, week, year, "");
+        }
         /// <summary>
         /// Return all available timeslot for therapist with given id for week in the year
         /// </summary>

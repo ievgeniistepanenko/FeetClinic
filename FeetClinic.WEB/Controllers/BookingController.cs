@@ -4,6 +4,8 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using BE.BE;
+using BE.BE.Treatments;
+using FeetClinic.WEB.Models;
 using FeetClinic.WEB.ServiceGateway;
 
 namespace FeetClinic.WEB.Controllers
@@ -33,9 +35,23 @@ namespace FeetClinic.WEB.Controllers
         }
 
         // GET: Booking/Create
-        public ActionResult Create()
+        public ActionResult Create(int therapistId,int week)
         {
-            return View();
+
+            BookingViewModel model = new BookingViewModel();
+
+            IEnumerable<Therapist> therapists =  factory.TherapistGateway.GetAll();
+            IEnumerable<Treatment> treatments = new List<Treatment>();
+
+            ViewBag.Therapists = therapists;
+            if (therapistId !=null && week !=null)
+            {
+                Therapist therapist = factory.TherapistGateway.GetOne(therapistId, "Treatments");
+                model.Therapist = therapist;
+            }
+            
+            
+            return View(model);
         }
 
         // POST: Booking/Create
