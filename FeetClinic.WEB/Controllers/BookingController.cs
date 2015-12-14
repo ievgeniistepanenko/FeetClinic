@@ -35,21 +35,27 @@ namespace FeetClinic.WEB.Controllers
         }
 
         // GET: Booking/Create
-        public ActionResult Create(int therapistId,int week)
+        public ActionResult Create(int? therapistId,int? week,int? year)
         {
-
-            BookingViewModel model = new BookingViewModel();
-
-            IEnumerable<Therapist> therapists =  factory.TherapistGateway.GetAll();
-            IEnumerable<Treatment> treatments = new List<Treatment>();
-
-            ViewBag.Therapists = therapists;
-            if (therapistId !=null && week !=null)
+            if (year==null)
             {
-                Therapist therapist = factory.TherapistGateway.GetOne(therapistId, "Treatments");
-                model.Therapist = therapist;
+                year = DateTime.Now.Year;
             }
-            
+            CreateBookingViewModel model = new CreateBookingViewModel();
+            List<Therapist> therapists;
+            List<Treatment> treatments;
+            if (therapistId == null)
+            {
+                therapists = factory.TherapistGateway.GetAll().ToList();
+                treatments = factory.TreatmentGateway.GetAll().ToList();
+                ViewBag.doctorList =
+                    new SelectList(therapists.OrderBy(t => t.Name).Select(t =>  t.Name));
+                model.Therapists = therapists;
+
+                ViewBag.treatmentList = new MultiSelectList(treatments.Select(t=>t.Name));
+                model.Treatments = treatments;
+                return View(model);
+            }
             
             return View(model);
         }

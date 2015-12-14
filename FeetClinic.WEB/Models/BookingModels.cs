@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using BE.BE;
 using BE.BE.Schedule;
+using BE.BE.Treatments;
 
 namespace FeetClinic.WEB.Models
 {
@@ -13,9 +14,10 @@ namespace FeetClinic.WEB.Models
         public List<TimeSlot> TimeSlots { get; set; }
     }
 
-    public class BookingViewModel
+    public class CreateBookingViewModel
     {
-        public Therapist Therapist { get; set; }
+        public List<Therapist> Therapists { get; set; }
+        public List<Treatment> Treatments { get; set; } 
         public DayTimeSlotsViewModel DayTimeSlotsViewModel { get; set; } 
     }
 

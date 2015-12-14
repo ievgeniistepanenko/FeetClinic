@@ -1,8 +1,19 @@
-﻿
+﻿@using BE.BE.Treatments
+@model FeetClinic.WEB.Models.CreateBookingViewModel
 @{
     ViewBag.Title = "Create";
 }
 
 <h2>Create</h2>
-<input type="week">
+
+@using (Html.BeginForm())
+{
+    <input type="week">
+    @Html.DropDownListFor(m => m.Therapists,(SelectList)ViewBag.doctorList,new {onchange = "javascript:this.form.submit()" })
+    @Html.ListBoxFor(m=>m.Treatments, (MultiSelectList)ViewBag.treatmentList);
+    
+
+}
+
+
 

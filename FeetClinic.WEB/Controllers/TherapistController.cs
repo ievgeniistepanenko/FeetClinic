@@ -19,7 +19,6 @@ namespace FeetClinic.WEB.Controllers
         {
             service = new ServiceGatewayFactory();
         }
-
         // GET: Therapist
         public ActionResult Index()
         {
@@ -38,7 +37,7 @@ namespace FeetClinic.WEB.Controllers
             }
             return View(therapist);
         }
-
+        [Authorize(Roles = "admin")]
         // GET: Therapist/Create
         public ActionResult Create()
         {

@@ -15,14 +15,14 @@ namespace FeetClinic.WEB.Controllers
 
         public ActionResult About()
         {
-            ViewBag.Message = "Your application description page.";
+            ViewBag.Message = "Hej";
 
             return View();
         }
 
         public ActionResult Contact()
         {
-            ViewBag.Message = "Your contact page.";
+            ViewBag.Message = "If you have any questions please contact os:";
 
             return View();
         }
