@@ -5,14 +5,14 @@ using BE.Interfaces;
 
 namespace BE.BE.Schedule
 {
-    public class DayAgenda :IDayAgenda
+    public class DayAgendaService :IDayAgenda
     {
         private readonly int timeSlotDurationMinute = 15; //min
         public DateTime Date { get; }
         public List<Booking> Bookings { get; }
         public List<ITimeSlot> TimeSlots { get; }
 
-        public DayAgenda(DateTime date, IDayWorkingHours wh,List<Booking> bookings = null  )
+        public DayAgendaService(DateTime date, IDayWorkingHours wh,List<Booking> bookings = null  )
         {
 
             Date = date.Date;

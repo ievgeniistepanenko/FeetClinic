@@ -99,9 +99,9 @@ namespace BLL.Managers
             List<Booking> bookings = GetAllForTherapistForDay(entity.TherapistId, entity.DateTime.DayOfYear,
                 entity.DateTime.Year,"").ToList();
 
-            DayAgenda dayAgenda =  _dayAgendasManager.GetDayAgenda(entity.DateTime,wh,bookings);
+            DayAgendaService dayAgendaService =  _dayAgendasManager.GetDayAgenda(entity.DateTime,wh,bookings);
 
-            if (dayAgenda.IsAvailableForBooking(entity))
+            if (dayAgendaService.IsAvailableForBooking(entity))
             return base.Create(entity);
 
             throw new ArgumentException("This is no place for booking");

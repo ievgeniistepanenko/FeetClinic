@@ -49,11 +49,9 @@
     <Compile Include="BE\Booking.cs" />
     <Compile Include="BE\Customer\CustomerProfile.cs" />
     <Compile Include="BE\Identity\Role.cs" />
-    <Compile Include="BE\Schedule\DayAgenda.cs" />
+    <Compile Include="BE\Schedule\DayAgendaService.cs" />
     <Compile Include="BE\Schedule\Holiday.cs" />
-    <Compile Include="BE\Schedule\MonthScheduler.cs" />
     <Compile Include="BE\Schedule\Time.cs" />
-    <Compile Include="BE\Schedule\YearsScheduler.cs" />
     <Compile Include="BE\Schedule\TimeSlot.cs" />
     <Compile Include="BE\Schedule\DayWorkingHours.cs" />
     <Compile Include="BE\Therapist.cs" />
@@ -62,8 +60,6 @@
     <Compile Include="BE\Identity\User.cs" />
     <Compile Include="Interfaces\IEntity.cs" />
     <Compile Include="Interfaces\IDayAgenda.cs" />
-    <Compile Include="Interfaces\IMonthScheduler.cs" />
-    <Compile Include="Interfaces\IYearsScheduler.cs" />
     <Compile Include="Interfaces\ITimeSlot.cs" />
     <Compile Include="Interfaces\IDayWorkingHours.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -72,9 +68,7 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Interfaces\DAL\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

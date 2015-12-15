@@ -12,9 +12,9 @@ namespace BLL.Managers
     public class DayAgendasManager 
     {
 
-        public DayAgenda GetDayAgenda(DateTime date, DayWorkingHours wh, List<Booking> bookings)
+        public DayAgendaService GetDayAgenda(DateTime date, DayWorkingHours wh, List<Booking> bookings)
         {
-            return new DayAgenda(date,wh,bookings);
+            return new DayAgendaService(date,wh,bookings);
         }
 
     }

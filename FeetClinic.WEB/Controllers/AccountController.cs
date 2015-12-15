@@ -67,8 +67,7 @@ namespace FeetClinic.WEB.Controllers
                         LastName = model.LastName,
                         Id = userWithId.Id
                     };
-                    ServiceGateway<CustomerProfile> serviceGateway = serviceFactory.CustomersGateway;
-                    HttpResponseMessage response = serviceGateway.CreateOne(customer);
+                    HttpResponseMessage response = serviceFactory.CustomersGateway.CreateOne(customer);
                     if (response.StatusCode == HttpStatusCode.Created)
                     {
                         return RedirectToAction("Login");

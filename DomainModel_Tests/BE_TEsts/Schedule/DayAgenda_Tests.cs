@@ -21,9 +21,9 @@ namespace DomainModel_Tests.BE_TEsts.Schedule
         {
             IDayWorkingHours wh = new DayWorkingHours(new Time(8,0), new Time(15, 25),
                 new Time(11,30), new TimeSpan(0,0,30,0));
-            DayAgenda agenda = new DayAgenda(new DateTime(2000,1,1), wh);
+            DayAgendaService agendaService = new DayAgendaService(new DateTime(2000,1,1), wh);
 
-            int amounOfTimeSlots = agenda.TimeSlots.Count;
+            int amounOfTimeSlots = agendaService.TimeSlots.Count;
 
             Assert.AreEqual(30,amounOfTimeSlots);
             
@@ -34,12 +34,12 @@ namespace DomainModel_Tests.BE_TEsts.Schedule
         {
             DayWorkingHours wh = new DayWorkingHours(new Time(8, 0), new Time(15, 25),
                 new Time(11, 30), new TimeSpan(0, 0, 30, 0));
-            DayAgenda agenda = new DayAgenda(new DateTime(2000, 1, 1), wh);
+            DayAgendaService agendaService = new DayAgendaService(new DateTime(2000, 1, 1), wh);
             
-            Assert.IsTrue(agenda.TimeSlots.Find(ts => ts.Number == 14).IsAvailable);
-            Assert.IsFalse(agenda.TimeSlots.Find(ts => ts.Number == 15).IsAvailable);
-            Assert.IsFalse(agenda.TimeSlots.Find(ts => ts.Number == 16).IsAvailable);
-            Assert.IsTrue(agenda.TimeSlots.Find(ts => ts.Number == 17).IsAvailable);
+            Assert.IsTrue(agendaService.TimeSlots.Find(ts => ts.Number == 14).IsAvailable);
+            Assert.IsFalse(agendaService.TimeSlots.Find(ts => ts.Number == 15).IsAvailable);
+            Assert.IsFalse(agendaService.TimeSlots.Find(ts => ts.Number == 16).IsAvailable);
+            Assert.IsTrue(agendaService.TimeSlots.Find(ts => ts.Number == 17).IsAvailable);
         }
 
         [Test]
@@ -59,17 +59,17 @@ namespace DomainModel_Tests.BE_TEsts.Schedule
                                 DateTime = new DateTime(2000, 1, 1, 12, 30, 0)}
             };
 
-            DayAgenda agenda = new DayAgenda(new DateTime(2000, 1, 1), wh,bookings);
+            DayAgendaService agendaService = new DayAgendaService(new DateTime(2000, 1, 1), wh,bookings);
 
-            Assert.IsTrue(agenda.TimeSlots.Find(ts => ts.Number == 4).IsAvailable);
-            Assert.IsFalse(agenda.TimeSlots.Find(ts=>ts.Number == 5).IsAvailable);
-            Assert.IsFalse(agenda.TimeSlots.Find(ts => ts.Number == 9).IsAvailable);
-            Assert.IsFalse(agenda.TimeSlots.Find(ts => ts.Number == 13).IsAvailable);
-            Assert.IsTrue(agenda.TimeSlots.Find(ts => ts.Number == 14).IsAvailable);
-            Assert.IsTrue(agenda.TimeSlots.Find(ts => ts.Number == 18).IsAvailable);
-            Assert.IsFalse(agenda.TimeSlots.Find(ts => ts.Number == 19).IsAvailable);
-            Assert.IsFalse(agenda.TimeSlots.Find(ts => ts.Number == 25).IsAvailable);
-            Assert.IsTrue(agenda.TimeSlots.Find(ts => ts.Number == 26).IsAvailable);
+            Assert.IsTrue(agendaService.TimeSlots.Find(ts => ts.Number == 4).IsAvailable);
+            Assert.IsFalse(agendaService.TimeSlots.Find(ts=>ts.Number == 5).IsAvailable);
+            Assert.IsFalse(agendaService.TimeSlots.Find(ts => ts.Number == 9).IsAvailable);
+            Assert.IsFalse(agendaService.TimeSlots.Find(ts => ts.Number == 13).IsAvailable);
+            Assert.IsTrue(agendaService.TimeSlots.Find(ts => ts.Number == 14).IsAvailable);
+            Assert.IsTrue(agendaService.TimeSlots.Find(ts => ts.Number == 18).IsAvailable);
+            Assert.IsFalse(agendaService.TimeSlots.Find(ts => ts.Number == 19).IsAvailable);
+            Assert.IsFalse(agendaService.TimeSlots.Find(ts => ts.Number == 25).IsAvailable);
+            Assert.IsTrue(agendaService.TimeSlots.Find(ts => ts.Number == 26).IsAvailable);
         }
 
         [Test]
@@ -86,7 +86,7 @@ namespace DomainModel_Tests.BE_TEsts.Schedule
                 },              DateTime = new DateTime(2000,1,1,9,0,0) }
             };
 
-            DayAgenda agenda = new DayAgenda(new DateTime(2000, 1, 1), wh, bookings);
+            DayAgendaService agendaService = new DayAgendaService(new DateTime(2000, 1, 1), wh, bookings);
         }
 #endregion
 
@@ -109,18 +109,18 @@ namespace DomainModel_Tests.BE_TEsts.Schedule
                                 DateTime = new DateTime(2000, 1, 1, 12, 30, 0)}
             };
 
-            DayAgenda agenda = new DayAgenda(new DateTime(2000, 1, 1), wh, bookings);
+            DayAgendaService agendaService = new DayAgendaService(new DateTime(2000, 1, 1), wh, bookings);
             Booking booking = new Booking() {Id = 3,
                 Treatments = new List<Treatment>()
             {
                 new Treatment() {Duration = new TimeSpan(0,0,45,0,0)}
             } , DateTime = new DateTime(2000,1,1,14,15,0)};
-            agenda.AddBooking(booking);
+            agendaService.AddBooking(booking);
 
-            Assert.AreEqual(3,agenda.Bookings.Count);
-            Assert.IsFalse(agenda.TimeSlots.Find(ts=>ts.Number == 26).IsAvailable);
-            Assert.IsFalse(agenda.TimeSlots.Find(ts => ts.Number == 28).IsAvailable);
-            Assert.IsTrue(agenda.TimeSlots.Find(ts => ts.Number == 29).IsAvailable);
+            Assert.AreEqual(3,agendaService.Bookings.Count);
+            Assert.IsFalse(agendaService.TimeSlots.Find(ts=>ts.Number == 26).IsAvailable);
+            Assert.IsFalse(agendaService.TimeSlots.Find(ts => ts.Number == 28).IsAvailable);
+            Assert.IsTrue(agendaService.TimeSlots.Find(ts => ts.Number == 29).IsAvailable);
         }
         [Test]
         [ExpectedException(typeof(ArgumentException))]
@@ -142,7 +142,7 @@ namespace DomainModel_Tests.BE_TEsts.Schedule
                                 DateTime = new DateTime(2000, 1, 1, 12, 30, 0)}
             };
 
-            DayAgenda agenda = new DayAgenda(new DateTime(2000, 1, 1), wh, bookings);
+            DayAgendaService agendaService = new DayAgendaService(new DateTime(2000, 1, 1), wh, bookings);
             Booking booking = new Booking()
             {
                 Id = 3,
@@ -152,7 +152,7 @@ namespace DomainModel_Tests.BE_TEsts.Schedule
             },
                 DateTime = new DateTime(2000, 1, 1, 8, 0, 0)
             };
-            agenda.AddBooking(booking);
+            agendaService.AddBooking(booking);
         }
         [Test]
         public void Is_Place_For_Booking()
@@ -173,7 +173,7 @@ namespace DomainModel_Tests.BE_TEsts.Schedule
                                 DateTime = new DateTime(2000, 1, 1, 12, 30, 0)}
             };
 
-            DayAgenda agenda = new DayAgenda(new DateTime(2000, 1, 1), wh, bookings);
+            DayAgendaService agendaService = new DayAgendaService(new DateTime(2000, 1, 1), wh, bookings);
             Booking booking = new Booking()
             {
                 Id = 3,
@@ -182,9 +182,9 @@ namespace DomainModel_Tests.BE_TEsts.Schedule
                 new Treatment() {Duration = new TimeSpan(0,1,15,0,0)} //1time 15min
             }};
 
-            Assert.IsTrue(agenda.IsAvailableForBooking(booking));
+            Assert.IsTrue(agendaService.IsAvailableForBooking(booking));
             booking.Treatments = new List<Treatment> { new Treatment() { Duration = new TimeSpan(0, 1, 16, 0, 0) } };
-            Assert.IsFalse(agenda.IsAvailableForBooking(booking));
+            Assert.IsFalse(agendaService.IsAvailableForBooking(booking));
         }
         [Test]
         public void Can_Remove_Booking()
@@ -207,13 +207,13 @@ namespace DomainModel_Tests.BE_TEsts.Schedule
                                 DateTime = new DateTime(twoDaysFromNow.Year,twoDaysFromNow.Month,twoDaysFromNow.Day, 12, 30, 0)}
             };
 
-            DayAgenda agenda = new DayAgenda(new DateTime(now.Year, now.Month, now.Day).AddDays(2), wh, bookings);
-            agenda.RemoveBooking(bookings[0]);
+            DayAgendaService agendaService = new DayAgendaService(new DateTime(now.Year, now.Month, now.Day).AddDays(2), wh, bookings);
+            agendaService.RemoveBooking(bookings[0]);
 
-            Assert.AreEqual(1,agenda.Bookings.Count);
-            Assert.IsTrue(agenda.TimeSlots.Find(ts=>ts.Number==5).IsAvailable);
-            Assert.IsTrue(agenda.TimeSlots.Find(ts => ts.Number == 13).IsAvailable);
-            Assert.IsTrue(agenda.TimeSlots.Find(ts => ts.Number == 14).IsAvailable);
+            Assert.AreEqual(1,agendaService.Bookings.Count);
+            Assert.IsTrue(agendaService.TimeSlots.Find(ts=>ts.Number==5).IsAvailable);
+            Assert.IsTrue(agendaService.TimeSlots.Find(ts => ts.Number == 13).IsAvailable);
+            Assert.IsTrue(agendaService.TimeSlots.Find(ts => ts.Number == 14).IsAvailable);
 
         }
         [Test]
@@ -237,13 +237,13 @@ namespace DomainModel_Tests.BE_TEsts.Schedule
                                 DateTime = new DateTime(twoDaysFromNow.Year,twoDaysFromNow.Month,twoDaysFromNow.Day, 12, 30, 0)}
             };
 
-            DayAgenda agenda = new DayAgenda(new DateTime(now.Year, now.Month, now.Day).AddDays(2), wh, bookings);
-            agenda.RemoveBooking(1);
+            DayAgendaService agendaService = new DayAgendaService(new DateTime(now.Year, now.Month, now.Day).AddDays(2), wh, bookings);
+            agendaService.RemoveBooking(1);
 
-            Assert.AreEqual(1, agenda.Bookings.Count);
-            Assert.IsTrue(agenda.TimeSlots.Find(ts => ts.Number == 5).IsAvailable);
-            Assert.IsTrue(agenda.TimeSlots.Find(ts => ts.Number == 13).IsAvailable);
-            Assert.IsTrue(agenda.TimeSlots.Find(ts => ts.Number == 14).IsAvailable);
+            Assert.AreEqual(1, agendaService.Bookings.Count);
+            Assert.IsTrue(agendaService.TimeSlots.Find(ts => ts.Number == 5).IsAvailable);
+            Assert.IsTrue(agendaService.TimeSlots.Find(ts => ts.Number == 13).IsAvailable);
+            Assert.IsTrue(agendaService.TimeSlots.Find(ts => ts.Number == 14).IsAvailable);
 
         }
 
@@ -269,7 +269,7 @@ namespace DomainModel_Tests.BE_TEsts.Schedule
         //                        DateTime = new DateTime(2000, 1, 1, 12, 30, 0)}
         //    };
 
-        //    DayAgenda agenda = new DayAgenda(new DateTime(now.Year, now.Month, now.Day), wh, bookings);
+        //    DayAgendaService agenda = new DayAgendaService(new DateTime(now.Year, now.Month, now.Day), wh, bookings);
         //    agenda.RemoveBooking(bookings[0]);
         //}
 

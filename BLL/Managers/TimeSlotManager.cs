@@ -58,12 +58,12 @@ namespace BLL.Managers
                 DayWorkingHours dwh = dayWorkingHourses.FirstOrDefault(wh => wh.DayOfWeek == dayOfWeek);
 
                 List<Booking> dayBookings = bookings.Where(b => b.DateTime.Date == tempDate.Date).ToList();
-                DayAgenda dayAgenda = _dayAgendasManager.GetDayAgenda(
+                DayAgendaService dayAgendaService = _dayAgendasManager.GetDayAgenda(
                      tempDate,
                      dwh,
                      dayBookings);
 
-                List<ITimeSlot> timeS = dayAgenda.GetAllAvailableTimeSlots();
+                List<ITimeSlot> timeS = dayAgendaService.GetAllAvailableTimeSlots();
                 ts.AddRange(timeS);
                 timeSlots.Insert(i,ts);
             }
