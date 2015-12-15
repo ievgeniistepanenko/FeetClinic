@@ -1,4 +1,6 @@
 ﻿@using BE.BE.Treatments
+@using BE.Interfaces
+@using FeetClinic.WEB.Models
 @model FeetClinic.WEB.Models.CreateBookingViewModel
 @{
     ViewBag.Title = "Create";
@@ -6,14 +8,40 @@
 
 <h2>Create</h2>
 
-@using (Html.BeginForm())
+@using (Html.BeginForm("Create", "Booking", FormMethod.Get))
 {
-    <input type="week">
-    @Html.DropDownListFor(m => m.Therapists,(SelectList)ViewBag.doctorList,new {onchange = "javascript:this.form.submit()" })
-    @Html.ListBoxFor(m=>m.Treatments, (MultiSelectList)ViewBag.treatmentList);
-    
+    <input type="date" name="date">
+    @Html.DropDownList("therapistId", Model.Therapists, new {onchange = "javascript:this.form.submit()"})
+
+    @Html.ListBoxFor(m => m.Treatments, Model.Treatments)
+    ;
+    <br/>
+    if (Model.DayTimeSlotsViewModel != null)
+    {
+        <table>
+            <tr>
+                @foreach (DayTimeSlotViewModel dayTimeSlotViewModel in Model.DayTimeSlotsViewModel)
+                {
+                    <th>
+                        @dayTimeSlotViewModel.Date.DayOfWeek.ToString()
+                    </th>
+                }
+            </tr>
+            <tr>
+                @foreach (DayTimeSlotViewModel dayTimeSlotViewModel in Model.DayTimeSlotsViewModel)
+                {
+                    <td>
+                        @foreach (ITimeSlot timeSlot in dayTimeSlotViewModel.TimeSlots)
+                        {
+                            @timeSlot.StartTime.ToString()
+                            <br/>
+                        }
+                    </td>
+                }
+            </tr>
+            
+        </table>
+
+    }
 
 }
-
-
-

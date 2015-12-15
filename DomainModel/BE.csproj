@@ -67,6 +67,7 @@
     <Compile Include="Interfaces\ITimeSlot.cs" />
     <Compile Include="Interfaces\IDayWorkingHours.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\CalendarService.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

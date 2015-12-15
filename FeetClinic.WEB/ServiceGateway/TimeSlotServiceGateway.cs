@@ -6,6 +6,7 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Web;
 using System.Web.Configuration;
+using BE.BE.Schedule;
 using BE.Interfaces;
 
 namespace FeetClinic.WEB.ServiceGateway
@@ -30,7 +31,7 @@ namespace FeetClinic.WEB.ServiceGateway
 
             if (response.StatusCode == HttpStatusCode.OK)
             {
-                timeSlots = response.Content.ReadAsAsync<IEnumerable<IEnumerable<ITimeSlot>>>().Result;
+                timeSlots = response.Content.ReadAsAsync<IEnumerable<IEnumerable<TimeSlot>>>().Result;
             }
             if (response.StatusCode == HttpStatusCode.NotFound)
             {

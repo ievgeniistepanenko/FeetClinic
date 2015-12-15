@@ -1,10 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using BE.BE;
+using BE.BE.Schedule;
 using BE.BE.Treatments;
+using BE.Interfaces;
+using BE.Services;
 using FeetClinic.WEB.Models;
 using FeetClinic.WEB.ServiceGateway;
 
@@ -35,29 +39,46 @@ namespace FeetClinic.WEB.Controllers
         }
 
         // GET: Booking/Create
-        public ActionResult Create(int? therapistId,int? week,int? year)
+        public ActionResult Create(int? therapistId,DateTime? date)
         {
-            if (year==null)
-            {
-                year = DateTime.Now.Year;
-            }
             CreateBookingViewModel model = new CreateBookingViewModel();
-            List<Therapist> therapists;
-            List<Treatment> treatments;
-            if (therapistId == null)
-            {
-                therapists = factory.TherapistGateway.GetAll().ToList();
-                treatments = factory.TreatmentGateway.GetAll().ToList();
-                ViewBag.doctorList =
-                    new SelectList(therapists.OrderBy(t => t.Name).Select(t =>  t.Name));
-                model.Therapists = therapists;
 
-                ViewBag.treatmentList = new MultiSelectList(treatments.Select(t=>t.Name));
-                model.Treatments = treatments;
+            List<Therapist> therapists = factory.TherapistGateway.GetAll().ToList();
+            List<Treatment> treatments = factory.TreatmentGateway.GetAll().ToList();
+
+            model.Therapists = from therapist in therapists
+                select new SelectListItem() {Text = therapist.Name, Value = therapist.Id.ToString()};
+            model.DayTimeSlotsViewModel = new List<DayTimeSlotViewModel>();
+            if (therapistId == null || date == null)
+            {
+                model.Treatments = from treatment in treatments
+                    select new SelectListItem() {Text = treatment.Name, Value = treatment.Id.ToString()};
                 return View(model);
             }
-            
-            return View(model);
+            else
+            {
+                int week = CalendarService.GetWeekOfYear(date.Value);
+                int year = date.Value.Year;
+                DateTime firsDay = CalendarService.FirstDateOfWeekISO8601(year, week);
+                IEnumerable<IEnumerable<ITimeSlot>> timeSlots = factory.TimeSlotGateway.GetFreeTimeSlotsForTherapist(
+                    therapistId.Value, week, year);
+                for (int i = 0; i < 7; i++)
+                {
+                    DayTimeSlotViewModel dayTimeSlotViewModel = new DayTimeSlotViewModel();
+                    dayTimeSlotViewModel.TimeSlots = new List<ITimeSlot>();
+                    dayTimeSlotViewModel.Date = firsDay.AddDays(i);
+
+                    dayTimeSlotViewModel.TimeSlots = timeSlots.ElementAt(i).ToList();
+
+                    model.DayTimeSlotsViewModel.Add(dayTimeSlotViewModel);
+                }
+
+
+                Therapist therapist = factory.TherapistGateway.GetOne(therapistId.Value, "Treatments");
+                model.Treatments = from treatment in therapist.Treatments
+                    select new SelectListItem() {Text = treatment.Name, Value = treatment.Id.ToString()};
+                return View(model);
+            }
         }
 
         // POST: Booking/Create
@@ -119,5 +140,43 @@ namespace FeetClinic.WEB.Controllers
                 return View();
             }
         }
+        private IEnumerable<SelectListItem> GetTherapists()
+        {
+            var allTheras = factory.TherapistGateway.GetAll()
+                        .Select(x =>
+                                new SelectListItem()
+                                {
+                                    Value = x.Id.ToString(),
+                                    Text = x.Name
+                                });
+
+            return new SelectList(allTheras, "Value", "Text");
+        }
+
+        private IEnumerable<SelectListItem> GetTreatments()
+        {
+            var allTreatments = factory.TreatmentGateway.GetAll()
+                .Select(t => new SelectListItem()
+                {
+                    Value = t.Id.ToString(),
+                    Text = t.Name
+                });
+
+            return new SelectList(allTreatments,"Value","Text");
+        }
+        private IEnumerable<SelectListItem> GetTreatments(int therapistId)
+        {
+            var therapist = factory.TherapistGateway.GetOne(therapistId, "Treatments");
+            var allTreatments = therapist.Treatments
+                .Select(t => new SelectListItem()
+                {
+                    Value = t.Id.ToString(),
+                    Text = t.Name
+                });
+
+            return new SelectList(allTreatments, "Value", "Text");
+        }
+
+        
     }
 }

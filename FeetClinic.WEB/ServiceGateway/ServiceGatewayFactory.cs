@@ -17,7 +17,7 @@ namespace FeetClinic.WEB.ServiceGateway
         private ServiceGateway<Treatment> _treatments;
         private ServiceGateway<Address> _addresses;
         private ServiceGateway<Therapist> _therapists;
-        private ServiceGateway<TimeSlot> _timeslots;
+        private TimeSlotServiceGateway _timeslots;
         private BookingServiceGateway _bookings;
 
         public BookingServiceGateway BookingGateway =>
@@ -37,8 +37,8 @@ namespace FeetClinic.WEB.ServiceGateway
         public ServiceGateway<Therapist> TherapistGateway =>
             _therapists ?? (_therapists = new ServiceGateway<Therapist>("api/Therapists/"));
 
-        public ServiceGateway<TimeSlot> TimeSlotGateway=>
-            _timeslots ?? (_timeslots = new ServiceGateway<TimeSlot>("api/TimeSlots/"));
+        public TimeSlotServiceGateway TimeSlotGateway=>
+            _timeslots ?? (_timeslots = new TimeSlotServiceGateway("api/TimeSlots/"));
 
 
 

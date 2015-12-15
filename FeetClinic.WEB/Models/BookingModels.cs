@@ -2,23 +2,25 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Web.Mvc;
 using BE.BE;
 using BE.BE.Schedule;
 using BE.BE.Treatments;
+using BE.Interfaces;
 
 namespace FeetClinic.WEB.Models
 {
-    public class DayTimeSlotsViewModel
+    public class DayTimeSlotViewModel
     {
         public DateTime Date { get; set; }
-        public List<TimeSlot> TimeSlots { get; set; }
+        public List<ITimeSlot> TimeSlots { get; set; }
     }
 
     public class CreateBookingViewModel
     {
-        public List<Therapist> Therapists { get; set; }
-        public List<Treatment> Treatments { get; set; } 
-        public DayTimeSlotsViewModel DayTimeSlotsViewModel { get; set; } 
+        public IEnumerable<SelectListItem> Therapists { get; set; }
+        public IEnumerable<SelectListItem> Treatments { get; set; } 
+        public List<DayTimeSlotViewModel> DayTimeSlotsViewModel { get; set; } 
     }
 
 }
