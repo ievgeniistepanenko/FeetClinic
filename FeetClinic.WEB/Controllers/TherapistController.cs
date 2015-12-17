@@ -43,7 +43,7 @@ namespace FeetClinic.WEB.Controllers
         {
             var model = new TherapistViewModel
             {
-                treats = GetTreatment(),
+                treats = GetTreatment()
             };
             return View(model);
         }
@@ -59,6 +59,8 @@ namespace FeetClinic.WEB.Controllers
                 Treatment treatment = service.TreatmentGateway.GetOne(model.SelectedTreatmentId);
 
                 List<Treatment> treats = new List<Treatment>();
+
+
 
                 treats.Add(treatment);
                 Therapist therapist = new Therapist
