@@ -734,7 +734,7 @@ window.Modernizr = (function( window, document, undefined ) {
 
 
     // These tests evaluate support of the video/audio elements, as well as
-    // testing what types of content they support.
+    // testing what Types of content they support.
     //
     // We're using the Boolean constructor here, so that we can extend the value
     // e.g.  Modernizr.video     // true
@@ -867,14 +867,14 @@ window.Modernizr = (function( window, document, undefined ) {
     };
 
     /*>>webforms*/
-    // input features and input types go directly onto the ret object, bypassing the tests loop.
+    // input features and input Types go directly onto the ret object, bypassing the tests loop.
     // Hold this guy to execute in a moment.
     function webforms() {
         /*>>input*/
         // Run through HTML5's new input attributes to see if the UA understands any.
         // We're using f which is the <input> element created early on
         // Mike Taylr has created a comprehensive resource for testing these attributes
-        //   when applied to all input types:
+        //   when applied to all input Types:
         //   miketaylr.com/code/input-type-attr.html
         // spec: www.whatwg.org/specs/web-apps/current-work/multipage/the-input-element.html#input-type-attr-summary
 
@@ -895,7 +895,7 @@ window.Modernizr = (function( window, document, undefined ) {
         /*>>input*/
 
         /*>>inputtypes*/
-        // Run through HTML5's new input types to see if the UA understands any.
+        // Run through HTML5's new input Types to see if the UA understands any.
         //   This is put behind the tests runloop because it doesn't return a
         //   true/false like all the other tests; instead, it returns an object
         //   containing each input type with its corresponding true/false value

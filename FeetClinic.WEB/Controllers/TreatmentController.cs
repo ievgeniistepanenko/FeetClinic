@@ -26,12 +26,6 @@ namespace FeetClinic.WEB.Controllers
             return View(treat);
         }
 
-        // GET: Treatment
-        public ActionResult IndexType()
-        {
-            return View();
-        }
-
         // GET: Treatment/Details/5
         public ActionResult Details(int id)
         {
@@ -44,19 +38,13 @@ namespace FeetClinic.WEB.Controllers
             return View(treat);
         }
 
-        // GET: Treatment/Details/5
-        public ActionResult DetailsType(int id)
-        {
-            return View();
-        }
-
         // GET: Treatment/Create
         public ActionResult Create()
         {
             var model = new TreatmentViewModel
             {
-                theras = GetTherapists(),
-                types = GetTypes()
+                Therap = GetTherapists(),
+                Types = GetTypes()
             };
             return View(model);
         }
@@ -74,12 +62,14 @@ namespace FeetClinic.WEB.Controllers
 
             if (ModelState.IsValid)
             {
-                Therapist thera = service.TherapistGateway.GetOne(model.SelectedTherapistId);
-                TreatmentType type = service.TreatmentTypeGateway.GetOne(model.SelectedTypeId);
-
                 List<Therapist> allThera = new List<Therapist>();
+                foreach (int id in model.SelectedTherapistId)
+                {
+                    Therapist thera = service.TherapistGateway.GetOne(id);
+                    allThera.Add(thera);
+                }
 
-                allThera.Add(thera);
+                TreatmentType type = service.TreatmentTypeGateway.GetOne(model.SelectedTypeId);
 
                 Treatment treatment = new Treatment
                 {
