@@ -1397,7 +1397,7 @@ function siblingCheck( a, b ) {
 }
 
 /**
- * Returns a function to use in pseudos for input types
+ * Returns a function to use in pseudos for input Types
  * @param {String} type
  */
 function createInputPseudo( type ) {
@@ -1986,7 +1986,7 @@ Expr = Sizzle.selectors = {
 				match[4] = +( match[4] ? match[5] + (match[6] || 1) : 2 * ( match[3] === "even" || match[3] === "odd" ) );
 				match[5] = +( ( match[7] + match[8] ) || match[3] === "odd" );
 
-			// other types prohibit arguments
+			// other Types prohibit arguments
 			} else if ( match[3] ) {
 				Sizzle.error( match[0] );
 			}
@@ -2324,7 +2324,7 @@ Expr = Sizzle.selectors = {
 			return !Expr.pseudos["empty"]( elem );
 		},
 
-		// Element/input types
+		// Element/input Types
 		"header": function( elem ) {
 			return rheader.test( elem.nodeName );
 		},
@@ -2340,7 +2340,7 @@ Expr = Sizzle.selectors = {
 
 		"text": function( elem ) {
 			var attr;
-			// IE6 and 7 will map elem.type to 'text' for new HTML5 types (search, etc)
+			// IE6 and 7 will map elem.type to 'text' for new HTML5 Types (search, etc)
 			// use getAttribute instead to test this case
 			return elem.nodeName.toLowerCase() === "input" &&
 				elem.type === "text" &&
@@ -4870,7 +4870,7 @@ jQuery.event = {
 			return;
 		}
 
-		// Once for each type.namespace in types; type may be omitted
+		// Once for each type.namespace in Types; type may be omitted
 		types = ( types || "" ).match( core_rnotwhite ) || [""];
 		t = types.length;
 		while ( t-- ) {
@@ -5615,11 +5615,11 @@ jQuery.fn.extend({
 	on: function( types, selector, data, fn, /*INTERNAL*/ one ) {
 		var type, origFn;
 
-		// Types can be a map of types/handlers
+		// Types can be a map of Types/handlers
 		if ( typeof types === "object" ) {
-			// ( types-Object, selector, data )
+			// ( Types-Object, selector, data )
 			if ( typeof selector !== "string" ) {
-				// ( types-Object, data )
+				// ( Types-Object, data )
 				data = data || selector;
 				selector = undefined;
 			}
@@ -5630,16 +5630,16 @@ jQuery.fn.extend({
 		}
 
 		if ( data == null && fn == null ) {
-			// ( types, fn )
+			// ( Types, fn )
 			fn = selector;
 			data = selector = undefined;
 		} else if ( fn == null ) {
 			if ( typeof selector === "string" ) {
-				// ( types, selector, fn )
+				// ( Types, selector, fn )
 				fn = data;
 				data = undefined;
 			} else {
-				// ( types, data, fn )
+				// ( Types, data, fn )
 				fn = data;
 				data = selector;
 				selector = undefined;
@@ -5681,14 +5681,14 @@ jQuery.fn.extend({
 			return this;
 		}
 		if ( typeof types === "object" ) {
-			// ( types-object [, selector] )
+			// ( Types-object [, selector] )
 			for ( type in types ) {
 				this.off( type, selector, types[ type ] );
 			}
 			return this;
 		}
 		if ( selector === false || typeof selector === "function" ) {
-			// ( types [, fn] )
+			// ( Types [, fn] )
 			fn = selector;
 			selector = undefined;
 		}
@@ -6431,7 +6431,7 @@ function fixCloneNodeIssues( src, dest ) {
 		dest.defaultSelected = dest.selected = src.defaultSelected;
 
 	// IE6-8 fails to set the defaultValue to the correct value when
-	// cloning other types of input fields
+	// cloning other Types of input fields
 	} else if ( nodeName === "input" || nodeName === "textarea" ) {
 		dest.defaultValue = src.defaultValue;
 	}
@@ -7593,7 +7593,7 @@ jQuery.fn.extend({
 		return this.on( types, selector, data, fn );
 	},
 	undelegate: function( selector, types, fn ) {
-		// ( namespace ) or ( selector, types [, fn] )
+		// ( namespace ) or ( selector, Types [, fn] )
 		return arguments.length === 1 ? this.off( selector, "**" ) : this.off( types, selector || "**", fn );
 	}
 });
@@ -7842,7 +7842,7 @@ jQuery.extend({
 		},
 
 		// Data converters
-		// Keys separate source (or catchall "*") and destination types with a single space
+		// Keys separate source (or catchall "*") and destination Types with a single space
 		converters: {
 
 			// Convert anything to text
