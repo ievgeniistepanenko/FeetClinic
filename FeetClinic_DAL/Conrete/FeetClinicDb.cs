@@ -17,7 +17,7 @@ namespace FeetClinic_DAL.Conrete
         public FeetClinicDb() : base("FeetClinicDB")
         {
             Configuration.ProxyCreationEnabled = false;
-            //Database.SetInitializer(new DbInitializer());
+            Database.SetInitializer(new DbInitializer());
         }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)

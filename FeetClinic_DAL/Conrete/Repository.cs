@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Reflection;
 using FeetClinic_DAL.Abstarct;
 
 namespace FeetClinic_DAL.Conrete
@@ -52,6 +53,7 @@ namespace FeetClinic_DAL.Conrete
 
         public TEntity Create(TEntity entity)
         {
+
             return DbSet.Add(entity);
         }
 

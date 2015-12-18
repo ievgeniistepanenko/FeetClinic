@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Web.Configuration;
@@ -24,16 +25,34 @@ namespace FeetClinic.WEB.ServiceGateway
         {
             HttpClient client = GetHttpClient();
             HttpResponseMessage response = client.GetAsync(path).Result;
-            var entities = response.Content.ReadAsAsync<IEnumerable<TEntity>>().Result;
+            IEnumerable<TEntity> entities;
+            if (response.StatusCode == HttpStatusCode.NotFound)
+            {
+                entities = new List<TEntity>();
+            }
+            else
+            {
+                entities = response.Content.ReadAsAsync<IEnumerable<TEntity>>().Result;
+            }
+            
             return entities;
 
         }
 
         public TEntity GetOne(int id)
         {
+            TEntity entity;
             HttpClient client = GetHttpClient();
             HttpResponseMessage response = client.GetAsync(path + id.ToString()).Result;
-            var entity = response.Content.ReadAsAsync<TEntity>().Result;
+            if (response.StatusCode == HttpStatusCode.OK)
+            {
+                entity = response.Content.ReadAsAsync<TEntity>().Result;
+            }
+            else
+            {
+                entity = default(TEntity);
+            }
+            
             return entity;
         }
 

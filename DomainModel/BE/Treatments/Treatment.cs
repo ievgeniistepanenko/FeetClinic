@@ -20,9 +20,9 @@ namespace BE.BE.Treatments
         public decimal Price { get; set; }
         [Required]
         public TimeSpan Duration { get; set; }
-        [Required]
         public virtual TreatmentType TreatmentType { get; set; }
         [Required]
+        public int TreatmentTypeId { get; set; }
         public virtual List<Therapist> Therapists { get; set; }
         public virtual  List<Booking> Bookings { get; set; } 
 
