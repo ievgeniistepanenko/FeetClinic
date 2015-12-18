@@ -26,22 +26,11 @@ namespace FeetClinic.WEB.Controllers
             return View(treat);
         }
 
-        // GET: Treatment/Details/5
-        public ActionResult Details(int id)
-        {
-            Treatment treat = service.TreatmentGateway.GetOne(id);
-
-            if (treat == null)
-            {
-                return HttpNotFound();
-            }
-            return View(treat);
-        }
 
         // GET: Treatment/Create
         public ActionResult Create()
         {
-            var model = new TreatmentViewModel
+            var model = new TreatmentCreateViewModel
             {
                 Therap = GetTherapists(),
                 Types = GetTypes()
@@ -49,15 +38,9 @@ namespace FeetClinic.WEB.Controllers
             return View(model);
         }
 
-        // GET: Treatment/Create
-        public ActionResult CreateType()
-        {
-            return View();
-        }
-
         // POST: Treatment/Create
         [HttpPost]
-        public ActionResult Create(TreatmentViewModel model)
+        public ActionResult Create(TreatmentCreateViewModel model)
         {
 
             if (ModelState.IsValid)
@@ -68,72 +51,76 @@ namespace FeetClinic.WEB.Controllers
                     Therapist thera = service.TherapistGateway.GetOne(id);
                     allThera.Add(thera);
                 }
-
-                TreatmentType type = service.TreatmentTypeGateway.GetOne(model.SelectedTypeId);
-
                 Treatment treatment = new Treatment
                 {
                     Name = model.Name,
                     Description = model.Description,
                     Price = model.Price,
                     Duration = model.Duration,
-                    TreatmentType = type,
-                    Therapists = allThera
+                    TreatmentTypeId = model.SelectedTypeId,
                 };
 
                 service.TreatmentGateway.CreateOne(treatment);
+                treatment.Therapists = allThera;
+                service.TreatmentGateway.Update(treatment);
+
                 return RedirectToAction("Index");
             }
             return View();
 
-        }
-
-        // POST: Treatment/Create
-        [HttpPost]
-        public ActionResult CreateType(FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add insert logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
         }
 
         // GET: Treatment/Edit/5
         public ActionResult Edit(int id)
         {
-            Treatment treat = service.TreatmentGateway.GetOne(id);
+            Treatment treat = service.TreatmentGateway.GetOne(id,"TreatmentType,Therapists");
             if (treat == null)
             {
                 return HttpNotFound();
             }
-            return View(treat);
-        }
 
-        // GET: Treatment/Edit/5
-        public ActionResult EditType(int id)
-        {
-            return View();
+            TreatmentEditViewModel model = new TreatmentEditViewModel();
+            model.Id = treat.Id;
+            model.Duration = treat.Duration;
+            model.Description = treat.Description;
+            model.Name = treat.Name;
+            model.Price = treat.Price;
+            model.Therap = GetTherapists();
+            model.Types = GetTypes();
+            
+            return View(model);
         }
 
         // POST: Treatment/Edit/5
         [HttpPost]
-        public ActionResult Edit(int id, Treatment treat)
+        public ActionResult Edit(int id, TreatmentEditViewModel model)
         {
             try
             {
                 if (ModelState.IsValid)
                 {
-                    service.TreatmentGateway.Update(treat);
+                    List<Therapist> allThera = new List<Therapist>();
+                    foreach (int therapistId in model.SelectedTherapistId)
+                    {
+                        Therapist thera = service.TherapistGateway.GetOne(therapistId);
+                        allThera.Add(thera);
+                    }
+                    Treatment treatment = new Treatment
+                    {
+                        Id = id,
+                        Name = model.Name,
+                        Description = model.Description,
+                        Price = model.Price,
+                        Duration = model.Duration,
+                        TreatmentTypeId = model.SelectedTypeId,
+                        Therapists = allThera
+                };
 
+                    
+                    service.TreatmentGateway.Update(treatment);
                     return RedirectToAction("Index");
                 }
-                return View(treat);
+                return View(model);
             }
             catch
             {
@@ -141,21 +128,6 @@ namespace FeetClinic.WEB.Controllers
             }
         }
 
-        // POST: Treatment/Edit/5
-        [HttpPost]
-        public ActionResult EditType(int id, FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add update logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
-        }
 
         // GET: Treatment/Delete/5
         public ActionResult Delete(int id)
@@ -164,11 +136,6 @@ namespace FeetClinic.WEB.Controllers
             return View(treat);
         }
 
-        // GET: Treatment/Delete/5
-        public ActionResult DeleteType(int id)
-        {
-            return View();
-        }
 
         // POST: Treatment/Delete/5
         [HttpPost]
@@ -186,21 +153,6 @@ namespace FeetClinic.WEB.Controllers
             }
         }
 
-        // POST: Treatment/Delete/5
-        [HttpPost]
-        public ActionResult DeleteType(int id, FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add delete logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
-        }
 
         private IEnumerable<SelectListItem> GetTherapists()
         {
@@ -214,7 +166,6 @@ namespace FeetClinic.WEB.Controllers
 
             return new SelectList(allTheras, "Value", "Text");
         }
-
         private IEnumerable<SelectListItem> GetTypes()
         {
             var allTypes = service.TreatmentTypeGateway.GetAll()
@@ -222,7 +173,7 @@ namespace FeetClinic.WEB.Controllers
                                 new SelectListItem
                                 {
                                     Value = x.Id.ToString(),
-                                    Text = x.Name
+                                    Text = x.Name,
                                 });
 
             return new SelectList(allTypes, "Value", "Text");

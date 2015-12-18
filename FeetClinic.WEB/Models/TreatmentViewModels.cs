@@ -7,7 +7,7 @@ using System.Web.Mvc;
 
 namespace FeetClinic.WEB.Models
 {
-    public class TreatmentViewModel
+    public class TreatmentCreateViewModel
     {
         [Display(Name = "Treatment Type")]
         public int SelectedTypeId { get; set; }
@@ -17,22 +17,23 @@ namespace FeetClinic.WEB.Models
         public int[] SelectedTherapistId { get; set; }
         public IEnumerable<SelectListItem> Therap { get; set; }
 
-        //[Key]
-        //public int Id { get; set; }
         [Required]
         public string Name { get; set; }
         [Required]
+        [DataType(DataType.MultilineText)]
         public string Description { get; set; }
         [Required]
         [DataType(DataType.Currency)]
         public decimal Price { get; set; }
         [Required]
         public TimeSpan Duration { get; set; }
-        //[Required]
-        //public virtual TreatmentType TreatmentType { get; set; }
-        //[Required]
-        //public List<Therapist> Therapists { get; set; }
-        //public List<Booking> Bookings { get; set; }
-
     }
+
+    public class TreatmentEditViewModel : TreatmentCreateViewModel
+    {
+        [Key]
+        public int Id { get; set; }
+        
+    }
+
 }
