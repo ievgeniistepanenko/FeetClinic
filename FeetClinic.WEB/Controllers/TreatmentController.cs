@@ -68,12 +68,10 @@ namespace FeetClinic.WEB.Controllers
                     Price = model.Price,
                     Duration = model.Duration,
                     TreatmentTypeId = model.SelectedTypeId,
+                    Therapists = allThera
                 };
 
                 service.TreatmentGateway.CreateOne(treatment);
-                treatment.Therapists = allThera;
-                service.TreatmentGateway.Update(treatment);
-
                 return RedirectToAction("Index");
             }
             return View();
