@@ -10,6 +10,7 @@ using FeetClinic.WEB.Models;
 
 namespace FeetClinic.WEB.Controllers
 {
+    [Authorize(Roles = "admin")]
     public class TreatmentController : Controller
     {
         private readonly ServiceGatewayFactory service;
@@ -18,14 +19,24 @@ namespace FeetClinic.WEB.Controllers
         {
             service = new ServiceGatewayFactory();
         }
-
+        [AllowAnonymous]
         // GET: Treatment
-        public ActionResult Index()
+        public ActionResult Index(string treatmentType)
         {
-            IEnumerable<Treatment> treat = service.TreatmentGateway.GetAll();
-            return View(treat);
+            IEnumerable<Treatment> treat = service.TreatmentGateway.GetAll("TreatmentType");
+            ViewBag.TypeList = new SelectList(
+                    service.TreatmentTypeGateway.GetAll().OrderBy(tt => tt.Name)
+                        .Select(tt => tt.Name));
+            if (string.IsNullOrEmpty(treatmentType))
+            {
+                return View(treat);
+            }
+            else
+            {
+                return View(treat.Where(t => t.TreatmentType.Name == treatmentType));
+            }
+            
         }
-
 
         // GET: Treatment/Create
         public ActionResult Create()
@@ -37,7 +48,6 @@ namespace FeetClinic.WEB.Controllers
             };
             return View(model);
         }
-
         // POST: Treatment/Create
         [HttpPost]
         public ActionResult Create(TreatmentCreateViewModel model)
@@ -134,23 +144,6 @@ namespace FeetClinic.WEB.Controllers
         {
             Treatment treat = service.TreatmentGateway.GetOne(id);
             return View(treat);
-        }
-
-
-        // POST: Treatment/Delete/5
-        [HttpPost]
-        public ActionResult Delete(int id, Treatment treat)
-        {
-            try
-            {
-                // TODO: Add delete logic here
-                service.TreatmentGateway.Delete(id);
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
         }
 
 

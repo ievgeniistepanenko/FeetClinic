@@ -9,6 +9,17 @@
         <h3> Alle behandlinger</h3>
     </div>
     <div class="panel-body">
+        <div>
+            <p>
+                @using (Html.BeginForm("Index","Treatment",FormMethod.Get))
+                {
+                    @Html.DropDownList("treatmentType",
+                    (SelectList) ViewBag.TypeList, "All",
+                    new {onchange = "javascript:this.form.submit()"})
+                }
+                
+            </p>
+        </div>
         <table class="table table-striped table-condensed table-bordered">
             <tr>
                 <th class="text-right"> ID </th>
@@ -30,7 +41,7 @@
                         @using (Html.BeginForm("Delete", "Treatment"))
                         {
                             @Html.Hidden("id", treatment.Id)
-                            <input type="submit" class="btn btn-default btn-xs btn-danger" value="Slet" />
+                            <input type="submit" class="btn btn-default btn-xs btn-danger" value="Slet"/>
                         }
                     </td>
                 </tr>
