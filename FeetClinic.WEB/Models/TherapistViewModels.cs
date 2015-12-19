@@ -17,8 +17,6 @@ namespace FeetClinic.WEB.Models
         public int SelectedTreatmentId { get; set; }
         public IEnumerable<SelectListItem> treats { get; set; }
 
-
-
         public int Id { get; }
 
         [Required]
@@ -29,6 +27,23 @@ namespace FeetClinic.WEB.Models
         public List<Holiday> Holidays { get; set; }
         public List<Treatment> Treatments { get; set; }
         public List<DayWorkingHours> WorkingHourses { get; set; }
+    }
+
+    public class CreateTherapistViewModel
+    {
+        [Display(Name = "Treatments")]
+        public int[] SelectedTreatmentId { get; set; }
+        public IEnumerable<SelectListItem> TreatmentsSelectListItems { get; set; }
+
+        [Required]
+        public string Name { get; set; }
+        [Required]
+        [DataType(DataType.MultilineText)]
+        public string Description { get; set; }
+
+        public List<Treatment> Treatments { get; set; }
+        public List<DayWorkingHours> WorkingHourses { get; set; }
+
     }
 
     

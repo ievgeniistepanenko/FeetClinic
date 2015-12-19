@@ -177,11 +177,11 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Infrastructure\TreatmentsModelConverter.cs" />
+    <Compile Include="Infrastructure\CreateTherapistBinder.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\BookingModels.cs" />
     <Compile Include="Models\IdentityExtensions.cs" />
-    <Compile Include="Models\CreateTherapistViewModel.cs" />
+    <Compile Include="Models\TherapistViewModels.cs" />
     <Compile Include="Models\TreatmentViewModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ServiceGateway\BookingServiceGateway.cs" />
@@ -245,10 +245,11 @@
     <Content Include="Views\Booking\Index.cshtml" />
     <Content Include="Views\Booking\Create.cshtml" />
     <Content Include="Views\Booking\_PartialDayTimeSlot.cshtml" />
+    <Content Include="Views\Therapist\_WorkingHoursPartial.cshtml" />
+    <Content Include="Views\Therapist\_PartialWH.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\New\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

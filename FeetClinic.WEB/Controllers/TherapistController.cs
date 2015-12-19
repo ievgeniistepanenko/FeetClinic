@@ -41,31 +41,32 @@ namespace FeetClinic.WEB.Controllers
         // GET: Therapist/Create
         public ActionResult Create()
         {
-            var model = new TherapistViewModel
+            var model = new CreateTherapistViewModel()
             {
-                treats = GetTreatment(),
+                TreatmentsSelectListItems = GetTreatmentForSelectedList(),
+                
+                
             };
             return View(model);
         }
 
         // POST: Therapist/Create
         [HttpPost]
-        public ActionResult Create(TherapistViewModel model)
+        public ActionResult Create(CreateTherapistViewModel model)
         {
 
                 if (ModelState.IsValid)
                 {
-                    
-                Treatment treatment = service.TreatmentGateway.GetOne(model.SelectedTreatmentId);
-
                 List<Treatment> treats = new List<Treatment>();
 
-                treats.Add(treatment);
+                foreach (int i in model.SelectedTreatmentId)
+                    {
+                        treats.Add(service.TreatmentGateway.GetOne(i));
+                    }
                 Therapist therapist = new Therapist
                 {
                     Name = model.Name,
                     Description = model.Description,
-
                     Treatments = treats
                 };
 
@@ -130,7 +131,7 @@ namespace FeetClinic.WEB.Controllers
             }
         }
 
-        private IEnumerable<SelectListItem> GetTreatment()
+        private IEnumerable<SelectListItem> GetTreatmentForSelectedList()
         {
             var treats = service.TreatmentGateway.GetAll()
                         .Select(x =>
