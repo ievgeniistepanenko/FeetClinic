@@ -36,7 +36,7 @@
                     <td>@Html.ActionLink(treatment.Name, "Edit", new {treatment.Id})</td>
                     <td class="text-left"> @treatment.Description</td>
                     <td class="text-center"> @treatment.Price.ToString("C")</td>
-                    <td class="text-center"> @treatment.Duration.Minutes min</td>
+                    <td class="text-center"> @(treatment.Duration.Hours*60 + treatment.Duration.Minutes) min</td>
                     <td class="text-center">
                         @using (Html.BeginForm("Delete", "Treatment"))
                         {

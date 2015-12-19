@@ -25,7 +25,11 @@ namespace FeetClinic.WEB.Controllers
         private IAuthenticationManager AuthenticationManager => 
             HttpContext.GetOwinContext().Authentication;
 
-        //
+        [AllowAnonymous]
+        public ActionResult AutError()
+        {
+            return View();
+        }
         // GET: /Account/Register
         [AllowAnonymous]
         public ActionResult Register()
