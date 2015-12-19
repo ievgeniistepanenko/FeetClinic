@@ -33,10 +33,17 @@ namespace FeetClinic.WEB.Infrastructure
                 Time startLunchTime = new Time(GetHours(startLunch), GetMinutes(startLunch));
                 TimeSpan durationTime = new TimeSpan(GetHours(duration),GetMinutes(duration),GetSeconds(duration));
 
-                DayWorkingHours wh = new DayWorkingHours(startTime,endTime,startLunchTime,durationTime);
-                wh.DayOfWeek = i;
-
-                model.WorkingHourses.Add(wh);
+                try
+                {
+                    DayWorkingHours wh = new DayWorkingHours(startTime, endTime, startLunchTime, durationTime);
+                    wh.DayOfWeek = (i + 1) % 7;
+                    model.WorkingHourses.Add(wh);
+                }
+                catch (Exception)
+                {
+                   // Ignore
+                }
+                
             }
             model.Description = GetValue(request, "Description");
             model.Name =  GetValue(request, "Name");
@@ -52,18 +59,45 @@ namespace FeetClinic.WEB.Infrastructure
         private int GetHours(string time)
         {
            string[] arr =  time.Split(new[] { ':' }, StringSplitOptions.RemoveEmptyEntries);
-            return Int32.Parse(arr[0]);  
+            try
+            {
+                return Int32.Parse(arr[0]);
+            }
+            catch (Exception)
+            {
+                
+                return 0;
+            }
+            
         }
 
         private int GetMinutes(string time)
         {
             string[] arr = time.Split(new[] { ':' }, StringSplitOptions.RemoveEmptyEntries);
-            return Int32.Parse(arr[1]);
+            try
+            {
+                return Int32.Parse(arr[1]);
+            }
+            catch (Exception)
+            {
+                
+                return 0;
+            }
+            
         }
         private int GetSeconds(string time)
         {
             string[] arr = time.Split(new[] { ':' }, StringSplitOptions.RemoveEmptyEntries);
-            return Int32.Parse(arr[2]);
+            try
+            {
+                return Int32.Parse(arr[2]);
+            }
+            catch (Exception)
+            {
+
+                return 0;
+            }
+            
         }
 
         private string GetValue(HttpRequestBase request, string name)

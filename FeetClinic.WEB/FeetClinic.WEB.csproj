@@ -246,7 +246,6 @@
     <Content Include="Views\Booking\Create.cshtml" />
     <Content Include="Views\Booking\_PartialDayTimeSlot.cshtml" />
     <Content Include="Views\Therapist\_WorkingHoursPartial.cshtml" />
-    <Content Include="Views\Therapist\_PartialWH.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

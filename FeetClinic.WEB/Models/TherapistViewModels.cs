@@ -10,23 +10,9 @@ using System.Web.Mvc;
 
 namespace FeetClinic.WEB.Models
 {
-    public class TherapistViewModel
+    public class TherapistViewModel: CreateTherapistViewModel
     {
-
-        [Display(Name = "Treatments")]
-        public int SelectedTreatmentId { get; set; }
-        public IEnumerable<SelectListItem> treats { get; set; }
-
-        public int Id { get; }
-
-        [Required]
-        public string Name { get; set; }
-        [Required]
-        public string Description { get; set; }
-
-        public List<Holiday> Holidays { get; set; }
-        public List<Treatment> Treatments { get; set; }
-        public List<DayWorkingHours> WorkingHourses { get; set; }
+        public int Id { get; set; }
     }
 
     public class CreateTherapistViewModel

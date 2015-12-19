@@ -10,6 +10,7 @@ using System.Web.Mvc;
 
 namespace FeetClinic.WEB.Controllers
 {
+    [Authorize(Roles = "admin")]
     public class TherapistController : Controller
     {
         private readonly ServiceGatewayFactory service;
@@ -20,31 +21,19 @@ namespace FeetClinic.WEB.Controllers
             service = new ServiceGatewayFactory();
         }
         // GET: Therapist
+        [AllowAnonymous]
         public ActionResult Index()
         {
             IEnumerable<Therapist> therapists = service.TherapistGateway.GetAll();
             return View(therapists);
         }
 
-        // GET: Therapist/Details/5
-        public ActionResult Details(int id)
-        {
-            Therapist therapist = service.TherapistGateway.GetOne(id, "Treatments,WorkingHourses");
-
-            if (therapist == null)
-            {
-                return HttpNotFound();
-            }
-            return View(therapist);
-        }
-        [Authorize(Roles = "admin")]
         // GET: Therapist/Create
         public ActionResult Create()
         {
             var model = new CreateTherapistViewModel()
             {
                 TreatmentsSelectListItems = GetTreatmentForSelectedList(),
-                
                 
             };
             return View(model);
@@ -58,7 +47,7 @@ namespace FeetClinic.WEB.Controllers
                 if (ModelState.IsValid)
                 {
                 List<Treatment> treats = new List<Treatment>();
-
+                    model.SelectedTreatmentId = model.SelectedTreatmentId ?? new int[0];
                 foreach (int i in model.SelectedTreatmentId)
                     {
                         treats.Add(service.TreatmentGateway.GetOne(i));
@@ -67,6 +56,7 @@ namespace FeetClinic.WEB.Controllers
                 {
                     Name = model.Name,
                     Description = model.Description,
+                    WorkingHourses = model.WorkingHourses,
                     Treatments = treats
                 };
 
@@ -76,62 +66,71 @@ namespace FeetClinic.WEB.Controllers
                 return View();
 
         }
-
+        [AllowAnonymous]
         // GET: Therapist/Edit/5
         public ActionResult Edit(int id)
         {
-            Therapist therapist = service.TherapistGateway.GetOne(id);
+            Therapist therapist = service.TherapistGateway.GetOne(id, "Treatments,WorkingHourses");
             if (therapist == null)
             {
                 return HttpNotFound();
             }
-            return View(therapist);
+
+            CreateTherapistViewModel model = new TherapistViewModel()
+            {
+                Description = therapist.Description,
+                Name = therapist.Name,
+                TreatmentsSelectListItems = GetTreatmentForSelectedList(therapist.Treatments),
+                WorkingHourses = therapist.WorkingHourses,
+                Id = therapist.Id
+            };
+
+            return View(model);
         }
 
         // POST: Therapist/Edit/5
         [HttpPost]
-        public ActionResult Edit(int id, Therapist therapist)
+        public ActionResult Edit(int id, TherapistViewModel model)
         {
             try
             {
                 if (ModelState.IsValid)
                 {
+                    List<Treatment> treats = new List<Treatment>();
+                    model.SelectedTreatmentId = model.SelectedTreatmentId ?? new int[0];
+                    foreach (int i in model.SelectedTreatmentId)
+                    {
+                        treats.Add(service.TreatmentGateway.GetOne(i));
+                    }
+                    Therapist therapist = new Therapist
+                    {
+                        Id = id,
+                        Name = model.Name,
+                        Description = model.Description,
+                        Treatments = treats
+                    };
                     service.TherapistGateway.Update(therapist);
-
                     return RedirectToAction("Index");
+
                 }
-                return View(therapist);
+                return View(model);
             }
             catch
             {
-                return View();
+                return View(model);
             }
         }
 
         // GET: Therapist/Delete/5
         public ActionResult Delete(int id)
         {
-            Therapist therapist = service.TherapistGateway.GetOne(id);
-            return View(therapist);
+            service.TherapistGateway.Delete(id);
+            return RedirectToAction("Index");
         }
 
-        // POST: Therapist/Delete/5
-        [HttpPost]
-        public ActionResult Delete(int id, Therapist therapist)
-        {
-            try
-            {
-                // TODO: Add delete logic here
-                service.TherapistGateway.Delete(id);
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
-        }
+        
 
-        private IEnumerable<SelectListItem> GetTreatmentForSelectedList()
+        private SelectList GetTreatmentForSelectedList()
         {
             var treats = service.TreatmentGateway.GetAll()
                         .Select(x =>
@@ -140,6 +139,22 @@ namespace FeetClinic.WEB.Controllers
                                     Value = x.Id.ToString(),
                                     Text = x.Name
                                 });
+
+            return new SelectList(treats, "Value", "Text");
+        }
+
+        private SelectList GetTreatmentForSelectedList(List<Treatment> existing )
+        {
+            var treats = service.TreatmentGateway.GetAll()
+                        .Select(x =>
+                                new SelectListItem
+                                {
+                                    Value = x.Id.ToString(),
+                                    Text = x.Name,
+                                    Selected = existing.Any(t=>t.Id == x.Id)
+                                    
+                                });
+
 
             return new SelectList(treats, "Value", "Text");
         }

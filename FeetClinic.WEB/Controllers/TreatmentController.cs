@@ -132,7 +132,7 @@ namespace FeetClinic.WEB.Controllers
             }
             catch
             {
-                return View();
+                return View(model);
             }
         }
 
@@ -140,8 +140,9 @@ namespace FeetClinic.WEB.Controllers
         // GET: Treatment/Delete/5
         public ActionResult Delete(int id)
         {
-            Treatment treat = service.TreatmentGateway.GetOne(id);
-            return View(treat);
+           
+            service.TreatmentGateway.Delete(id);
+            return RedirectToAction("Index");
         }
 
 

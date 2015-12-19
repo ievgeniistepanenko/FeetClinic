@@ -99,24 +99,17 @@ namespace FeetClinic.WEB.Controllers
         // GET: TreatmentTypes/Delete/5
         public ActionResult Delete(int id)
         {
-            TreatmentType type = service.TreatmentTypeGateway.GetOne(id);
-            return View(type);
-        }
-
-        // POST: TreatmentTypes/Delete/5
-        [HttpPost]
-        public ActionResult Delete(int id, TreatmentType type)
-        {
             try
             {
-                // TODO: Add delete logic here
                 service.TreatmentTypeGateway.Delete(id);
                 return RedirectToAction("Index");
             }
             catch
             {
-                return View();
+                TreatmentType type = service.TreatmentTypeGateway.GetOne(id);
+                return View(type);
             }
+            
         }
     }
 }
