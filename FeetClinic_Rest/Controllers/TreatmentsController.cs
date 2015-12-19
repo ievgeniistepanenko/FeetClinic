@@ -23,7 +23,11 @@ namespace FeetClinic_Rest.Controllers
         }
         public HttpResponseMessage GetTreatments()
         {
-            return GetAll();
+            return GetAll("");
+        }
+        public HttpResponseMessage GetTreatments(string properties)
+        {
+            return GetAll(properties);
         }
 
         // GET: api/Treatments/5

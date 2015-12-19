@@ -29,7 +29,7 @@ namespace FeetClinic.WEB.Controllers
         // GET: Therapist/Details/5
         public ActionResult Details(int id)
         {
-            Therapist therapist = service.TherapistGateway.GetOne(id);
+            Therapist therapist = service.TherapistGateway.GetOne(id, "Treatments,WorkingHourses");
 
             if (therapist == null)
             {

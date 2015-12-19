@@ -38,6 +38,23 @@ namespace FeetClinic.WEB.ServiceGateway
             return entities;
 
         }
+        public IEnumerable<TEntity> GetAll(string properties)
+        {
+            HttpClient client = GetHttpClient();
+            HttpResponseMessage response = client.GetAsync(path + "?properties=" + properties).Result;
+            IEnumerable<TEntity> entities;
+            if (response.StatusCode == HttpStatusCode.NotFound)
+            {
+                entities = new List<TEntity>();
+            }
+            else
+            {
+                entities = response.Content.ReadAsAsync<IEnumerable<TEntity>>().Result;
+            }
+
+            return entities;
+
+        }
 
         public TEntity GetOne(int id)
         {

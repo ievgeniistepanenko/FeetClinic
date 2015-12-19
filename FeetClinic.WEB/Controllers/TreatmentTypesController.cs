@@ -9,6 +9,7 @@ using FeetClinic.WEB.ServiceGateway;
 
 namespace FeetClinic.WEB.Controllers
 {
+    [Authorize(Roles = "admin")]
     public class TreatmentTypesController : Controller
     {
 
@@ -19,7 +20,7 @@ namespace FeetClinic.WEB.Controllers
         {
             service = new ServiceGatewayFactory();
         }
-
+        
         // GET: TreatmentTypes
         public ActionResult Index()
         {

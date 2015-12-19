@@ -89,7 +89,7 @@ namespace FeetClinic_DAL.Conrete
         {
             return DbSet.Find(id);
         }
-        private void AttachIfDetached(TEntity entity)
+        public void AttachIfDetached(TEntity entity)
         {
             if (Context.Entry(entity).State == EntityState.Detached)
             {
