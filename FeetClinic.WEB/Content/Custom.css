@@ -1,0 +1,41 @@
+﻿body {
+    
+}
+
+h2{
+    color:white;
+}
+
+.leftContainer{
+    background-color: #89A249;
+    color: white;
+    text-align: center;
+    height:100vh;
+}
+.centerContainer{
+    border: 1px;
+	border: #ffffff solid;
+    background-color: #CEDCAA;
+    height:100vh;
+}
+.centerHeader{
+    padding-top: 10px;
+    padding-bottom: 10px;
+    background-color: #89A249;
+}
+.centerText {
+    margin: 10px;
+    padding-bottom:10px;
+}
+
+.wraptocenter {
+    padding-top: 10px;
+    padding-bottom: 10px;
+    text-align: center;
+    vertical-align: middle;
+}
+
+.no-gutter > [class*='col-'] {
+    padding-right:0;
+    padding-left:0;    
+}
