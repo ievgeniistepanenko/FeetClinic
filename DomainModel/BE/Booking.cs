@@ -20,8 +20,8 @@ namespace BE.BE
         public int CustomerProfileId { get; set; }
         [Required]
         public List<Treatment> Treatments { get; set; }
-        [Required]
         public Therapist Therapist { get; set; }
+        [Required]
         public int TherapistId { get; set; }
 
        public Booking()
@@ -37,6 +37,16 @@ namespace BE.BE
                time = time.Add(treatment.Duration.Duration());
            }
            return time;
+       }
+
+       public decimal GetPrice()
+       {
+           decimal price = 0;
+            foreach (Treatment treatment in Treatments)
+            {
+                price = price + treatment.Price;
+            }
+           return price;
        }
 
        public override bool Equals(object obj)

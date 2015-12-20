@@ -19,21 +19,27 @@ namespace FeetClinic.WEB.Models
 
     public class CreateBookingViewModel
     {
-        public int Id { get; set; }
+
         [Display(Name = "Choose therapist")]
         public IEnumerable<SelectListItem> TherapistsSelectListItems { get; set; }
-        [Required]
-        public int SelectedTherapistId { get; set;}
+
+        [Required(ErrorMessage = "Choose some therapist")]
+        public int therapistId { get; set;}
+
         [Display(Name = "Choose treatments")]
-        public IEnumerable<SelectListItem> TreatmentsSelectListItems { get; set; } 
-        [Required]
+        public IEnumerable<SelectListItem> TreatmentsSelectListItems { get; set; }
+
+        [Required(ErrorMessage = "Choose some treatments")]
         public int[] SelectedTreatmentsId { get; set; }
-        [Required]
-        public int UserId { get; set; }
-        [Required]
+
+        [Required(ErrorMessage = "Choose some date")]
         [Display(Name = "Choose date")]
-        public DateTime DateTime { get; set; }
-        public DateTime BookingDateTime { get; set; }
+        public DateTime date { get; set; }
+
+        [Required(ErrorMessage = "Choose time")]
+        [Display(Name = "Choose time")]
+        public DateTime Time { get; set; }
+
 
         public List<DayTimeSlotViewModel> WeekFreeTimes { get; set; } 
 

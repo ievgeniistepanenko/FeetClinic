@@ -26,9 +26,14 @@ namespace FeetClinic.WEB.Controllers
 
         [Authorize]
         // GET: Booking
-        public ActionResult Index(int userId)
+        public ActionResult Index(int? userId)
         {
-            IEnumerable<Booking> bookings = factory.BookingGateway.GetForCustomer(userId);
+            if (userId == null)
+            {
+                userId = User.Identity.GetUserId<int>();
+            }
+            IEnumerable<Booking> bookings = factory.BookingGateway
+                .GetForCustomer((int) userId, "Treatments,Therapist");
             return View(bookings);
         }
 
@@ -50,7 +55,7 @@ namespace FeetClinic.WEB.Controllers
             if (date == null)
             {
                 date = DateTime.Today;
-                model.DateTime = date.Value;
+                model.date = date.Value;
             }
 
             model.WeekFreeTimes = new List<DayTimeSlotViewModel>();
@@ -91,10 +96,24 @@ namespace FeetClinic.WEB.Controllers
             try
             {
                 Booking booking = new Booking();
+                booking.BookingDate = DateTime.Now;
+                booking.DateTime = model.date
+                    .AddHours(model.Time.Hour)
+                    .AddMinutes(model.Time.Minute);
 
-                // TODO: Add insert logic here
+                booking.CustomerProfileId = User.Identity.GetUserId<int>();
 
-                return RedirectToAction("Index");
+                booking.TherapistId = model.therapistId;
+                
+                booking.Treatments = new List<Treatment>();
+                foreach (int treatmendId in model.SelectedTreatmentsId)
+                {
+                    booking.Treatments.Add( factory.TreatmentGateway.GetOne(treatmendId));
+                }
+
+                factory.BookingGateway.CreateOne(booking);
+
+                return RedirectToAction("Index",new { userId = User.Identity.GetUserId<int>()});
             }
             catch
             {
@@ -107,24 +126,11 @@ namespace FeetClinic.WEB.Controllers
         // GET: Booking/Delete/5
         public ActionResult Delete(int id)
         {
-            return View();
+            factory.BookingGateway.Delete(id);
+            return RedirectToAction("Index");
         }
 
-        // POST: Booking/Delete/5
-        [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add delete logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
-        }
+       
         private SelectList GetTherapists()
         {
             var allTheras = factory.TherapistGateway.GetAll()

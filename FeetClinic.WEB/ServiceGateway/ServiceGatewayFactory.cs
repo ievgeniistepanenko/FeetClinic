@@ -21,7 +21,7 @@ namespace FeetClinic.WEB.ServiceGateway
         private BookingServiceGateway _bookings;
 
         public BookingServiceGateway BookingGateway =>
-            _bookings ?? (_bookings = new BookingServiceGateway("api/Bookings"));
+            _bookings ?? (_bookings = new BookingServiceGateway("api/Bookings/"));
         public ServiceGateway<CustomerProfile> CustomersGateway =>
             _customers ?? (_customers = new ServiceGateway<CustomerProfile>("api/Customers/"));
 

@@ -1,4 +1,5 @@
-﻿@model IEnumerable<BE.BE.Booking>
+﻿@using BE.BE.Treatments
+@model IEnumerable<BE.BE.Booking>
 
 @{
     ViewBag.Title = "Index";
@@ -15,41 +16,65 @@
 
 @if (Model.Any())
 {
-    <table class="table">
+    <table class="table table-striped table-condensed table-bordered">
         <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.BookingDate)
-            </th>
+            
             <th>
                 @Html.DisplayNameFor(model => model.DateTime)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.CustomerProfileId)
+                @Html.DisplayNameFor(model => model.Treatments)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.TherapistId)
+                @Html.DisplayNameFor(model => model.Therapist)
             </th>
-            <th></th>
+            <th>
+                Duration
+            </th>
+            <th>
+                Total price
+            </th>
+            
+            <th>
+                @Html.DisplayNameFor(model => model.BookingDate)
+            </th>
+            <th>
+                Action
+            </th>
         </tr>
 
         @foreach (var item in Model)
         {
             <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.BookingDate)
-                </td>
+                
                 <td>
                     @Html.DisplayFor(modelItem => item.DateTime)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.CustomerProfileId)
+                    <ul>
+                        @foreach (Treatment treatment in item.Treatments)
+                    {
+                         <li>@treatment.Name</li>   
+                    }
+                    </ul>
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.TherapistId)
+                    @Html.DisplayFor(modelItem => item.Therapist.Name)
                 </td>
                 <td>
-                    @Html.ActionLink("Details", "Details", new { id = item.Id }) |
-                    @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+                    @item.GetDuration().TotalMinutes min
+                </td>
+                <td> @item.GetPrice().ToString("C")</td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.BookingDate)
+                </td>
+                <td>
+                    
+                    @using (Html.BeginForm("Delete", "Booking"))
+                        {
+                        @Html.Hidden("id", item.Id)
+                        <input type="submit" class="btn btn-default btn-xs btn-danger" value="Slet" />
+                        }
                 </td>
             </tr>
         }

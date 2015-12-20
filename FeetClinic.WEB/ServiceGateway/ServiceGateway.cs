@@ -98,6 +98,7 @@ namespace FeetClinic.WEB.ServiceGateway
         public HttpResponseMessage Delete(int id)
         {
             HttpClient client = GetHttpClient();
+            string fullPath = path + id.ToString();
             HttpResponseMessage response = client.DeleteAsync(path + id.ToString()).Result;
 
             return response;
