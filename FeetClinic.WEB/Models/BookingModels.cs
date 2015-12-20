@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -18,9 +19,24 @@ namespace FeetClinic.WEB.Models
 
     public class CreateBookingViewModel
     {
-        public IEnumerable<SelectListItem> Therapists { get; set; }
-        public IEnumerable<SelectListItem> Treatments { get; set; } 
-        public List<DayTimeSlotViewModel> DayTimeSlotsViewModel { get; set; } 
+        public int Id { get; set; }
+        [Display(Name = "Choose therapist")]
+        public IEnumerable<SelectListItem> TherapistsSelectListItems { get; set; }
+        [Required]
+        public int SelectedTherapistId { get; set;}
+        [Display(Name = "Choose treatments")]
+        public IEnumerable<SelectListItem> TreatmentsSelectListItems { get; set; } 
+        [Required]
+        public int[] SelectedTreatmentsId { get; set; }
+        [Required]
+        public int UserId { get; set; }
+        [Required]
+        [Display(Name = "Choose date")]
+        public DateTime DateTime { get; set; }
+        public DateTime BookingDateTime { get; set; }
+
+        public List<DayTimeSlotViewModel> WeekFreeTimes { get; set; } 
+
     }
 
 }

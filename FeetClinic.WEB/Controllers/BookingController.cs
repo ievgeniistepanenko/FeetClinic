@@ -41,52 +41,57 @@ namespace FeetClinic.WEB.Controllers
         // GET: Booking/Create
         public ActionResult Create(int? therapistId,DateTime? date)
         {
+
             CreateBookingViewModel model = new CreateBookingViewModel();
 
-            List<Therapist> therapists = factory.TherapistGateway.GetAll().ToList();
-            List<Treatment> treatments = factory.TreatmentGateway.GetAll().ToList();
-
-            model.Therapists = from therapist in therapists
-                select new SelectListItem() {Text = therapist.Name, Value = therapist.Id.ToString()};
-            model.DayTimeSlotsViewModel = new List<DayTimeSlotViewModel>();
-            if (therapistId == null || date == null)
+            model.TherapistsSelectListItems = GetTherapists();
+            model.TreatmentsSelectListItems = therapistId == null ? 
+                GetTreatments() : GetTreatments(therapistId.Value);
+            if (date == null)
             {
-                model.Treatments = from treatment in treatments
-                    select new SelectListItem() {Text = treatment.Name, Value = treatment.Id.ToString()};
-                return View(model);
+                date = DateTime.Today;
+                model.DateTime = date.Value;
             }
-            else
+
+            model.WeekFreeTimes = new List<DayTimeSlotViewModel>();
+            if (therapistId != null)
             {
                 int week = CalendarService.GetWeekOfYear(date.Value);
                 int year = date.Value.Year;
                 DateTime firsDay = CalendarService.FirstDateOfWeekISO8601(year, week);
-                IEnumerable<IEnumerable<ITimeSlot>> timeSlots = factory.TimeSlotGateway.GetFreeTimeSlotsForTherapist(
+                IEnumerable<IEnumerable<ITimeSlot>> freeTimeSlotsForTherapist = factory.TimeSlotGateway.GetFreeTimeSlotsForTherapist(
                     therapistId.Value, week, year);
                 for (int i = 0; i < 7; i++)
                 {
                     DayTimeSlotViewModel dayTimeSlotViewModel = new DayTimeSlotViewModel();
                     dayTimeSlotViewModel.TimeSlots = new List<ITimeSlot>();
                     dayTimeSlotViewModel.Date = firsDay.AddDays(i);
-
-                    dayTimeSlotViewModel.TimeSlots = timeSlots.ElementAt(i).ToList();
-
-                    model.DayTimeSlotsViewModel.Add(dayTimeSlotViewModel);
+                    dayTimeSlotViewModel.TimeSlots = freeTimeSlotsForTherapist.ElementAt(i).ToList();
+                    model.WeekFreeTimes.Add(dayTimeSlotViewModel);
                 }
-
-
-                Therapist therapist = factory.TherapistGateway.GetOne(therapistId.Value, "Treatments");
-                model.Treatments = from treatment in therapist.Treatments
-                    select new SelectListItem() {Text = treatment.Name, Value = treatment.Id.ToString()};
-                return View(model);
             }
+            else
+            {
+                for (int i = 0; i < 7; i++)
+                {
+                    DayTimeSlotViewModel dayTimeSlotViewModel = new DayTimeSlotViewModel();
+                    dayTimeSlotViewModel.TimeSlots = new List<ITimeSlot>();
+                    model.WeekFreeTimes.Add(dayTimeSlotViewModel);
+                }
+            }
+            
+                return View(model);
+        
         }
 
         // POST: Booking/Create
         [HttpPost]
-        public ActionResult Create(FormCollection collection)
+        public ActionResult Create(CreateBookingViewModel model)
         {
             try
             {
+                Booking booking = new Booking();
+
                 // TODO: Add insert logic here
 
                 return RedirectToAction("Index");
@@ -97,27 +102,7 @@ namespace FeetClinic.WEB.Controllers
             }
         }
 
-        // GET: Booking/Edit/5
-        public ActionResult Edit(int id)
-        {
-            return View();
-        }
-
-        // POST: Booking/Edit/5
-        [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add update logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
-        }
+       
 
         // GET: Booking/Delete/5
         public ActionResult Delete(int id)
@@ -140,7 +125,7 @@ namespace FeetClinic.WEB.Controllers
                 return View();
             }
         }
-        private IEnumerable<SelectListItem> GetTherapists()
+        private SelectList GetTherapists()
         {
             var allTheras = factory.TherapistGateway.GetAll()
                         .Select(x =>
@@ -153,7 +138,7 @@ namespace FeetClinic.WEB.Controllers
             return new SelectList(allTheras, "Value", "Text");
         }
 
-        private IEnumerable<SelectListItem> GetTreatments()
+        private SelectList  GetTreatments()
         {
             var allTreatments = factory.TreatmentGateway.GetAll()
                 .Select(t => new SelectListItem()
@@ -164,7 +149,7 @@ namespace FeetClinic.WEB.Controllers
 
             return new SelectList(allTreatments,"Value","Text");
         }
-        private IEnumerable<SelectListItem> GetTreatments(int therapistId)
+        private SelectList GetTreatments(int therapistId)
         {
             var therapist = factory.TherapistGateway.GetOne(therapistId, "Treatments");
             var allTreatments = therapist.Treatments

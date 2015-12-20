@@ -4,11 +4,15 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
+<br/>
+<div>
+    
+    <p>
+        @Html.ActionLink("Book time", "Create", null, new {@class = "btn btn-primary"})
+    </p>
+</div>
 
-<p>
-    @Html.ActionLink("Book time", "Create")
-</p>
+
 @if (Model.Any())
 {
     <table class="table">
