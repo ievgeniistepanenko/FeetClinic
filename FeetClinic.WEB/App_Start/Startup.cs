@@ -3,7 +3,8 @@ using Microsoft.Owin;
 using Microsoft.Owin.Security.Cookies;
 using Owin;
 
-[assembly: OwinStartup(typeof(FeetClinic.WEB.Startup))]
+[assembly: OwinStartup(typeof(Startup))]
+
 namespace FeetClinic.WEB
 {
     public class Startup

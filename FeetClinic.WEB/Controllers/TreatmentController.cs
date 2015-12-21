@@ -93,8 +93,9 @@ namespace FeetClinic.WEB.Controllers
             model.Description = treat.Description;
             model.Name = treat.Name;
             model.Price = treat.Price;
-            model.Therap = GetTherapists();
-            model.Types = GetTypes();
+            model.Therap = GetTherapists(treat.Therapists);
+            model.Types = GetTypes(treat.TreatmentType);
+            model.SelectedTypeId = treat.TreatmentType.Id;
             
             return View(model);
         }
@@ -123,8 +124,6 @@ namespace FeetClinic.WEB.Controllers
                         TreatmentTypeId = model.SelectedTypeId,
                         Therapists = allThera
                 };
-
-                    
                     service.TreatmentGateway.Update(treatment);
                     return RedirectToAction("Index");
                 }
@@ -148,27 +147,44 @@ namespace FeetClinic.WEB.Controllers
 
         private IEnumerable<SelectListItem> GetTherapists()
         {
-            var allTheras = service.TherapistGateway.GetAll()
-                        .Select(x =>
-                                new SelectListItem
-                                {
-                                    Value = x.Id.ToString(),
-                                    Text = x.Name
-                                });
+            return GetTherapists(new List<Therapist>());
+        }
 
-            return new SelectList(allTheras, "Value", "Text");
+        private IEnumerable<SelectListItem> GetTherapists(List<Therapist> eksistingTherapists )
+        {
+            List<SelectListItem> therapistSelectList = new List<SelectListItem>();
+
+            foreach (Therapist therapist in service.TherapistGateway.GetAll())
+            {
+                therapistSelectList.Add( new SelectListItem{
+                    Text = therapist.Name,
+                    Value = therapist.Id.ToString(),
+                    Selected = (eksistingTherapists.Any(t=>t.Id == therapist.Id))
+                });
+            }
+            return therapistSelectList;
+        }
+
+
+        private IEnumerable<SelectListItem> GetTypes(TreatmentType type)
+        {
+            List<SelectListItem> treatmentTypeSelectList = new List<SelectListItem>();
+
+            foreach (TreatmentType treatmentType in service.TreatmentTypeGateway.GetAll())
+            {
+                treatmentTypeSelectList.Add(new SelectListItem
+                {
+                    Text = treatmentType.Name,
+                    Value = treatmentType.Id.ToString(),
+                    Selected = (type.Id == treatmentType.Id)
+                });
+            }
+            return treatmentTypeSelectList;
+
         }
         private IEnumerable<SelectListItem> GetTypes()
         {
-            var allTypes = service.TreatmentTypeGateway.GetAll()
-                        .Select(x =>
-                                new SelectListItem
-                                {
-                                    Value = x.Id.ToString(),
-                                    Text = x.Name,
-                                });
-
-            return new SelectList(allTypes, "Value", "Text");
+            return GetTypes(new TreatmentType());
         }
     }
 }
