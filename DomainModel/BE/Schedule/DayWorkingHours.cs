@@ -52,11 +52,6 @@ namespace BE.BE.Schedule
         public List<ITimeSlot> GetWorkingHours()
         {
             List<ITimeSlot> workingHours = new List<ITimeSlot>
-
-            //TimeSpan timeSlot1Duration = StartLunch.GetAbsoluteDifference(StartTime);
-            //TimeSlot timeSlot1 = new TimeSlot(1,StartTime, timeSlot1Duration ,true);
-
-
             {
                 new TimeSlot(1,
                     StartTime,
@@ -74,7 +69,5 @@ namespace BE.BE.Schedule
         {
             return EndTime.GetAbsoluteDifference(StartTime);
         }
-
-        
     }
 }
