@@ -35,7 +35,7 @@ namespace DomainModel_Tests.BE_TEsts.Schedule
         {
             Time starTime = new Time(7, 0);          //7:00
             Time endTime = new Time(15,30);         //15:30
-            Time starLunchTime = new Time(15, 3);   //15:30 START LUNCH
+            Time starLunchTime = new Time(15, 30);   //15:30 START LUNCH
             TimeSpan lunchDuration = new TimeSpan(0, 30, 0);                //30 min
             DayWorkingHours wh = new DayWorkingHours(starTime, endTime, starLunchTime, lunchDuration);
         }
