@@ -36,7 +36,7 @@ namespace BE.BE.Schedule
         private bool Validate()
         {
             if (!((StartTime < StartLunch)
-                && (StartLunch.Add(LunchDuration)   < EndTime)))
+                && (StartLunch.Add(LunchDuration) <= EndTime)))
             {
                 return false;
             }
