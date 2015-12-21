@@ -6,10 +6,10 @@
 
 <h2>Create</h2>
 
-@using (Html.BeginForm()) 
+@using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    
+
     <div class="form-horizontal">
         <h4>Add new therapist</h4>
         <hr />
@@ -23,25 +23,26 @@
         </div>
         <br>
         <div class="form-group">
-            @Html.LabelFor(model => model.Description, htmlAttributes: new {@class = "control-label col-md-2"})
+            @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Description, new {htmlAttributes = new {@class = "form-control"}})
-                @Html.ValidationMessageFor(model => model.Description, "", new {@class = "text-danger"})
+                @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
             </div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.SelectedTreatmentId, htmlAttributes: new {@class = "control-label col-md-2"})
+            @Html.LabelFor(model => model.SelectedTreatmentId, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.ListBoxFor(m => m.SelectedTreatmentId, Model.TreatmentsSelectListItems, new {htmlAttributes = new {@class = "form-control"}})
-                @Html.ValidationMessageFor(model => model.SelectedTreatmentId, "", new {@class = "text-danger"})
+                @Html.ListBoxFor(m => m.SelectedTreatmentId, Model.TreatmentsSelectListItems, new { htmlAttributes = new { @class = "form-control" }, style = "width: 300px", size = 8 })
+                @Html.ValidationMessageFor(model => model.SelectedTreatmentId, "", new { @class = "text-danger" })
             </div>
         </div>
 
         <div class="form-group">
             @Html.LabelFor(model => model.WorkingHourses, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.ValidationMessageFor(model => model.WorkingHourses, "", new { @class = "text-danger" })
             <div class="col-md-10">
-                    @Html.Partial("_WorkingHoursPartial");
+                @Html.Partial("_WorkingHoursPartial")
             </div>
         </div>
 
@@ -58,3 +59,7 @@
 <div>
     @Html.ActionLink("Back to List", "Index")
 </div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
