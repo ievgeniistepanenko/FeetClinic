@@ -113,11 +113,11 @@ namespace FeetClinic.WEB.Controllers
                     return RedirectToAction("Index");
 
                 }
-                return View(model);
+                return Edit(id);
             }
             catch
             {
-                return View(model);
+                return Edit(id);
             }
         }
 
@@ -128,37 +128,25 @@ namespace FeetClinic.WEB.Controllers
             return RedirectToAction("Index");
         }
 
-        
-
-        private SelectList GetTreatmentForSelectedList()
+        private IEnumerable<SelectListItem> GetTreatmentForSelectedList()
         {
-            var treats = service.TreatmentGateway.GetAll()
-                        .Select(x =>
-                                new SelectListItem
-                                {
-                                    Value = x.Id.ToString(),
-                                    Text = x.Name
-                                });
-
-            return new SelectList(treats, "Value", "Text");
+            return GetTreatmentForSelectedList(new List<Treatment>());
         }
 
-        private SelectList GetTreatmentForSelectedList(List<Treatment> existing )
+        private IEnumerable<SelectListItem> GetTreatmentForSelectedList(List<Treatment> existing )
         {
-            var treats = service.TreatmentGateway.GetAll()
-                        .Select(x =>
-                                new SelectListItem
-                                {
-                                    Value = x.Id.ToString(),
-                                    Text = x.Name,
-                                    Selected = existing.Any(t=>t.Id == x.Id)
-                                    
-                                });
+            List<SelectListItem> treatmentsSelectList = new List<SelectListItem>();
 
-
-            return new SelectList(treats, "Value", "Text");
+            foreach (Treatment treatment in service.TreatmentGateway.GetAll())
+            {
+                treatmentsSelectList.Add(new SelectListItem
+                {
+                    Value   = treatment.Id.ToString(),
+                    Text = treatment.Name,
+                    Selected = existing.Any(t=>t.Id==treatment.Id)
+                });
+            }
+            return treatmentsSelectList;
         }
-
-
     }
 }

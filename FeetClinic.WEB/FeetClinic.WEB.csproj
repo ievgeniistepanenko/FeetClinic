@@ -199,6 +199,7 @@
     <Content Include="Content\Site.css" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <None Include="Properties\PublishProfiles\FeetClinic.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -233,14 +234,11 @@
     <Content Include="Views\TreatmentTypes\Create.cshtml" />
     <Content Include="Views\TreatmentTypes\Edit.cshtml" />
     <Content Include="Views\Treatment\Index.cshtml" />
-    <Content Include="Views\Treatment\Details.cshtml" />
     <Content Include="Views\Treatment\Create.cshtml" />
     <Content Include="Views\Treatment\Edit.cshtml" />
-    <Content Include="Views\Treatment\Delete.cshtml" />
     <Content Include="Views\Therapist\Index.cshtml" />
     <Content Include="Views\Therapist\Details.cshtml" />
     <Content Include="Views\Therapist\Edit.cshtml" />
-    <Content Include="Views\Therapist\Delete.cshtml" />
     <Content Include="Views\Therapist\Create.cshtml" />
     <Content Include="Views\Manage\Edit.cshtml" />
     <Content Include="Views\Booking\Index.cshtml" />

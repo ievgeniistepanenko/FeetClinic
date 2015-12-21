@@ -64,12 +64,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BE_TEsts\Booking_Tests.cs" />
-    <Compile Include="BE_TEsts\Schedule\DayAgenda_Tests.cs" />
-    <Compile Include="BE_TEsts\Schedule\TimeSlot_Tests.cs" />
-    <Compile Include="BE_TEsts\Schedule\Time_Tests.cs" />
-    <Compile Include="BE_TEsts\Schedule\DayWorkingHours_Tests.cs" />
-    <Compile Include="BE_TEsts\Schedule\WorkingHours_Tests.cs" />
+    <Compile Include="DomainTests\Booking_Tests.cs" />
+    <Compile Include="DomainTests\Schedule\DayAgenda_Tests.cs" />
+    <Compile Include="DomainTests\Schedule\TimeSlot_Tests.cs" />
+    <Compile Include="DomainTests\Schedule\Time_Tests.cs" />
+    <Compile Include="DomainTests\Schedule\DayWorkingHours_Tests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

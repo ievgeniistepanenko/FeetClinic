@@ -104,14 +104,22 @@ namespace FeetClinic.WEB.Controllers
             {
                 int phone;
                 User user;
-                if (int.TryParse(model.LogIn,out phone))
+                try
                 {
-                    user = _facade.Users.GetFirst(u => u.Phone == phone, "Role");
+                    if (int.TryParse(model.LogIn, out phone))
+                    {
+                        user = _facade.Users.GetFirst(u => u.Phone == phone, "Role");
+                    }
+                    else
+                    {
+                        user = _facade.Users.GetFirst(u => u.Email == model.LogIn && u.Password == model.Password, "Role");
+                    }
                 }
-                else
+                catch (Exception ex)
                 {
-                    user = _facade.Users.GetFirst(u => u.Email == model.LogIn && u.Password == model.Password, "Role");
+                    user = null;
                 }
+                
                 
                 if (user == null)
                 {
