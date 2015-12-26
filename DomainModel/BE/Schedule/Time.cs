@@ -157,11 +157,19 @@ namespace BE.BE.Schedule
 
         public override string ToString()
         {
-            if (Minute==0)
+            string hh = Hour.ToString();
+            string mm = Minute.ToString();
+
+            if (Hour < 10)
             {
-                return Hour + " : " + Minute +""+ Minute;
+                hh = "0" + hh;
             }
-            return Hour + " : " + Minute;
+            if (Minute == 0)
+            {
+                mm = "00";
+            }
+            
+            return hh + ":" + mm;
         }
     }
 }

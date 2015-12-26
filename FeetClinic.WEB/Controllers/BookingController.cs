@@ -37,12 +37,6 @@ namespace FeetClinic.WEB.Controllers
             return View(bookings);
         }
 
-        // GET: Booking/Details/5
-        public ActionResult Details(int id)
-        {
-            return View();
-        }
-
         // GET: Booking/Create
         public ActionResult Create(int? therapistId,DateTime? date)
         {

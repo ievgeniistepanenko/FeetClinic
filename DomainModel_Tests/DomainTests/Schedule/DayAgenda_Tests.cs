@@ -1,15 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using BE.BE;
 using BE.BE.Schedule;
 using BE.BE.Treatments;
 using BE.Interfaces;
 using NUnit.Framework;
 
-namespace DomainModel_Tests.BE_TEsts.Schedule
+namespace DomainModel_Tests.DomainTests.Schedule
 {
     [TestFixture]
     class DayAgenda_Tests

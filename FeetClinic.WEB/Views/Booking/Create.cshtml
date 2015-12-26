@@ -6,6 +6,20 @@
     ViewBag.Title = "Create";
 }
 
+<script type="text/javascript">
+    function CallChangefunc() {
+        var dateForBooking = document.getElementById('date').value;
+        var therapist = document.getElementById('therapistId').value;
+        window.location.href = "/Booking/Create?therapistId=" + therapist + "&date=" + dateForBooking;
+    }
+
+    function ChangeDateOgTime(time,date) {
+        document.getElementById("time").value = time;
+        document.getElementById("date").value = date;
+    }
+
+</script>
+
 <h2>Book time</h2>
 
 @using (Html.BeginForm("Create", "Booking"))
@@ -24,28 +38,28 @@
             </div>
             <br />
 
+
             <div class="form-group">
-                @Html.LabelFor(model => model.date, new {@class = "control-label"})
+                @Html.LabelFor(model => model.TreatmentsSelectListItems, new {@class = "control-label"})
                 <div>
-                    @Html.TextBox("date", Model.date, "{0:yyyy-MM-dd}", new {@style = "width:100%", type = "date", @class = "form-control", onchange = "CallChangefunc()"})
-                    @Html.ValidationMessageFor(model => model.date, "", new {@class = "text-danger"})
+                    @Html.ListBoxFor(m => m.SelectedTreatmentsId, Model.TreatmentsSelectListItems, new {@class = "form-control", size = 8})
+                    @Html.ValidationMessageFor(model => model.SelectedTreatmentsId, "", new {@class = "text-danger"})
                 </div>
             </div>
 
             <div class="form-group">
-                @Html.LabelFor(model => model.TreatmentsSelectListItems, new { @class = "control-label" })
+                @Html.LabelFor(model => model.date, new { @class = "control-label" })
                 <div>
-                    @Html.ListBoxFor(m => m.SelectedTreatmentsId, Model.TreatmentsSelectListItems, new { @class = "form-control", size = 8 })
-                    @Html.ValidationMessageFor(model => model.SelectedTreatmentsId, "", new { @class = "text-danger" })
+                    @Html.TextBox("date", Model.date, "{0:yyyy-MM-dd}", new { @style = "width:100%", type = "date", @class = "form-control", onchange = "CallChangefunc()" })
+                    @Html.ValidationMessageFor(model => model.date, "", new { @class = "text-danger" })
                 </div>
             </div>
-
 
 
             <div class="form-group">
                 @Html.LabelFor(model => model.Time, new { @class = "control-label" })
                 <div>
-                    @Html.TextBox("time", Model.Time, new { @style = "width:100%", type = "time", @class = "form-control" })
+                    @Html.TextBox("time", Model.Time, new { @style = "width:100%", type = "time", @class = "form-control", @readonly = "readonly"})
                     @Html.ValidationMessageFor(model => model.Time, "", new { @class = "text-danger" })
                 </div>
             </div>
@@ -66,10 +80,4 @@
     </div>
 }
 
-<script>
-    function CallChangefunc() {
-        var dateForBooking = document.getElementById('date').value;
-        var therapist = document.getElementById('therapistId').value;
-        window.location.href = "/Booking/Create?therapistId=" + therapist + "&date=" + dateForBooking;
-    }
-</script>
+
