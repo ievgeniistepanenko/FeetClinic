@@ -31,7 +31,6 @@ namespace BE.BE.Schedule
                 throw new ArgumentException("Invalid time parameter");
             }
             _time = scabalon.AddHours(hour).AddMinutes(minute); 
-                //new DateTime(100,1,1,hour,minute,0);
             Hour = _time.Hour;
             Minute = _time.Minute;
             

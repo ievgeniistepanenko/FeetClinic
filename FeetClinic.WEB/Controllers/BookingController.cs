@@ -41,11 +41,14 @@ namespace FeetClinic.WEB.Controllers
         public ActionResult Create(int? therapistId,DateTime? date)
         {
 
-            CreateBookingViewModel model = new CreateBookingViewModel();
-
-            model.TherapistsSelectListItems = GetTherapists();
-            model.TreatmentsSelectListItems = therapistId == null ? 
-                GetTreatments() : GetTreatments(therapistId.Value);
+            CreateBookingViewModel model = new CreateBookingViewModel
+            {
+                TherapistsSelectListItems = GetTherapists(),
+                TreatmentsSelectListItems = therapistId == null
+                    ? GetTreatments()
+                    : GetTreatments(therapistId.Value)
+            };
+            
             if (date == null)
             {
                 date = DateTime.Today;
@@ -134,6 +137,7 @@ namespace FeetClinic.WEB.Controllers
                                     Value = x.Id.ToString(),
                                     Text = x.Name
                                 });
+            
 
             return new SelectList(allTheras, "Value", "Text");
         }

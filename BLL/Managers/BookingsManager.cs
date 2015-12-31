@@ -50,11 +50,6 @@ namespace BLL.Managers
         {
             IEnumerable<Booking> bookings = Repository.GetAll(b=> b.TherapistId == therapistId,b=>b.OrderBy(bok=>bok.Id),properties);
             return bookings.Where(b => b.DateTime.DayOfYear == dayOfYear && b.DateTime.Year == year);
-            //return Repository.GetAll(b => b.TherapistId == therapistId &&
-            //                              b.DateTime.DayOfYear == dayOfYear &&
-            //                              b.DateTime.Year == year,
-            //                         b => b.OrderBy(bok => bok.DateTime),
-            //                         properties);
         }
 
         public override IEnumerable<Booking> GetAll()
@@ -103,7 +98,7 @@ namespace BLL.Managers
 
             DayAgendaService dayAgendaService =  _dayAgendasManager.GetDayAgenda(entity.DateTime,wh,bookings);
 
-            if (dayAgendaService.IsAvailableForBooking(entity))
+            if (dayAgendaService.CanAddBookingWithGivenTime(entity))
             {
                 if (entity.CustomerProfile != null)
                 {
@@ -126,6 +121,7 @@ namespace BLL.Managers
 
             throw new ArgumentException("This is no place for booking");
         }
+
 
         private  DateTime FirstDateOfWeekISO8601(int year, int weekOfYear)
         {

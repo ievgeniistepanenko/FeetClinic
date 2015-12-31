@@ -82,10 +82,17 @@ namespace BE.BE.Schedule
             Booking booking = Bookings.Find(b => b.Id == bookingId);
             return RemoveBooking(booking);
         }
-
+        // check at it is available some timeslots for given booking with given duration
         public bool IsAvailableForBooking(Booking booking)
         {
             return GetAvailableTimeSlots(booking).Any();
+        }
+
+        // check at it is available some timeslots for given booking with given duration and time
+        public bool CanAddBookingWithGivenTime(Booking booking)
+        {
+            Time bookingTime = new Time(booking.DateTime);
+            return GetAvailableTimeSlots(booking).Any(ts => ts.StartTime.Equals(bookingTime));
         }
 
         public List<ITimeSlot> GetAvailableTimeSlots(Booking booking)
