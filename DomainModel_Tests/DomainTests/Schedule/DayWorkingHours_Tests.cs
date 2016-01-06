@@ -44,7 +44,7 @@ namespace DomainModel_Tests.BE_TEsts.Schedule
             Time starTime = new Time(7, 0);          //7:00
             Time endTime = new Time(15, 30);         //15:30
             Time starLunchTime = new Time(14, 00);   //14:00 START LUNCH
-            TimeSpan lunchDuration = new TimeSpan(0, 90, 0);                //90 min
+            TimeSpan lunchDuration = new TimeSpan(0, 91, 0);                //90 min
             DayWorkingHours wh = new DayWorkingHours(starTime, endTime, starLunchTime, lunchDuration);
         }
 
