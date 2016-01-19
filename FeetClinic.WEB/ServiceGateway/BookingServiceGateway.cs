@@ -16,7 +16,6 @@ namespace FeetClinic.WEB.ServiceGateway
 
         public IEnumerable<Booking> GetForCustomer(int customerId)
         {
-            IEnumerable<Booking> entity;
             HttpClient client = GetHttpClient();
             HttpResponseMessage response = client.GetAsync(path + "?customerId="+customerId).Result;
             return GetBookingsFromResponse(response);

@@ -115,7 +115,7 @@ namespace FeetClinic.WEB.Controllers
                         user = _facade.Users.GetFirst(u => u.Email == model.LogIn && u.Password == model.Password, "Role");
                     }
                 }
-                catch (Exception ex)
+                catch 
                 {
                     user = null;
                 }
